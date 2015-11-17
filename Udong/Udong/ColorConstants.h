@@ -16,3 +16,4 @@
 #pragma mark - Custom Color
 #define RGBCOLOR(R,G,B) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1]
 #define RGBACOLOR(R,G,B,A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+#define kColorCellSeparator [UIColor colorWithWhite:0.8 alpha:1.0]

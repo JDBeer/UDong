@@ -45,6 +45,8 @@
 		B8D716AF1BF9860D001DB7EF /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B8D716AB1BF9860D001DB7EF /* SVProgressHUD.bundle */; settings = {ASSET_TAGS = (); }; };
 		B8D716B01BF9860D001DB7EF /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D716AD1BF9860D001DB7EF /* SVProgressHUD.m */; settings = {ASSET_TAGS = (); }; };
 		B8D716B31BF98665001DB7EF /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = B8D716B21BF98665001DB7EF /* UIView+Utils.m */; settings = {ASSET_TAGS = (); }; };
+		B8EB15021BF9B9580077269A /* YYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B8EB15011BF9B9580077269A /* YYTextField.m */; settings = {ASSET_TAGS = (); }; };
+		B8EB15051BF9C5620077269A /* FieldBgView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8EB15041BF9C5620077269A /* FieldBgView.m */; settings = {ASSET_TAGS = (); }; };
 		B8F931441BF9802700E9614D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F931431BF9802700E9614D /* main.m */; };
 		B8F931471BF9802700E9614D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F931461BF9802700E9614D /* AppDelegate.m */; };
 		B8F9314D1BF9802700E9614D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8F9314B1BF9802700E9614D /* Main.storyboard */; };
@@ -161,6 +163,10 @@
 		B8D716AD1BF9860D001DB7EF /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		B8D716B11BF98665001DB7EF /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
 		B8D716B21BF98665001DB7EF /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
+		B8EB15001BF9B9580077269A /* YYTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTextField.h; sourceTree = "<group>"; };
+		B8EB15011BF9B9580077269A /* YYTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTextField.m; sourceTree = "<group>"; };
+		B8EB15031BF9C5620077269A /* FieldBgView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldBgView.h; sourceTree = "<group>"; };
+		B8EB15041BF9C5620077269A /* FieldBgView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldBgView.m; sourceTree = "<group>"; };
 		B8F9313F1BF9802700E9614D /* Udong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Udong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8F931431BF9802700E9614D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B8F931451BF9802700E9614D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -346,6 +352,17 @@
 			path = SVProgressHUD;
 			sourceTree = "<group>";
 		};
+		B8EB14FF1BF9B9230077269A /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				B8EB15001BF9B9580077269A /* YYTextField.h */,
+				B8EB15011BF9B9580077269A /* YYTextField.m */,
+				B8EB15031BF9C5620077269A /* FieldBgView.h */,
+				B8EB15041BF9C5620077269A /* FieldBgView.m */,
+			);
+			name = Custom;
+			sourceTree = "<group>";
+		};
 		B8F931361BF9802700E9614D = {
 			isa = PBXGroup;
 			children = (
@@ -375,6 +392,7 @@
 				B8F9317B1BF9815700E9614D /* Helper */,
 				B8F9317A1BF9812100E9614D /* Services */,
 				B8F931791BF9811000E9614D /* Model */,
+				B8EB14FF1BF9B9230077269A /* Custom */,
 				B8F9317C1BF9816500E9614D /* Libs */,
 				B8F9317D1BF9816F00E9614D /* Image */,
 				B8F9314E1BF9802700E9614D /* Assets.xcassets */,
@@ -657,6 +675,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8D716791BF98486001DB7EF /* SDWebImageDecoder.m in Sources */,
+				B8EB15051BF9C5620077269A /* FieldBgView.m in Sources */,
 				B8D716551BF98471001DB7EF /* AFURLConnectionOperation.m in Sources */,
 				B8D7167C1BF98486001DB7EF /* SDWebImageManager.m in Sources */,
 				B8F931941BF983CF00E9614D /* RegisterViewController.m in Sources */,
@@ -695,6 +714,7 @@
 				B8D7167E1BF98486001DB7EF /* UIButton+WebCache.m in Sources */,
 				B8D7169A1BF985B7001DB7EF /* MJRefreshFooterView.m in Sources */,
 				B8D716571BF98471001DB7EF /* UIImageView+AFNetworking.m in Sources */,
+				B8EB15021BF9B9580077269A /* YYTextField.m in Sources */,
 				B8D716761BF98486001DB7EF /* NSData+ImageContentType.m in Sources */,
 				B8F931961BF983CF00E9614D /* ForgetPasswordViewController.m in Sources */,
 				B8D716A21BF985C6001DB7EF /* OpenUDID.m in Sources */,
