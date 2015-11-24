@@ -12,5 +12,6 @@
       #import "AppMacroDefinition.h"
       #import "UIView+Utils.h"
       #import "ColorConstants.h"
+      #import "ColorManager.h"
 
 #endif

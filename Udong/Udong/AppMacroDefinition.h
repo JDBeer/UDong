@@ -13,7 +13,7 @@
 #define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 #define SCREEN_BOUNDS [[UIScreen mainScreen] bounds]
 
-#define ImageNamed(name) [UIImage imageNamed:name];
+#define ImageNamed(name) [UIImage imageNamed:name]
 
 //系统版本
 #pragma mark - System Versions
@@ -94,7 +94,7 @@ TabNavigationItem.rightBarButtonItem = nil; \
 // common margin
 #define MARGIN_LEFT 15
 #define MARGIN_RIGHT 15
-#define MARGIN_TOP 20
+#define MARGIN_TOP 245
 
 // height
 #define HEIGHT_NAVIGATIONBAR 44
@@ -102,7 +102,7 @@ TabNavigationItem.rightBarButtonItem = nil; \
 #define HEIGHT_LABEL 25
 #define HEIGHT_CELL_DEFAULT 44
 #define HEIGHT_TEXTFIELD 35
-#define HEIGHT_FLATBUTTON 40
+#define HEIGHT_FLATBUTTON 44
 #define HEIGHT_HEADER 15
 #define HEIGHT_FOOTER 15
 #define HEIGHT_PROGRESS 10

@@ -37,13 +37,13 @@
 //placeholder的位置
 - (CGRect)textRectForBounds:(CGRect)bounds
 {
-    return [super textRectForBounds:UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(0, _inset, 0, 0))];
+    return [super textRectForBounds:UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(0, _inset-21, -6, 0))];
 }
 
 //text的位置
 - (CGRect)editingRectForBounds:(CGRect)bounds
 {
-    return [super editingRectForBounds:UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(0, _inset, 0, 0))];
+    return [super editingRectForBounds:UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(0, _inset-21, -6, 0))];
 }
 
 

@@ -16,8 +16,37 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = kColorWhiteColor;
+    [self configView];
+    
 }
+
+- (void)configView
+{
+    
+    [self configBackItem];
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 200, 0)];
+    lab.text = @"服务条款";
+    lab.font = FONT(18);
+    [lab setTextColor:kColorGrayColor];
+    [lab sizeToFit];
+    [self.view addSubview:lab];
+}
+
+- (void)configBackItem
+{
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setFrame:CGRectMake(0, 0, 20, 20)];
+    [btn setBackgroundImage:ImageNamed(@"navbar_icon_back") forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(onBtnBack:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+}
+
+- (void)onBtnBack:(id)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

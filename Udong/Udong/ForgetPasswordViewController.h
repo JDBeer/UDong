@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ForgetPasswordViewController : UIViewController
+@property (nonatomic ,strong) UITextField *phoneTf;
+@property (nonatomic, strong) UIButton *getVertifyBtn;
 
 @end
