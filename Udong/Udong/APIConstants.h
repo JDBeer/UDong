@@ -8,17 +8,17 @@
 
 //#define Base_Url @"http://demo.hzzkkj.com/udong/"
 //张鹏鹏
-#define Base_Url @"http://192.168.1.118:6062/udong/"
+#define Base_Url @"http://192.168.1.118:8080/udong/"
 //徐家园
 //#define Base_Url @"http://192.168.1.100:8089/udong/"
 
 //图片访问
 
-#define Picture_Url @"http://192.168.1.118:6062/upload/"
+#define Picture_Url @"http://192.168.1.118:8080/upload/"
 
 //下载访问
 
-#define DownLoad_Url @"http://192.168.1.118:6062/download/"
+#define DownLoad_Url @"http://192.168.1.118:8080/download/"
 
 
 //注册
