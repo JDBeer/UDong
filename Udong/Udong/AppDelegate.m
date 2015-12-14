@@ -7,7 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import "OpenUDID.h"
+#import "sys/utsname.h"
 #import "LoginViewController.h"
+#import "ShufflingPageViewController.h"
+#import "MeasuremenViewController.h"
+#import "MasterTabBarViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,12 +22,94 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    LoginViewController *loginVC = [[LoginViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:loginVC];
-//    nav.navigationBarHidden = YES;
-    self.window.rootViewController = nav;
+    [self configureSecretKey];
+    [self configureBaseData];
+    [self judgeEntranceRoot];
+    NSLog(@"%@--%@",[StorageManager getUserId],[StorageManager getAccountNumber]);
     
     return YES;
+}
+
+- (void)configureSecretKey
+{
+    if (![StorageManager getSecretKey]) {
+        [APIServiceManager getSecretKey:OriginSecretKey Secretkeytype:@"0" completionBlock:^(id responObject) {
+            
+            NSArray *arrry = responObject[@"rows"];
+            for (NSDictionary *dic in arrry) {
+                self.secretString = dic[@"sekey"];
+                [StorageManager saveSecretKey:dic[@"sekey"]];
+                
+            }
+        } failureBlock:^(NSError *error) {
+            
+        }];
+    }
+}
+
+- (void)configureBaseData
+{
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:UserIdKey]) {
+        self.userid = @"0";
+        [StorageManager saveUserId:self.userid];
+    }
+}
+
+- (void)judgeEntranceRoot
+{
+//    if ([StorageManager getAccountNumber]) {
+//        [APIServiceManager judgeEvaluationWithKey:[StorageManager getSecretKey] idString:[StorageManager getUserId] completionBlock:^(id responObject) {
+//            if (responObject[@"eResult"]==[NSNull null]) {
+//                MeasuremenViewController *measureVC = [[MeasuremenViewController alloc] init];
+//                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:measureVC];
+//                nav.navigationBarHidden = YES;
+//                self.window.rootViewController = nav;
+//            }else{
+//                MasterTabBarViewController *masterVC = [[MasterTabBarViewController alloc] init];
+//                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:masterVC];
+//                nav.navigationBarHidden = YES;
+//                self.window.rootViewController = nav;
+//            }
+//        } failureBlock:^(NSError *error) {
+//            NSLog(@"%@",error);
+//        }];
+//    }
+    
+    if ([StorageManager getUserId]) {
+        
+        NSString *idString = [NSString stringWithFormat:@"%@",[StorageManager getUserId]];
+        if ([idString isEqualToString:@"0"]) {
+            ShufflingPageViewController *shupageVC = [[ShufflingPageViewController alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shupageVC];
+            nav.navigationBarHidden = YES;
+            self.window.rootViewController = nav;
+        }else{
+            [APIServiceManager judgeEvaluationWithKey:[StorageManager getSecretKey] idString:[StorageManager getUserId] completionBlock:^(id responObject) {
+                
+                if (responObject[@"eResult"]==[NSNull null]) {
+                    MeasuremenViewController *measureVC = [[MeasuremenViewController alloc] init];
+                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:measureVC];
+                    nav.navigationBarHidden = YES;
+                    self.window.rootViewController = nav;
+                }else{
+                    MasterTabBarViewController *masterVC = [[MasterTabBarViewController alloc] init];
+                    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:masterVC];
+                    nav.navigationBarHidden = YES;
+                    self.window.rootViewController = nav;
+                }
+            } failureBlock:^(NSError *error) {
+                NSLog(@"%@",error);
+            }];
+        }
+    }
+    
+    if (![StorageManager getUserId]){
+        ShufflingPageViewController *shupageVC = [[ShufflingPageViewController alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:shupageVC];
+        nav.navigationBarHidden = YES;
+        self.window.rootViewController = nav;
+    }
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

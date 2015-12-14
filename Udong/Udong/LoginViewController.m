@@ -9,8 +9,11 @@
 #import "LoginViewController.h"
 #import "YYTextField.h"
 #import "FieldBgView.h"
+#import "Tool.h"
 #import "RegisterViewController.h"
 #import "ForgetPasswordViewController.h"
+#import "MasterTabBarViewController.h"
+#import "DeviceHandleManager.h"
 
 #define INTERVAL 20
 #define INTERVAL_MIDDLE 10
@@ -43,23 +46,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configNumber];
+    [self configData];
     [self configView];
     
 }
 
 - (void)configView
 {
+    self.navigationController.navigationBarHidden = YES;
     
     self.bgImg = [[UIImageView alloc] initWithFrame:self.view.bounds];
     self.bgImg.userInteractionEnabled = YES;
     self.bgImg.image = ImageNamed(@"background");
-    [self.view addSubview:self.bgImg];
+    self.contentView = [[UIView alloc] initWithFrame:self.bgImg.frame];
+    [self.contentView addSubview:self.bgImg];
+    [self.view addSubview:self.contentView];
     
     
     self.LoginImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_logo"]];
     self.LoginImage.centerX = self.view.centerX;
     self.LoginImage.top = _height;
-    [self.bgImg addSubview:self.LoginImage];
+    [self.contentView addSubview:self.LoginImage];
     
     
     self.accountField = [[YYTextField alloc] initWithFrame:CGRectMake(0, self.LoginImage.bottom+_interval, SCREEN_WIDTH-45, _buttonHeight) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_telephone"]] inset:45];
@@ -73,7 +80,7 @@
     self.cleanImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_delete"]];
     self.accountField.rightView=self.cleanImg;
     self.accountField.rightViewMode = UITextFieldViewModeWhileEditing;
-    [self.bgImg addSubview:self.accountField];
+    [self.contentView addSubview:self.accountField];
     
     self.accountTfCleanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.accountTfCleanBtn.tag = 1;
@@ -95,7 +102,7 @@
     self.passwordField.rightView=self.eyeImg;
     self.passwordField.rightViewMode = UITextFieldViewModeWhileEditing;
     self.passwordTfCleanBtn.tag = 2;
-    [self.bgImg addSubview:self.passwordField];
+    [self.contentView addSubview:self.passwordField];
     
     self.passwordTfCleanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.passwordTfCleanBtn.frame = CGRectMake(self.passwordField.width-19, 21, 19, 19);
@@ -103,15 +110,16 @@
     [self.passwordField addSubview:self.passwordTfCleanBtn];
     
     FieldBgView *bg = [[FieldBgView alloc] initWithFrame:CGRectMake(_accountField.left, _accountField.top, _accountField.width, _accountField.height*2) inset:45 count:2];
-    [self.bgImg insertSubview:bg belowSubview:self.accountField];
+    [self.contentView insertSubview:bg belowSubview:self.accountField];
     
     self.loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.loginBtn.frame = CGRectMake(45, self.passwordField.bottom+_textFieldInterval,self.view.width-2*45, _buttonHeight);
-    [self.loginBtn setTitle:@"登陆" forState:UIControlStateNormal];
+    [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [self.loginBtn setTitleColor:kColorWhiteColor forState:UIControlStateNormal];
     [self.loginBtn setBackgroundColor:[ColorManager getColor:@"2fbec8" WithAlpha:1]];
+    [self.loginBtn addTarget:self action:@selector(onBtnToHomepage:) forControlEvents:UIControlEventTouchUpInside];
     self.loginBtn.titleLabel.font = FONT(17);
-    [self.bgImg addSubview:self.loginBtn];
+    [self.contentView addSubview:self.loginBtn];
     
     
     CGSize leftSize = [@"忘记密码？" sizeWithAttributes:@{NSFontAttributeName:FONT(13)}];
@@ -121,7 +129,7 @@
     [self.forgetBtn setTitleColor:kColorWhiteColor forState:UIControlStateNormal];
     [self.forgetBtn.titleLabel setFont:FONT(13)];
     [self.forgetBtn addTarget:self action:@selector(onBtnForget:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bgImg addSubview:self.forgetBtn];
+    [self.contentView addSubview:self.forgetBtn];
     
     
     CGSize rightSize = [@"注册帐号" sizeWithAttributes:@{NSFontAttributeName:FONT(13)}];
@@ -131,32 +139,43 @@
     [self.registerBtn setTitleColor:kColorWhiteColor forState:UIControlStateNormal];
     [self.registerBtn.titleLabel setFont:FONT(13)];
     [self.registerBtn addTarget:self action:@selector(onBtnRegister:) forControlEvents:UIControlEventTouchUpInside];
-    [self.bgImg addSubview:self.registerBtn];
+    [self.contentView addSubview:self.registerBtn];
+    
+    
 
     for (int i=0; i<3; i++) {
-        self.logRegisterImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_icon_%d",i+1]]];
-        self.logRegisterImage.bottom = self.view.bottom-_buttonBottom;
+        self.logRegisterbtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.logRegisterbtn setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"login_icon_%d",i+1]] forState:UIControlStateNormal];
+        
+        self.logRegisterbtn.frame = CGRectMake(0, 0, 40, 40);
+        self.logRegisterbtn.bottom = self.view.bottom-_buttonBottom;
+        self.logRegisterbtn.tag = i+1;
+        [self.logRegisterbtn addTarget:self action:@selector(loginBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
         if (i==0) {
-            self.logRegisterImage.left = self.view.left +60;
+            self.logRegisterbtn.left = self.view.left +60;
         }else if (i==1)
         {
-            self.logRegisterImage.centerX = self.view.centerX;
+            self.logRegisterbtn.centerX = self.view.centerX;
         }else if (i==2)
         {
-            self.logRegisterImage.right = self.view.right-60;
+            self.logRegisterbtn.right = self.view.right-60;
         }
-        [self.bgImg addSubview:self.logRegisterImage];
+        [self.contentView addSubview:self.logRegisterbtn];
     }
+    
+    
+    
     
     CGSize labelSize = [@"使用合作伙伴登录" sizeWithAttributes:@{NSFontAttributeName:FONT(13)}];
     UILabel *plabel = [[UILabel alloc] init];
     plabel.centerX = self.view.centerX;
-    plabel.bottom = self.logRegisterImage.top-_labelInterval;
+    plabel.bottom = self.logRegisterbtn.top-_labelInterval;
     plabel.bounds = CGRectMake(0, 0, labelSize.width, labelSize.height);
     plabel.text = @"使用合作伙伴登录";
     plabel.textColor = [ColorManager getColor:@"ffffff" WithAlpha:0.3];
     plabel.font = FONT(13);
-    [self.bgImg addSubview:plabel];
+    [self.contentView addSubview:plabel];
 
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dissmissKeyBoard1:)];
@@ -164,15 +183,24 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+}
+
 - (void)onBtnForget:(id)sender
 {
     ForgetPasswordViewController *forgetVC = [[ForgetPasswordViewController alloc] init];
+    
     [self.navigationController pushViewController:forgetVC animated:YES];
 }
 
 - (void)onBtnRegister:(id)sender
 {
+    
     RegisterViewController *registerVC = [[RegisterViewController alloc]init];
+
     [self.navigationController pushViewController:registerVC animated:YES];
 }
 
@@ -197,10 +225,79 @@
     [self.view endEditing:YES];
 }
 
+- (void)onBtnToHomepage:(id)sender
+{
+// 去除前后空格
+    NSString *number = [self.accountField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (number.length == 0) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入手机号码" duration:2];
+        return;
+    }
+    
+    if (![Tool validateMobile:number]) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入正确的手机号码" duration:2];
+        return;
+    }
+
+    if (self.passwordField.text.length == 0) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入密码" duration:2];
+        return;
+    }
+    
+    [SVProgressHUD showProgressWithStatus:@"请稍候" duration:-1];
+    
+    [APIServiceManager LoginWithSecretkey:[StorageManager getSecretKey] phoneNumber:self.accountField.text password:self.passwordField.text Logintype:@"0" openudid:self.deviceDictionary[OpenUdidKey] deviceOS:self.deviceDictionary[DeviceOSKey] deviceModel:self.deviceDictionary[DcviceModelKey] deviceResolution:self.deviceDictionary[DeviceResolutionKey] deviceVersion:self.deviceDictionary[DeviceVersionKey] completionBlock:^(id responObject) {
+        NSLog(@"%@",responObject);
+        NSString *flagString = responObject[@"flag"];
+        NSString *message = responObject[@"message"];
+        if ([flagString isEqualToString:@"100100"]) {
+            [SVProgressHUD dismiss];
+//     清空本地存储的数据，存入最新的数据
+            [StorageManager deleteRelatedInfo];
+            NSString *idString = [NSString stringWithFormat:@"%@",responObject[@"user"][@"id"]];
+            [StorageManager saveAccountNumber:self.accountField.text];
+            [StorageManager saveUserId:idString];
+            [StorageManager savepsw:self.passwordField.text];
+            
+            MasterTabBarViewController *tabBarVC = [[MasterTabBarViewController alloc] init];
+            [self.navigationController pushViewController:tabBarVC animated:YES];
+        }else{
+            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+        [SVProgressHUD showHUDWithImage:nil status:@"登录失败" duration:-1];
+    }];
+    
+    
+    
+   
+}
+
+- (void)loginBtnClick:(UIButton *)btn
+{
+    if (btn.tag == 1) {
+        NSLog(@"1");
+    }
+    if (btn.tag == 2) {
+        NSLog(@"2");
+    }
+    if (btn.tag == 3) {
+        NSLog(@"3");
+    }
+    
+}
+
+- (void)configData
+{
+    self.deviceDictionary = [[NSMutableDictionary alloc] init];
+    self.deviceDictionary = [DeviceHandleManager configureBaseData];
+}
+
 - (void)configNumber
 {
-    
-    
     if (IS_IPONE_4_OR_LESS) {
         _scale = 480.0/667;
         _height = 100*_scale;

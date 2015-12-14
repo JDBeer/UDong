@@ -17,4 +17,5 @@
 @property (nonatomic, strong)UIButton *rightBtn;
 @property (nonatomic, strong)UIImageView *bgImg;
 @property (nonatomic, strong)UIImageView *logRegisterImage;
+@property (nonatomic, strong)UIButton *backBtn;
 @end

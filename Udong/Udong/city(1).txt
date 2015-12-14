@@ -1,0 +1,2801 @@
+{
+    "1": [
+        {
+            "id": 72,
+            "parent_id": "1",
+            "u_name": "朝阳区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2800,
+            "parent_id": "1",
+            "u_name": "海淀区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2801,
+            "parent_id": "1",
+            "u_name": "西城区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2802,
+            "parent_id": "1",
+            "u_name": "东城区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2803,
+            "parent_id": "1",
+            "u_name": "崇文区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2804,
+            "parent_id": "1",
+            "u_name": "宣武区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2805,
+            "parent_id": "1",
+            "u_name": "丰台区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2806,
+            "parent_id": "1",
+            "u_name": "石景山区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2807,
+            "parent_id": "1",
+            "u_name": "门头沟",
+            "z_level": "市级"
+        },
+        {
+            "id": 2808,
+            "parent_id": "1",
+            "u_name": "房山区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2809,
+            "parent_id": "1",
+            "u_name": "通州区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2810,
+            "parent_id": "1",
+            "u_name": "大兴区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2812,
+            "parent_id": "1",
+            "u_name": "顺义区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2814,
+            "parent_id": "1",
+            "u_name": "怀柔区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2816,
+            "parent_id": "1",
+            "u_name": "密云区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2901,
+            "parent_id": "1",
+            "u_name": "昌平区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2953,
+            "parent_id": "1",
+            "u_name": "平谷区",
+            "z_level": "市级"
+        },
+        {
+            "id": 3065,
+            "parent_id": "1",
+            "u_name": "延庆县",
+            "z_level": "市级"
+        }
+    ],
+    "2": [
+        {
+            "id": 78,
+            "parent_id": "2",
+            "u_name": "黄浦区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2813,
+            "parent_id": "2",
+            "u_name": "徐汇区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2815,
+            "parent_id": "2",
+            "u_name": "长宁区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2817,
+            "parent_id": "2",
+            "u_name": "静安区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2820,
+            "parent_id": "2",
+            "u_name": "闸北区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2822,
+            "parent_id": "2",
+            "u_name": "虹口区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2823,
+            "parent_id": "2",
+            "u_name": "杨浦区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2824,
+            "parent_id": "2",
+            "u_name": "宝山区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2825,
+            "parent_id": "2",
+            "u_name": "闵行区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2826,
+            "parent_id": "2",
+            "u_name": "嘉定区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2830,
+            "parent_id": "2",
+            "u_name": "浦东新区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2833,
+            "parent_id": "2",
+            "u_name": "青浦区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2834,
+            "parent_id": "2",
+            "u_name": "松江区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2835,
+            "parent_id": "2",
+            "u_name": "金山区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2837,
+            "parent_id": "2",
+            "u_name": "奉贤区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2841,
+            "parent_id": "2",
+            "u_name": "普陀区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2919,
+            "parent_id": "2",
+            "u_name": "崇明县",
+            "z_level": "市级"
+        }
+    ],
+    "3": [
+        {
+            "id": 51035,
+            "parent_id": "3",
+            "u_name": "东丽区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51036,
+            "parent_id": "3",
+            "u_name": "和平区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51037,
+            "parent_id": "3",
+            "u_name": "河北区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51038,
+            "parent_id": "3",
+            "u_name": "河东区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51039,
+            "parent_id": "3",
+            "u_name": "河西区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51040,
+            "parent_id": "3",
+            "u_name": "红桥区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51041,
+            "parent_id": "3",
+            "u_name": "蓟县",
+            "z_level": "市级"
+        },
+        {
+            "id": 51042,
+            "parent_id": "3",
+            "u_name": "静海县",
+            "z_level": "市级"
+        },
+        {
+            "id": 51043,
+            "parent_id": "3",
+            "u_name": "南开区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51044,
+            "parent_id": "3",
+            "u_name": "塘沽区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51045,
+            "parent_id": "3",
+            "u_name": "西青区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51046,
+            "parent_id": "3",
+            "u_name": "武清区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51047,
+            "parent_id": "3",
+            "u_name": "津南区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51048,
+            "parent_id": "3",
+            "u_name": "汉沽区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51049,
+            "parent_id": "3",
+            "u_name": "大港区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51050,
+            "parent_id": "3",
+            "u_name": "北辰区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51051,
+            "parent_id": "3",
+            "u_name": "宝坻区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51052,
+            "parent_id": "3",
+            "u_name": "宁河县",
+            "z_level": "市级"
+        }
+    ],
+    "4": [
+        {
+            "id": 113,
+            "parent_id": "4",
+            "u_name": "万州区",
+            "z_level": "市级"
+        },
+        {
+            "id": 114,
+            "parent_id": "4",
+            "u_name": "涪陵区",
+            "z_level": "市级"
+        },
+        {
+            "id": 115,
+            "parent_id": "4",
+            "u_name": "梁平县",
+            "z_level": "市级"
+        },
+        {
+            "id": 119,
+            "parent_id": "4",
+            "u_name": "南川区",
+            "z_level": "市级"
+        },
+        {
+            "id": 123,
+            "parent_id": "4",
+            "u_name": "潼南县",
+            "z_level": "市级"
+        },
+        {
+            "id": 126,
+            "parent_id": "4",
+            "u_name": "大足区",
+            "z_level": "市级"
+        },
+        {
+            "id": 128,
+            "parent_id": "4",
+            "u_name": "黔江区",
+            "z_level": "市级"
+        },
+        {
+            "id": 129,
+            "parent_id": "4",
+            "u_name": "武隆县",
+            "z_level": "市级"
+        },
+        {
+            "id": 130,
+            "parent_id": "4",
+            "u_name": "丰都县",
+            "z_level": "市级"
+        },
+        {
+            "id": 131,
+            "parent_id": "4",
+            "u_name": "奉节县",
+            "z_level": "市级"
+        },
+        {
+            "id": 132,
+            "parent_id": "4",
+            "u_name": "开县",
+            "z_level": "市级"
+        },
+        {
+            "id": 133,
+            "parent_id": "4",
+            "u_name": "云阳县",
+            "z_level": "市级"
+        },
+        {
+            "id": 134,
+            "parent_id": "4",
+            "u_name": "忠县",
+            "z_level": "市级"
+        },
+        {
+            "id": 135,
+            "parent_id": "4",
+            "u_name": "巫溪县",
+            "z_level": "市级"
+        },
+        {
+            "id": 136,
+            "parent_id": "4",
+            "u_name": "巫山县",
+            "z_level": "市级"
+        },
+        {
+            "id": 137,
+            "parent_id": "4",
+            "u_name": "石柱县",
+            "z_level": "市级"
+        },
+        {
+            "id": 138,
+            "parent_id": "4",
+            "u_name": "彭水县",
+            "z_level": "市级"
+        },
+        {
+            "id": 139,
+            "parent_id": "4",
+            "u_name": "垫江县",
+            "z_level": "市级"
+        },
+        {
+            "id": 140,
+            "parent_id": "4",
+            "u_name": "酉阳县",
+            "z_level": "市级"
+        },
+        {
+            "id": 141,
+            "parent_id": "4",
+            "u_name": "秀山县",
+            "z_level": "市级"
+        },
+        {
+            "id": 4164,
+            "parent_id": "4",
+            "u_name": "城口县",
+            "z_level": "市级"
+        },
+        {
+            "id": 48131,
+            "parent_id": "4",
+            "u_name": "璧山县",
+            "z_level": "市级"
+        },
+        {
+            "id": 48132,
+            "parent_id": "4",
+            "u_name": "荣昌县",
+            "z_level": "市级"
+        },
+        {
+            "id": 48133,
+            "parent_id": "4",
+            "u_name": "铜梁县",
+            "z_level": "市级"
+        },
+        {
+            "id": 48201,
+            "parent_id": "4",
+            "u_name": "合川区",
+            "z_level": "市级"
+        },
+        {
+            "id": 48202,
+            "parent_id": "4",
+            "u_name": "巴南区",
+            "z_level": "市级"
+        },
+        {
+            "id": 48203,
+            "parent_id": "4",
+            "u_name": "北碚区",
+            "z_level": "市级"
+        },
+        {
+            "id": 48204,
+            "parent_id": "4",
+            "u_name": "江津区",
+            "z_level": "市级"
+        },
+        {
+            "id": 48205,
+            "parent_id": "4",
+            "u_name": "渝北区",
+            "z_level": "市级"
+        },
+        {
+            "id": 48206,
+            "parent_id": "4",
+            "u_name": "长寿区",
+            "z_level": "市级"
+        },
+        {
+            "id": 48207,
+            "parent_id": "4",
+            "u_name": "永川区",
+            "z_level": "市级"
+        },
+        {
+            "id": 50950,
+            "parent_id": "4",
+            "u_name": "江北区",
+            "z_level": "市级"
+        },
+        {
+            "id": 50951,
+            "parent_id": "4",
+            "u_name": "南岸区",
+            "z_level": "市级"
+        },
+        {
+            "id": 50952,
+            "parent_id": "4",
+            "u_name": "九龙坡区",
+            "z_level": "市级"
+        },
+        {
+            "id": 50953,
+            "parent_id": "4",
+            "u_name": "沙坪坝区",
+            "z_level": "市级"
+        },
+        {
+            "id": 50954,
+            "parent_id": "4",
+            "u_name": "大渡口区",
+            "z_level": "市级"
+        },
+        {
+            "id": 50995,
+            "parent_id": "4",
+            "u_name": "綦江区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51026,
+            "parent_id": "4",
+            "u_name": "渝中区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51027,
+            "parent_id": "4",
+            "u_name": "高新区",
+            "z_level": "市级"
+        },
+        {
+            "id": 51028,
+            "parent_id": "4",
+            "u_name": "北部新区",
+            "z_level": "市级"
+        }
+    ],
+    "5": [
+        {
+            "id": 142,
+            "parent_id": "5",
+            "u_name": "石家庄市",
+            "z_level": "市级"
+        },
+        {
+            "id": 148,
+            "parent_id": "5",
+            "u_name": "邯郸市",
+            "z_level": "市级"
+        },
+        {
+            "id": 164,
+            "parent_id": "5",
+            "u_name": "邢台市",
+            "z_level": "市级"
+        },
+        {
+            "id": 199,
+            "parent_id": "5",
+            "u_name": "保定市",
+            "z_level": "市级"
+        },
+        {
+            "id": 224,
+            "parent_id": "5",
+            "u_name": "张家口市",
+            "z_level": "市级"
+        },
+        {
+            "id": 239,
+            "parent_id": "5",
+            "u_name": "承德市",
+            "z_level": "市级"
+        },
+        {
+            "id": 248,
+            "parent_id": "5",
+            "u_name": "秦皇岛市",
+            "z_level": "市级"
+        },
+        {
+            "id": 258,
+            "parent_id": "5",
+            "u_name": "唐山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 264,
+            "parent_id": "5",
+            "u_name": "沧州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 274,
+            "parent_id": "5",
+            "u_name": "廊坊市",
+            "z_level": "市级"
+        },
+        {
+            "id": 275,
+            "parent_id": "5",
+            "u_name": "衡水市",
+            "z_level": "市级"
+        }
+    ],
+    "6": [
+        {
+            "id": 303,
+            "parent_id": "6",
+            "u_name": "太原市",
+            "z_level": "市级"
+        },
+        {
+            "id": 309,
+            "parent_id": "6",
+            "u_name": "大同市",
+            "z_level": "市级"
+        },
+        {
+            "id": 318,
+            "parent_id": "6",
+            "u_name": "阳泉市",
+            "z_level": "市级"
+        },
+        {
+            "id": 325,
+            "parent_id": "6",
+            "u_name": "晋城市",
+            "z_level": "市级"
+        },
+        {
+            "id": 330,
+            "parent_id": "6",
+            "u_name": "朔州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 336,
+            "parent_id": "6",
+            "u_name": "晋中市",
+            "z_level": "市级"
+        },
+        {
+            "id": 350,
+            "parent_id": "6",
+            "u_name": "忻州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 368,
+            "parent_id": "6",
+            "u_name": "吕梁市",
+            "z_level": "市级"
+        },
+        {
+            "id": 379,
+            "parent_id": "6",
+            "u_name": "临汾市",
+            "z_level": "市级"
+        },
+        {
+            "id": 398,
+            "parent_id": "6",
+            "u_name": "运城市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3074,
+            "parent_id": "6",
+            "u_name": "长治市",
+            "z_level": "市级"
+        }
+    ],
+    "7": [
+        {
+            "id": 412,
+            "parent_id": "7",
+            "u_name": "郑州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 420,
+            "parent_id": "7",
+            "u_name": "开封市",
+            "z_level": "市级"
+        },
+        {
+            "id": 427,
+            "parent_id": "7",
+            "u_name": "洛阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 438,
+            "parent_id": "7",
+            "u_name": "平顶山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 446,
+            "parent_id": "7",
+            "u_name": "焦作市",
+            "z_level": "市级"
+        },
+        {
+            "id": 454,
+            "parent_id": "7",
+            "u_name": "鹤壁市",
+            "z_level": "市级"
+        },
+        {
+            "id": 458,
+            "parent_id": "7",
+            "u_name": "新乡市",
+            "z_level": "市级"
+        },
+        {
+            "id": 468,
+            "parent_id": "7",
+            "u_name": "安阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 475,
+            "parent_id": "7",
+            "u_name": "濮阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 482,
+            "parent_id": "7",
+            "u_name": "许昌市",
+            "z_level": "市级"
+        },
+        {
+            "id": 489,
+            "parent_id": "7",
+            "u_name": "漯河市",
+            "z_level": "市级"
+        },
+        {
+            "id": 495,
+            "parent_id": "7",
+            "u_name": "三门峡市",
+            "z_level": "市级"
+        },
+        {
+            "id": 502,
+            "parent_id": "7",
+            "u_name": "南阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 517,
+            "parent_id": "7",
+            "u_name": "商丘市",
+            "z_level": "市级"
+        },
+        {
+            "id": 527,
+            "parent_id": "7",
+            "u_name": "周口市",
+            "z_level": "市级"
+        },
+        {
+            "id": 538,
+            "parent_id": "7",
+            "u_name": "驻马店市",
+            "z_level": "市级"
+        },
+        {
+            "id": 549,
+            "parent_id": "7",
+            "u_name": "信阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2780,
+            "parent_id": "7",
+            "u_name": "济源市",
+            "z_level": "市级"
+        }
+    ],
+    "8": [
+        {
+            "id": 560,
+            "parent_id": "8",
+            "u_name": "沈阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 573,
+            "parent_id": "8",
+            "u_name": "大连市",
+            "z_level": "市级"
+        },
+        {
+            "id": 579,
+            "parent_id": "8",
+            "u_name": "鞍山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 584,
+            "parent_id": "8",
+            "u_name": "抚顺市",
+            "z_level": "市级"
+        },
+        {
+            "id": 589,
+            "parent_id": "8",
+            "u_name": "本溪市",
+            "z_level": "市级"
+        },
+        {
+            "id": 593,
+            "parent_id": "8",
+            "u_name": "丹东市",
+            "z_level": "市级"
+        },
+        {
+            "id": 598,
+            "parent_id": "8",
+            "u_name": "锦州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 604,
+            "parent_id": "8",
+            "u_name": "葫芦岛市",
+            "z_level": "市级"
+        },
+        {
+            "id": 609,
+            "parent_id": "8",
+            "u_name": "营口市",
+            "z_level": "市级"
+        },
+        {
+            "id": 613,
+            "parent_id": "8",
+            "u_name": "盘锦市",
+            "z_level": "市级"
+        },
+        {
+            "id": 617,
+            "parent_id": "8",
+            "u_name": "阜新市",
+            "z_level": "市级"
+        },
+        {
+            "id": 621,
+            "parent_id": "8",
+            "u_name": "辽阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 632,
+            "parent_id": "8",
+            "u_name": "朝阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 6858,
+            "parent_id": "8",
+            "u_name": "铁岭市",
+            "z_level": "市级"
+        }
+    ],
+    "9": [
+        {
+            "id": 639,
+            "parent_id": "9",
+            "u_name": "长春市",
+            "z_level": "市级"
+        },
+        {
+            "id": 644,
+            "parent_id": "9",
+            "u_name": "吉林市",
+            "z_level": "市级"
+        },
+        {
+            "id": 651,
+            "parent_id": "9",
+            "u_name": "四平市",
+            "z_level": "市级"
+        },
+        {
+            "id": 657,
+            "parent_id": "9",
+            "u_name": "通化市",
+            "z_level": "市级"
+        },
+        {
+            "id": 664,
+            "parent_id": "9",
+            "u_name": "白山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 674,
+            "parent_id": "9",
+            "u_name": "松原市",
+            "z_level": "市级"
+        },
+        {
+            "id": 681,
+            "parent_id": "9",
+            "u_name": "白城市",
+            "z_level": "市级"
+        },
+        {
+            "id": 687,
+            "parent_id": "9",
+            "u_name": "延边州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2992,
+            "parent_id": "9",
+            "u_name": "辽源市",
+            "z_level": "市级"
+        }
+    ],
+    "10": [
+        {
+            "id": 698,
+            "parent_id": "10",
+            "u_name": "哈尔滨市",
+            "z_level": "市级"
+        },
+        {
+            "id": 712,
+            "parent_id": "10",
+            "u_name": "齐齐哈尔市",
+            "z_level": "市级"
+        },
+        {
+            "id": 727,
+            "parent_id": "10",
+            "u_name": "鹤岗市",
+            "z_level": "市级"
+        },
+        {
+            "id": 731,
+            "parent_id": "10",
+            "u_name": "双鸭山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 737,
+            "parent_id": "10",
+            "u_name": "鸡西市",
+            "z_level": "市级"
+        },
+        {
+            "id": 742,
+            "parent_id": "10",
+            "u_name": "大庆市",
+            "z_level": "市级"
+        },
+        {
+            "id": 753,
+            "parent_id": "10",
+            "u_name": "伊春市",
+            "z_level": "市级"
+        },
+        {
+            "id": 757,
+            "parent_id": "10",
+            "u_name": "牡丹江市",
+            "z_level": "市级"
+        },
+        {
+            "id": 765,
+            "parent_id": "10",
+            "u_name": "佳木斯市",
+            "z_level": "市级"
+        },
+        {
+            "id": 773,
+            "parent_id": "10",
+            "u_name": "七台河市",
+            "z_level": "市级"
+        },
+        {
+            "id": 776,
+            "parent_id": "10",
+            "u_name": "黑河市",
+            "z_level": "市级"
+        },
+        {
+            "id": 782,
+            "parent_id": "10",
+            "u_name": "绥化市",
+            "z_level": "市级"
+        },
+        {
+            "id": 793,
+            "parent_id": "10",
+            "u_name": "大兴安岭地区",
+            "z_level": "市级"
+        }
+    ],
+    "11": [
+        {
+            "id": 799,
+            "parent_id": "11",
+            "u_name": "呼和浩特市",
+            "z_level": "市级"
+        },
+        {
+            "id": 805,
+            "parent_id": "11",
+            "u_name": "包头市",
+            "z_level": "市级"
+        },
+        {
+            "id": 810,
+            "parent_id": "11",
+            "u_name": "乌海市",
+            "z_level": "市级"
+        },
+        {
+            "id": 812,
+            "parent_id": "11",
+            "u_name": "赤峰市",
+            "z_level": "市级"
+        },
+        {
+            "id": 823,
+            "parent_id": "11",
+            "u_name": "乌兰察布市",
+            "z_level": "市级"
+        },
+        {
+            "id": 835,
+            "parent_id": "11",
+            "u_name": "锡林郭勒盟",
+            "z_level": "市级"
+        },
+        {
+            "id": 848,
+            "parent_id": "11",
+            "u_name": "呼伦贝尔市",
+            "z_level": "市级"
+        },
+        {
+            "id": 870,
+            "parent_id": "11",
+            "u_name": "鄂尔多斯市",
+            "z_level": "市级"
+        },
+        {
+            "id": 880,
+            "parent_id": "11",
+            "u_name": "巴彦淖尔市",
+            "z_level": "市级"
+        },
+        {
+            "id": 891,
+            "parent_id": "11",
+            "u_name": "阿拉善盟",
+            "z_level": "市级"
+        },
+        {
+            "id": 895,
+            "parent_id": "11",
+            "u_name": "兴安盟",
+            "z_level": "市级"
+        },
+        {
+            "id": 902,
+            "parent_id": "11",
+            "u_name": "通辽市",
+            "z_level": "市级"
+        }
+    ],
+    "12": [
+        {
+            "id": 904,
+            "parent_id": "12",
+            "u_name": "南京市",
+            "z_level": "市级"
+        },
+        {
+            "id": 911,
+            "parent_id": "12",
+            "u_name": "徐州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 919,
+            "parent_id": "12",
+            "u_name": "连云港市",
+            "z_level": "市级"
+        },
+        {
+            "id": 925,
+            "parent_id": "12",
+            "u_name": "淮安市",
+            "z_level": "市级"
+        },
+        {
+            "id": 933,
+            "parent_id": "12",
+            "u_name": "宿迁市",
+            "z_level": "市级"
+        },
+        {
+            "id": 939,
+            "parent_id": "12",
+            "u_name": "盐城市",
+            "z_level": "市级"
+        },
+        {
+            "id": 951,
+            "parent_id": "12",
+            "u_name": "扬州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 959,
+            "parent_id": "12",
+            "u_name": "泰州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 965,
+            "parent_id": "12",
+            "u_name": "南通市",
+            "z_level": "市级"
+        },
+        {
+            "id": 972,
+            "parent_id": "12",
+            "u_name": "镇江市",
+            "z_level": "市级"
+        },
+        {
+            "id": 978,
+            "parent_id": "12",
+            "u_name": "常州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 984,
+            "parent_id": "12",
+            "u_name": "无锡市",
+            "z_level": "市级"
+        },
+        {
+            "id": 988,
+            "parent_id": "12",
+            "u_name": "苏州市",
+            "z_level": "市级"
+        }
+    ],
+    "13": [
+        {
+            "id": 1000,
+            "parent_id": "13",
+            "u_name": "济南市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1007,
+            "parent_id": "13",
+            "u_name": "青岛市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1016,
+            "parent_id": "13",
+            "u_name": "淄博市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1022,
+            "parent_id": "13",
+            "u_name": "枣庄市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1025,
+            "parent_id": "13",
+            "u_name": "东营市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1032,
+            "parent_id": "13",
+            "u_name": "潍坊市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1042,
+            "parent_id": "13",
+            "u_name": "烟台市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1053,
+            "parent_id": "13",
+            "u_name": "威海市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1058,
+            "parent_id": "13",
+            "u_name": "莱芜市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1060,
+            "parent_id": "13",
+            "u_name": "德州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1072,
+            "parent_id": "13",
+            "u_name": "临沂市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1081,
+            "parent_id": "13",
+            "u_name": "聊城市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1090,
+            "parent_id": "13",
+            "u_name": "滨州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1099,
+            "parent_id": "13",
+            "u_name": "菏泽市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1108,
+            "parent_id": "13",
+            "u_name": "日照市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1112,
+            "parent_id": "13",
+            "u_name": "泰安市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2900,
+            "parent_id": "13",
+            "u_name": "济宁市",
+            "z_level": "市级"
+        }
+    ],
+    "14": [
+        {
+            "id": 1114,
+            "parent_id": "14",
+            "u_name": "铜陵市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1116,
+            "parent_id": "14",
+            "u_name": "合肥市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1121,
+            "parent_id": "14",
+            "u_name": "淮南市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1124,
+            "parent_id": "14",
+            "u_name": "淮北市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1127,
+            "parent_id": "14",
+            "u_name": "芜湖市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1132,
+            "parent_id": "14",
+            "u_name": "蚌埠市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1137,
+            "parent_id": "14",
+            "u_name": "马鞍山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1140,
+            "parent_id": "14",
+            "u_name": "安庆市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1151,
+            "parent_id": "14",
+            "u_name": "黄山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1159,
+            "parent_id": "14",
+            "u_name": "滁州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1167,
+            "parent_id": "14",
+            "u_name": "阜阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1174,
+            "parent_id": "14",
+            "u_name": "亳州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1180,
+            "parent_id": "14",
+            "u_name": "宿州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1201,
+            "parent_id": "14",
+            "u_name": "池州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1206,
+            "parent_id": "14",
+            "u_name": "六安市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2971,
+            "parent_id": "14",
+            "u_name": "宣城市",
+            "z_level": "市级"
+        }
+    ],
+    "15": [
+        {
+            "id": 1158,
+            "parent_id": "15",
+            "u_name": "宁波市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1213,
+            "parent_id": "15",
+            "u_name": "杭州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1233,
+            "parent_id": "15",
+            "u_name": "温州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1243,
+            "parent_id": "15",
+            "u_name": "嘉兴市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1250,
+            "parent_id": "15",
+            "u_name": "湖州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1255,
+            "parent_id": "15",
+            "u_name": "绍兴市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1262,
+            "parent_id": "15",
+            "u_name": "金华市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1273,
+            "parent_id": "15",
+            "u_name": "衢州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1280,
+            "parent_id": "15",
+            "u_name": "丽水市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1290,
+            "parent_id": "15",
+            "u_name": "台州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1298,
+            "parent_id": "15",
+            "u_name": "舟山市",
+            "z_level": "市级"
+        }
+    ],
+    "16": [
+        {
+            "id": 1303,
+            "parent_id": "16",
+            "u_name": "福州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1315,
+            "parent_id": "16",
+            "u_name": "厦门市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1317,
+            "parent_id": "16",
+            "u_name": "三明市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1329,
+            "parent_id": "16",
+            "u_name": "莆田市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1332,
+            "parent_id": "16",
+            "u_name": "泉州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1341,
+            "parent_id": "16",
+            "u_name": "漳州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1352,
+            "parent_id": "16",
+            "u_name": "南平市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1362,
+            "parent_id": "16",
+            "u_name": "龙岩市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1370,
+            "parent_id": "16",
+            "u_name": "宁德市",
+            "z_level": "市级"
+        }
+    ],
+    "17": [
+        {
+            "id": 1381,
+            "parent_id": "17",
+            "u_name": "武汉市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1387,
+            "parent_id": "17",
+            "u_name": "黄石市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1396,
+            "parent_id": "17",
+            "u_name": "襄阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1405,
+            "parent_id": "17",
+            "u_name": "十堰市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1413,
+            "parent_id": "17",
+            "u_name": "荆州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1421,
+            "parent_id": "17",
+            "u_name": "宜昌市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1432,
+            "parent_id": "17",
+            "u_name": "孝感市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1441,
+            "parent_id": "17",
+            "u_name": "黄冈市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1458,
+            "parent_id": "17",
+            "u_name": "咸宁市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1466,
+            "parent_id": "17",
+            "u_name": "恩施州",
+            "z_level": "市级"
+        },
+        {
+            "id": 1475,
+            "parent_id": "17",
+            "u_name": "鄂州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1477,
+            "parent_id": "17",
+            "u_name": "荆门市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1479,
+            "parent_id": "17",
+            "u_name": "随州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2922,
+            "parent_id": "17",
+            "u_name": "潜江市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2980,
+            "parent_id": "17",
+            "u_name": "天门市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2983,
+            "parent_id": "17",
+            "u_name": "仙桃市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3154,
+            "parent_id": "17",
+            "u_name": "神农架林区",
+            "z_level": "市级"
+        }
+    ],
+    "18": [
+        {
+            "id": 1482,
+            "parent_id": "18",
+            "u_name": "长沙市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1488,
+            "parent_id": "18",
+            "u_name": "株洲市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1495,
+            "parent_id": "18",
+            "u_name": "湘潭市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1499,
+            "parent_id": "18",
+            "u_name": "韶山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1501,
+            "parent_id": "18",
+            "u_name": "衡阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1511,
+            "parent_id": "18",
+            "u_name": "邵阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1522,
+            "parent_id": "18",
+            "u_name": "岳阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1530,
+            "parent_id": "18",
+            "u_name": "常德市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1540,
+            "parent_id": "18",
+            "u_name": "张家界市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1544,
+            "parent_id": "18",
+            "u_name": "郴州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1555,
+            "parent_id": "18",
+            "u_name": "益阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1560,
+            "parent_id": "18",
+            "u_name": "永州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1574,
+            "parent_id": "18",
+            "u_name": "怀化市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1586,
+            "parent_id": "18",
+            "u_name": "娄底市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1592,
+            "parent_id": "18",
+            "u_name": "湘西州",
+            "z_level": "市级"
+        }
+    ],
+    "19": [
+        {
+            "id": 1601,
+            "parent_id": "19",
+            "u_name": "广州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1607,
+            "parent_id": "19",
+            "u_name": "深圳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1609,
+            "parent_id": "19",
+            "u_name": "珠海市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1611,
+            "parent_id": "19",
+            "u_name": "汕头市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1617,
+            "parent_id": "19",
+            "u_name": "韶关市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1627,
+            "parent_id": "19",
+            "u_name": "河源市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1634,
+            "parent_id": "19",
+            "u_name": "梅州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1643,
+            "parent_id": "19",
+            "u_name": "惠州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1650,
+            "parent_id": "19",
+            "u_name": "汕尾市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1655,
+            "parent_id": "19",
+            "u_name": "东莞市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1657,
+            "parent_id": "19",
+            "u_name": "中山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1659,
+            "parent_id": "19",
+            "u_name": "江门市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1666,
+            "parent_id": "19",
+            "u_name": "佛山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1672,
+            "parent_id": "19",
+            "u_name": "阳江市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1677,
+            "parent_id": "19",
+            "u_name": "湛江市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1684,
+            "parent_id": "19",
+            "u_name": "茂名市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1690,
+            "parent_id": "19",
+            "u_name": "肇庆市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1698,
+            "parent_id": "19",
+            "u_name": "云浮市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1704,
+            "parent_id": "19",
+            "u_name": "清远市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1705,
+            "parent_id": "19",
+            "u_name": "潮州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1709,
+            "parent_id": "19",
+            "u_name": "揭阳市",
+            "z_level": "市级"
+        }
+    ],
+    "20": [
+        {
+            "id": 1715,
+            "parent_id": "20",
+            "u_name": "南宁市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1720,
+            "parent_id": "20",
+            "u_name": "柳州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1726,
+            "parent_id": "20",
+            "u_name": "桂林市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1740,
+            "parent_id": "20",
+            "u_name": "梧州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1746,
+            "parent_id": "20",
+            "u_name": "北海市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1749,
+            "parent_id": "20",
+            "u_name": "防城港市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1753,
+            "parent_id": "20",
+            "u_name": "钦州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1757,
+            "parent_id": "20",
+            "u_name": "贵港市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1761,
+            "parent_id": "20",
+            "u_name": "玉林市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1792,
+            "parent_id": "20",
+            "u_name": "贺州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1806,
+            "parent_id": "20",
+            "u_name": "百色市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1818,
+            "parent_id": "20",
+            "u_name": "河池市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3044,
+            "parent_id": "20",
+            "u_name": "来宾市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3168,
+            "parent_id": "20",
+            "u_name": "崇左市",
+            "z_level": "市级"
+        }
+    ],
+    "21": [
+        {
+            "id": 1827,
+            "parent_id": "21",
+            "u_name": "南昌市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1832,
+            "parent_id": "21",
+            "u_name": "景德镇市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1836,
+            "parent_id": "21",
+            "u_name": "萍乡市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1842,
+            "parent_id": "21",
+            "u_name": "新余市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1845,
+            "parent_id": "21",
+            "u_name": "九江市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1857,
+            "parent_id": "21",
+            "u_name": "鹰潭市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1861,
+            "parent_id": "21",
+            "u_name": "上饶市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1874,
+            "parent_id": "21",
+            "u_name": "宜春市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1885,
+            "parent_id": "21",
+            "u_name": "抚州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1898,
+            "parent_id": "21",
+            "u_name": "吉安市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1911,
+            "parent_id": "21",
+            "u_name": "赣州市",
+            "z_level": "市级"
+        }
+    ],
+    "22": [
+        {
+            "id": 1930,
+            "parent_id": "22",
+            "u_name": "成都市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1946,
+            "parent_id": "22",
+            "u_name": "自贡市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1950,
+            "parent_id": "22",
+            "u_name": "攀枝花市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1954,
+            "parent_id": "22",
+            "u_name": "泸州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1960,
+            "parent_id": "22",
+            "u_name": "绵阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1962,
+            "parent_id": "22",
+            "u_name": "德阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1977,
+            "parent_id": "22",
+            "u_name": "广元市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1983,
+            "parent_id": "22",
+            "u_name": "遂宁市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1988,
+            "parent_id": "22",
+            "u_name": "内江市",
+            "z_level": "市级"
+        },
+        {
+            "id": 1993,
+            "parent_id": "22",
+            "u_name": "乐山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2005,
+            "parent_id": "22",
+            "u_name": "宜宾市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2016,
+            "parent_id": "22",
+            "u_name": "广安市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2022,
+            "parent_id": "22",
+            "u_name": "南充市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2033,
+            "parent_id": "22",
+            "u_name": "达州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2042,
+            "parent_id": "22",
+            "u_name": "巴中市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2047,
+            "parent_id": "22",
+            "u_name": "雅安市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2058,
+            "parent_id": "22",
+            "u_name": "眉山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2065,
+            "parent_id": "22",
+            "u_name": "资阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2070,
+            "parent_id": "22",
+            "u_name": "阿坝州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2084,
+            "parent_id": "22",
+            "u_name": "甘孜州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2103,
+            "parent_id": "22",
+            "u_name": "凉山州",
+            "z_level": "市级"
+        }
+    ],
+    "23": [
+        {
+            "id": 2121,
+            "parent_id": "23",
+            "u_name": "海口市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3034,
+            "parent_id": "23",
+            "u_name": "儋州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3115,
+            "parent_id": "23",
+            "u_name": "琼海市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3137,
+            "parent_id": "23",
+            "u_name": "万宁市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3173,
+            "parent_id": "23",
+            "u_name": "东方市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3690,
+            "parent_id": "23",
+            "u_name": "三亚市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3698,
+            "parent_id": "23",
+            "u_name": "文昌市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3699,
+            "parent_id": "23",
+            "u_name": "五指山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3701,
+            "parent_id": "23",
+            "u_name": "临高县",
+            "z_level": "市级"
+        },
+        {
+            "id": 3702,
+            "parent_id": "23",
+            "u_name": "澄迈县",
+            "z_level": "市级"
+        },
+        {
+            "id": 3703,
+            "parent_id": "23",
+            "u_name": "定安县",
+            "z_level": "市级"
+        },
+        {
+            "id": 3704,
+            "parent_id": "23",
+            "u_name": "屯昌县",
+            "z_level": "市级"
+        },
+        {
+            "id": 3705,
+            "parent_id": "23",
+            "u_name": "昌江县",
+            "z_level": "市级"
+        },
+        {
+            "id": 3706,
+            "parent_id": "23",
+            "u_name": "白沙县",
+            "z_level": "市级"
+        },
+        {
+            "id": 3707,
+            "parent_id": "23",
+            "u_name": "琼中县",
+            "z_level": "市级"
+        },
+        {
+            "id": 3708,
+            "parent_id": "23",
+            "u_name": "陵水县",
+            "z_level": "市级"
+        },
+        {
+            "id": 3709,
+            "parent_id": "23",
+            "u_name": "保亭县",
+            "z_level": "市级"
+        },
+        {
+            "id": 3710,
+            "parent_id": "23",
+            "u_name": "乐东县",
+            "z_level": "市级"
+        },
+        {
+            "id": 3711,
+            "parent_id": "23",
+            "u_name": "三沙市",
+            "z_level": "市级"
+        }
+    ],
+    "24": [
+        {
+            "id": 2144,
+            "parent_id": "24",
+            "u_name": "贵阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2150,
+            "parent_id": "24",
+            "u_name": "六盘水市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2155,
+            "parent_id": "24",
+            "u_name": "遵义市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2169,
+            "parent_id": "24",
+            "u_name": "铜仁市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2180,
+            "parent_id": "24",
+            "u_name": "毕节市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2189,
+            "parent_id": "24",
+            "u_name": "安顺市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2196,
+            "parent_id": "24",
+            "u_name": "黔西南州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2205,
+            "parent_id": "24",
+            "u_name": "黔东南州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2222,
+            "parent_id": "24",
+            "u_name": "黔南州",
+            "z_level": "市级"
+        }
+    ],
+    "25": [
+        {
+            "id": 2235,
+            "parent_id": "25",
+            "u_name": "昆明市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2247,
+            "parent_id": "25",
+            "u_name": "曲靖市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2258,
+            "parent_id": "25",
+            "u_name": "玉溪市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2270,
+            "parent_id": "25",
+            "u_name": "昭通市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2281,
+            "parent_id": "25",
+            "u_name": "普洱市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2291,
+            "parent_id": "25",
+            "u_name": "临沧市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2298,
+            "parent_id": "25",
+            "u_name": "保山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2304,
+            "parent_id": "25",
+            "u_name": "丽江市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2309,
+            "parent_id": "25",
+            "u_name": "文山州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2318,
+            "parent_id": "25",
+            "u_name": "红河州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2332,
+            "parent_id": "25",
+            "u_name": "西双版纳州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2336,
+            "parent_id": "25",
+            "u_name": "楚雄州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2347,
+            "parent_id": "25",
+            "u_name": "大理州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2360,
+            "parent_id": "25",
+            "u_name": "德宏州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2366,
+            "parent_id": "25",
+            "u_name": "怒江州",
+            "z_level": "市级"
+        },
+        {
+            "id": 4108,
+            "parent_id": "25",
+            "u_name": "迪庆州",
+            "z_level": "市级"
+        }
+    ],
+    "26": [
+        {
+            "id": 2951,
+            "parent_id": "26",
+            "u_name": "拉萨市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3107,
+            "parent_id": "26",
+            "u_name": "那曲地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 3129,
+            "parent_id": "26",
+            "u_name": "山南地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 3138,
+            "parent_id": "26",
+            "u_name": "昌都地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 3144,
+            "parent_id": "26",
+            "u_name": "日喀则地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 3970,
+            "parent_id": "26",
+            "u_name": "阿里地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 3971,
+            "parent_id": "26",
+            "u_name": "林芝地区",
+            "z_level": "市级"
+        }
+    ],
+    "27": [
+        {
+            "id": 2376,
+            "parent_id": "27",
+            "u_name": "西安市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2386,
+            "parent_id": "27",
+            "u_name": "铜川市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2390,
+            "parent_id": "27",
+            "u_name": "宝鸡市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2402,
+            "parent_id": "27",
+            "u_name": "咸阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2416,
+            "parent_id": "27",
+            "u_name": "渭南市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2428,
+            "parent_id": "27",
+            "u_name": "延安市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2442,
+            "parent_id": "27",
+            "u_name": "汉中市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2454,
+            "parent_id": "27",
+            "u_name": "榆林市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2468,
+            "parent_id": "27",
+            "u_name": "商洛市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2476,
+            "parent_id": "27",
+            "u_name": "安康市",
+            "z_level": "市级"
+        }
+    ],
+    "28": [
+        {
+            "id": 2487,
+            "parent_id": "28",
+            "u_name": "兰州市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2492,
+            "parent_id": "28",
+            "u_name": "金昌市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2495,
+            "parent_id": "28",
+            "u_name": "白银市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2501,
+            "parent_id": "28",
+            "u_name": "天水市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2509,
+            "parent_id": "28",
+            "u_name": "嘉峪关市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2518,
+            "parent_id": "28",
+            "u_name": "平凉市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2525,
+            "parent_id": "28",
+            "u_name": "庆阳市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2534,
+            "parent_id": "28",
+            "u_name": "陇南市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2544,
+            "parent_id": "28",
+            "u_name": "武威市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2549,
+            "parent_id": "28",
+            "u_name": "张掖市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2556,
+            "parent_id": "28",
+            "u_name": "酒泉市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2564,
+            "parent_id": "28",
+            "u_name": "甘南州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2573,
+            "parent_id": "28",
+            "u_name": "临夏州",
+            "z_level": "市级"
+        },
+        {
+            "id": 3080,
+            "parent_id": "28",
+            "u_name": "定西市",
+            "z_level": "市级"
+        }
+    ],
+    "29": [
+        {
+            "id": 2580,
+            "parent_id": "29",
+            "u_name": "西宁市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2585,
+            "parent_id": "29",
+            "u_name": "海东地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2592,
+            "parent_id": "29",
+            "u_name": "海北州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2597,
+            "parent_id": "29",
+            "u_name": "黄南州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2603,
+            "parent_id": "29",
+            "u_name": "海南州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2605,
+            "parent_id": "29",
+            "u_name": "果洛州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2612,
+            "parent_id": "29",
+            "u_name": "玉树州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2620,
+            "parent_id": "29",
+            "u_name": "海西州",
+            "z_level": "市级"
+        }
+    ],
+    "30": [
+        {
+            "id": 2628,
+            "parent_id": "30",
+            "u_name": "银川市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2632,
+            "parent_id": "30",
+            "u_name": "石嘴山市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2637,
+            "parent_id": "30",
+            "u_name": "吴忠市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2644,
+            "parent_id": "30",
+            "u_name": "固原市",
+            "z_level": "市级"
+        },
+        {
+            "id": 3071,
+            "parent_id": "30",
+            "u_name": "中卫市",
+            "z_level": "市级"
+        }
+    ],
+    "31": [
+        {
+            "id": 2652,
+            "parent_id": "31",
+            "u_name": "乌鲁木齐市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2654,
+            "parent_id": "31",
+            "u_name": "克拉玛依市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2656,
+            "parent_id": "31",
+            "u_name": "石河子市",
+            "z_level": "市级"
+        },
+        {
+            "id": 2658,
+            "parent_id": "31",
+            "u_name": "吐鲁番地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2662,
+            "parent_id": "31",
+            "u_name": "哈密地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2666,
+            "parent_id": "31",
+            "u_name": "和田地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2675,
+            "parent_id": "31",
+            "u_name": "阿克苏地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2686,
+            "parent_id": "31",
+            "u_name": "喀什地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2699,
+            "parent_id": "31",
+            "u_name": "克孜勒苏州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2704,
+            "parent_id": "31",
+            "u_name": "巴音郭楞州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2714,
+            "parent_id": "31",
+            "u_name": "昌吉州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2723,
+            "parent_id": "31",
+            "u_name": "博尔塔拉州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2727,
+            "parent_id": "31",
+            "u_name": "伊犁州",
+            "z_level": "市级"
+        },
+        {
+            "id": 2736,
+            "parent_id": "31",
+            "u_name": "塔城地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 2744,
+            "parent_id": "31",
+            "u_name": "阿勒泰地区",
+            "z_level": "市级"
+        },
+        {
+            "id": 4110,
+            "parent_id": "31",
+            "u_name": "五家渠市",
+            "z_level": "市级"
+        },
+        {
+            "id": 15945,
+            "parent_id": "31",
+            "u_name": "阿拉尔市",
+            "z_level": "市级"
+        },
+        {
+            "id": 15946,
+            "parent_id": "31",
+            "u_name": "图木舒克市",
+            "z_level": "市级"
+        }
+    ],
+    "32": [
+        {
+            "id": 2768,
+            "parent_id": "32",
+            "u_name": "台湾",
+            "z_level": "市级"
+        }
+    ],
+    "42": [
+        {
+            "id": 2754,
+            "parent_id": "42",
+            "u_name": "香港特别行政区",
+            "z_level": "市级"
+        }
+    ],
+    "43": [
+        {
+            "id": 2770,
+            "parent_id": "43",
+            "u_name": "澳门市",
+            "z_level": "市级"
+        }
+    ],
+    "84": []
+}

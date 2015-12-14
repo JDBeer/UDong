@@ -14,5 +14,6 @@
 @property (nonatomic, strong)UIButton *finishBtn;
 @property (nonatomic, strong)UIButton *countdownBtn;
 @property (nonatomic, strong)UIButton *eyeBtn;
+@property (nonatomic, strong)NSString *phoneNumberString;
 
 @end

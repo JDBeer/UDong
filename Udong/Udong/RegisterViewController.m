@@ -9,7 +9,7 @@
 #import "RegisterViewController.h"
 #import "CountDownCapsulation.h"
 #import "FieldBgView.h"
-
+#import "Tool.h"
 
 
 #define INTERVAL 20
@@ -44,6 +44,13 @@
     self.bgImg.userInteractionEnabled = YES;
     self.bgImg.image = ImageNamed(@"background");
     [self.view addSubview:self.bgImg];
+    
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backBtn.frame = CGRectMake(10, 35, 23, 23);
+    [self.backBtn setBackgroundImage:ImageNamed(@"navbar_icon_back_white") forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(onBtnBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backBtn];
+    
     
     self.logoImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_logo"]];
     self.logoImage.centerX = self.view.centerX;
@@ -131,10 +138,35 @@
 - (void)pushToVerifyCode:(UIButton *)btn
 {
     FinishRegisterViewController *finishRVC = [[FinishRegisterViewController alloc] init];
-    [self sendVerifyCode];
-    [self startTime];
+    finishRVC.phoneNumberString = self.phoneNumberTextField.text;
     
-    [self.navigationController pushViewController:finishRVC animated:YES];
+    NSString *number = [self.phoneNumberTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (![Tool validateMobile:number]) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入正确的手机号码" duration:2];
+        return;
+    }
+    
+    if (self.phoneNumberTextField.text.length == 0) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入手机号码" duration:2];
+    }
+    
+     NSString *key = [StorageManager getSecretKey];
+    [APIServiceManager PhoneRegisterWithSecretKey:key phoneNumber:self.phoneNumberTextField.text completionBlock:^(id responObject) {
+        
+        NSString *flagString = responObject[@"flag"];
+        NSString *message = responObject[@"message"];
+        if ([flagString isEqualToString:@"100100"]) {
+            [self sendVerifyCode];
+        }else{
+            [SVProgressHUD showHUDWithImage:nil status:message duration:1];
+        }
+    } failureBlock:^(NSError *error) {
+        
+        NSLog(@"%@",error);
+    }];
+    
+    
 }
 
 - (void)dissmissKeyBoard:(UITapGestureRecognizer *)tap
@@ -152,7 +184,25 @@
 
 - (void)sendVerifyCode
 {
+    NSString *key = [StorageManager getSecretKey];
     
+    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:-1];
+    [APIServiceManager getVertifyCodeWithSecretKey:key mobileNumber:self.phoneNumberTextField.text completionBlock:^(id responObject) {
+        NSString *flagString = responObject[@"flag"];
+        NSString *message = responObject[@"message"];
+        NSLog(@"%@",responObject);
+        if ([flagString isEqualToString:@"100100"]) {
+            [SVProgressHUD dismiss];
+            [self startTime];
+            FinishRegisterViewController *finishRVC = [[FinishRegisterViewController alloc] init];
+            finishRVC.phoneNumberString = self.phoneNumberTextField.text;
+            [self.navigationController pushViewController:finishRVC animated:YES];
+        }else{
+            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+        }
+    } failureBlock:^(NSError *error) {
+        [SVProgressHUD showHUDWithImage:nil status:@"登录失败" duration:-1];
+    }];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
@@ -202,7 +252,7 @@
 
 - (void)onBtnForget:(id)sender
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 /*

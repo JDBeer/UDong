@@ -22,6 +22,9 @@
 @property (nonatomic, strong) UIButton *passwordTfCleanBtn;
 @property (nonatomic, strong) UIImageView *logRegisterImage;
 @property (nonatomic, strong) UIButton *countDownBtn;
+@property (nonatomic, strong) UIButton *backBtn;
+@property (nonatomic, strong) NSString *phoneNumberString;
+@property (nonatomic, strong) NSMutableDictionary *deviceDictionary;
 
 
 @end

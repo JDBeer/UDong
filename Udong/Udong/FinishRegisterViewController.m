@@ -11,6 +11,8 @@
 #import "ServiceProvisionViewController.h"
 #import "FieldBgView.h"
 #import "CountDownCapsulation.h"
+#import "MasterTabBarViewController.h"
+#import "DeviceHandleManager.h"
 
 #define INTERVAL 20
 #define INTERVAL_MIDDLE 10
@@ -33,6 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configNumber];
+    [self configData];
     [self configView];
    
 }
@@ -48,6 +51,12 @@
     self.bgImage.userInteractionEnabled = YES;
     self.bgImage.image = ImageNamed(@"background");
     [self.view addSubview:self.bgImage];
+    
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backBtn.frame = CGRectMake(10, 35, 23, 23);
+    [self.backBtn setBackgroundImage:ImageNamed(@"navbar_icon_back_white") forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(onBtnBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backBtn];
     
     self.logoImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_logo"]];
     self.logoImage.centerX = self.view.centerX;
@@ -72,7 +81,6 @@
     self.countDownBtn.frame = CGRectMake(self.VertifyCodeTf.right, 0, 60, 20);
     self.countDownBtn.centerY = self.VertifyCodeTf.centerY;
     [self.countDownBtn setBackgroundColor:[UIColor clearColor]];
-//    self.countDownBtn.bounds = CGRectMake(0, 0, 40, 25);
     self.countDownBtn.layer.cornerRadius = 1;
     self.countDownBtn.userInteractionEnabled = NO;
     [self.countDownBtn setTitle:@"" forState:UIControlStateNormal];
@@ -106,8 +114,9 @@
     self.finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.finishBtn.frame = CGRectMake(45, self.passwordTf.bottom+_textFieldInterval,self.view.width-2*45, _buttonHeight);
     [self.finishBtn setBackgroundColor:kColorGrayColor];
-    [self.finishBtn setTitle:@"登陆" forState:UIControlStateNormal];
+    [self.finishBtn setTitle:@"注册" forState:UIControlStateNormal];
     [self.finishBtn setTitleColor:kColorWhiteColor forState:UIControlStateNormal];
+    [self.finishBtn addTarget:self action:@selector(onBtnToHomepage:) forControlEvents:UIControlEventTouchUpInside];
     [self.finishBtn setBackgroundColor:[ColorManager getColor:@"2fbec8" WithAlpha:1]];
     self.finishBtn.titleLabel.font = FONT(17);
     [self.bgImage addSubview:self.finishBtn];
@@ -176,10 +185,73 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)onBtnToHomepage:(id)sender
+{
+    MasterTabBarViewController *mastVC = [[MasterTabBarViewController alloc] init];
+    if (self.VertifyCodeTf.text.length == 0) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入验证码" duration:2];
+        return;
+    }
+    
+    if (self.passwordTf.text.length == 0) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入密码" duration:2];
+        return;
+    }
+    
+    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:-1];
+    [APIServiceManager registerWithSecretKey:[StorageManager getSecretKey] openudid:self.deviceDictionary[OpenUdidKey] deviceOS:self.deviceDictionary[DeviceOSKey] deviceModel:self.deviceDictionary[DcviceModelKey] deviceResolution:self.deviceDictionary[DeviceResolutionKey] deviceVersion:self.deviceDictionary[DeviceVersionKey] userId:[StorageManager getUserId] phoneNumber:self.phoneNumberString password:self.passwordTf.text vertifyCode:self.VertifyCodeTf.text completionBlock:^(id responObject) {
+        
+        NSString *flagString = responObject[@"flag"];
+        NSString *message = responObject[@"message"];
+//        NSLog(@"----%@-----%@----%@",responObject,flagString,message);
+        if ([flagString isEqualToString:@"100100"]) {
+             NSString *IdString= responObject[@"user"][@"id"];
+            [SVProgressHUD dismiss];
+//            注册时清空本地数据，存入最新数据
+            [StorageManager deleteRelatedInfo];
+            [StorageManager saveAccountNumber:self.phoneNumberString];
+            [StorageManager saveUserId:IdString];
+            [StorageManager savepsw:self.passwordTf.text];
+            [self.navigationController pushViewController:mastVC animated:YES];
+        }else
+        {
+            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+        }
+        
+       
+    } failureBlock:^(NSError *error) {
+        
+        [SVProgressHUD showHUDWithImage:nil status:@"注册失败" duration:-1];
+    }];
+    
+    
+}
+
 - (void)pushToProvisionVC:(id)sender
 {
     ServiceProvisionViewController *servicePsVC = [[ServiceProvisionViewController alloc] init];
-    [self.navigationController pushViewController:servicePsVC animated:YES];
+    
+    NSString *key = [StorageManager getSecretKey];
+    
+    [APIServiceManager getProvisionWithSecretKey:key type:@"1" completionBlock:^(id responObject) {
+        NSString *flagString = responObject[@"flag"];
+        NSString *message = responObject[@"message"];
+        if ([flagString isEqualToString:@"100100"]) {
+            [SVProgressHUD dismiss];
+            [self.navigationController pushViewController:servicePsVC animated:YES];
+        }else{
+            
+            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+        }
+       
+    } failureBlock:^(NSError *error) {
+        
+        [SVProgressHUD showHUDWithImage:nil status:@"获取服务条款失败" duration:1.0];
+    }];
+    
+    
+    
+    
 }
 
 - (void)deleteString:(id)sender
@@ -216,6 +288,11 @@
 
 }
 
+- (void)configData
+{
+    self.deviceDictionary = [[NSMutableDictionary alloc] init];
+    self.deviceDictionary = [DeviceHandleManager configureBaseData];
+}
 
 - (void)configNumber
 {

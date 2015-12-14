@@ -1,0 +1,214 @@
+{
+    "province": [
+        {
+            "id": 1,
+            "parent_id": 0,
+            "u_name": "北京",
+            "z_level": "省级"
+        },
+        {
+            "id": 2,
+            "parent_id": 0,
+            "u_name": "上海",
+            "z_level": "省级"
+        },
+        {
+            "id": 3,
+            "parent_id": 0,
+            "u_name": "天津",
+            "z_level": "省级"
+        },
+        {
+            "id": 4,
+            "parent_id": 0,
+            "u_name": "重庆",
+            "z_level": "省级"
+        },
+        {
+            "id": 5,
+            "parent_id": 0,
+            "u_name": "河北",
+            "z_level": "省级"
+        },
+        {
+            "id": 6,
+            "parent_id": 0,
+            "u_name": "山西",
+            "z_level": "省级"
+        },
+        {
+            "id": 7,
+            "parent_id": 0,
+            "u_name": "河南",
+            "z_level": "省级"
+        },
+        {
+            "id": 8,
+            "parent_id": 0,
+            "u_name": "辽宁",
+            "z_level": "省级"
+        },
+        {
+            "id": 9,
+            "parent_id": 0,
+            "u_name": "吉林",
+            "z_level": "省级"
+        },
+        {
+            "id": 10,
+            "parent_id": 0,
+            "u_name": "黑龙江",
+            "z_level": "省级"
+        },
+        {
+            "id": 11,
+            "parent_id": 0,
+            "u_name": "内蒙古",
+            "z_level": "省级"
+        },
+        {
+            "id": 12,
+            "parent_id": 0,
+            "u_name": "江苏",
+            "z_level": "省级"
+        },
+        {
+            "id": 13,
+            "parent_id": 0,
+            "u_name": "山东",
+            "z_level": "省级"
+        },
+        {
+            "id": 14,
+            "parent_id": 0,
+            "u_name": "安徽",
+            "z_level": "省级"
+        },
+        {
+            "id": 15,
+            "parent_id": 0,
+            "u_name": "浙江",
+            "z_level": "省级"
+        },
+        {
+            "id": 16,
+            "parent_id": 0,
+            "u_name": "福建",
+            "z_level": "省级"
+        },
+        {
+            "id": 17,
+            "parent_id": 0,
+            "u_name": "湖北",
+            "z_level": "省级"
+        },
+        {
+            "id": 18,
+            "parent_id": 0,
+            "u_name": "湖南",
+            "z_level": "省级"
+        },
+        {
+            "id": 19,
+            "parent_id": 0,
+            "u_name": "广东",
+            "z_level": "省级"
+        },
+        {
+            "id": 20,
+            "parent_id": 0,
+            "u_name": "广西",
+            "z_level": "省级"
+        },
+        {
+            "id": 21,
+            "parent_id": 0,
+            "u_name": "江西",
+            "z_level": "省级"
+        },
+        {
+            "id": 22,
+            "parent_id": 0,
+            "u_name": "四川",
+            "z_level": "省级"
+        },
+        {
+            "id": 23,
+            "parent_id": 0,
+            "u_name": "海南",
+            "z_level": "省级"
+        },
+        {
+            "id": 24,
+            "parent_id": 0,
+            "u_name": "贵州",
+            "z_level": "省级"
+        },
+        {
+            "id": 25,
+            "parent_id": 0,
+            "u_name": "云南",
+            "z_level": "省级"
+        },
+        {
+            "id": 26,
+            "parent_id": 0,
+            "u_name": "西藏",
+            "z_level": "省级"
+        },
+        {
+            "id": 27,
+            "parent_id": 0,
+            "u_name": "陕西",
+            "z_level": "省级"
+        },
+        {
+            "id": 28,
+            "parent_id": 0,
+            "u_name": "甘肃",
+            "z_level": "省级"
+        },
+        {
+            "id": 29,
+            "parent_id": 0,
+            "u_name": "青海",
+            "z_level": "省级"
+        },
+        {
+            "id": 30,
+            "parent_id": 0,
+            "u_name": "宁夏",
+            "z_level": "省级"
+        },
+        {
+            "id": 31,
+            "parent_id": 0,
+            "u_name": "新疆",
+            "z_level": "省级"
+        },
+        {
+            "id": 32,
+            "parent_id": 0,
+            "u_name": "台湾",
+            "z_level": "省级"
+        },
+        {
+            "id": 42,
+            "parent_id": 0,
+            "u_name": "香港",
+            "z_level": "省级"
+        },
+        {
+            "id": 43,
+            "parent_id": 0,
+            "u_name": "澳门",
+            "z_level": "省级"
+        },
+        {
+            "id": 84,
+            "parent_id": 0,
+            "u_name": "钓鱼岛",
+            "z_level": "省级"
+        }
+    ]
+}

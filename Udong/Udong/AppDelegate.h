@@ -11,7 +11,13 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (nonatomic, strong) NSString *secretString;
+@property (nonatomic, strong) NSString *deviceisn;
+@property (nonatomic, strong) NSString *deviceOS;
+@property (nonatomic, strong) NSString *deviceModel;
+@property (nonatomic, strong) NSString *deviceResolution;
+@property (nonatomic, strong) NSString *deviceVersion;
+@property (nonatomic, strong) NSString *userid;
 
 @end
 

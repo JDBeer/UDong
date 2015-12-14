@@ -21,5 +21,8 @@
 @property (nonatomic, strong) UIButton *accountTfCleanBtn;
 @property (nonatomic, strong) UIImageView *eyeImg;
 @property (nonatomic, strong) UIButton *passwordTfCleanBtn;
-@property (nonatomic, strong) UIImageView *logRegisterImage;
+@property (nonatomic, strong) UIButton *logRegisterbtn;
+@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) NSMutableDictionary *deviceDictionary;
+
 @end

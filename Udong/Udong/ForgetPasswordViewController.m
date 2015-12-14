@@ -8,9 +8,11 @@
 
 #import "ForgetPasswordViewController.h"
 #import "ResetPasswordViewController.h"
+#import "LoginViewController.h"
 #import "YYTextField.h"
 #import "FieldBgView.h"
 #import "CountDownCapsulation.h"
+#import "Tool.h"
 
 @interface ForgetPasswordViewController ()
 
@@ -25,7 +27,8 @@
 
 - (void)congfigView
 {
-//    self.navigationController.navigationBar.tintColor = kColorWhiteColor;
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.navigationBar.barTintColor = kColorWhiteColor;
     [self configBackItem];
     self.view.backgroundColor = kColorWhiteColor;
     self.navigationItem.title = @"忘记密码";
@@ -46,30 +49,55 @@
     [self.getVertifyBtn setTitleColor:kColorWhiteColor forState:UIControlStateNormal];
     [self.getVertifyBtn addTarget:self action:@selector(onbtnNext:) forControlEvents:UIControlEventTouchUpInside];
     [self.getVertifyBtn setBackgroundColor:kColorBtnColor];
-    self.getVertifyBtn.titleLabel.font = FONT(13);
+    self.getVertifyBtn.titleLabel.font = FONT(15);
     [self.view addSubview:self.getVertifyBtn];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dissmissKeyBoard:)];
     [self.view addGestureRecognizer:tap];
 }
 
-- (void)onBtnBack:(UIBarButtonItem *)Item
-{
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
 - (void)onbtnNext:(id)sender
 {
-    [self sendVerifyCode];
-    [self startTime];
+   
     
-    ResetPasswordViewController *ResetVC = [[ResetPasswordViewController alloc] init];
-    [self.navigationController pushViewController:ResetVC animated:YES];
+    NSString *number = [self.phoneTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    if (![Tool validateMobile:number]) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入正确的手机号码" duration:2];
+        return;
+    }
+    
+    if (self.phoneTf.text.length == 0) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入手机号码" duration:2];
+        return;
+    }
+    
+    [self sendVerifyCode];
+    
+    
 }
 
 - (void)sendVerifyCode
 {
-    
+    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:1];
+    [APIServiceManager getVertifyCodeWithSecretKey:[StorageManager getSecretKey] mobileNumber:self.phoneTf.text completionBlock:^(id responObject) {
+        NSString *flagString = responObject[@"flag"];
+        NSString *message = responObject[@"message"];
+        if ([flagString isEqualToString:@"100100"]) {
+            [SVProgressHUD dismiss];
+            [self startTime];
+            ResetPasswordViewController *ressetVC = [[ResetPasswordViewController alloc] init];
+            ressetVC.phoneNumberString = self.phoneTf.text;
+            [self.navigationController pushViewController:ressetVC animated:YES];
+        }else{
+            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+        [SVProgressHUD showHUDWithImage:nil status:@"获取验证码失败" duration:-1];
+    }];
+
 }
 
 - (void)dissmissKeyBoard:(UITapGestureRecognizer *)tap
@@ -93,6 +121,20 @@
     [btn addTarget:self action:@selector(onBtnBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
 }
+
+- (void)onBtnBack:(UIBarButtonItem *)Item
+{
+    NSArray *viewControllers = [[self navigationController] viewControllers];
+    for(int i = 0; i < [viewControllers count]; i++){
+        id obj = [viewControllers objectAtIndex:i];
+        if([obj isKindOfClass:[LoginViewController class]]){
+            [[self navigationController] popToViewController:obj animated:YES];
+            break;
+        }
+    }
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

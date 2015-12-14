@@ -107,3 +107,29 @@ TabNavigationItem.rightBarButtonItem = nil; \
 #define HEIGHT_FOOTER 15
 #define HEIGHT_PROGRESS 10
 
+
+#define AccountNumberKey @"AccountNumberKey"
+#define PasswordKey @"PasswordKey"
+#define OpenUdidKey @"OpenUdidKey"
+#define UserIdKey @"UserIdKey"
+#define DeviceOSKey @"DeviceOSKey"
+#define DcviceModelKey @"DcviceModelKey"
+#define DeviceResolutionKey @"DeviceResolutionKey"
+#define DeviceVersionKey @"DeviceVersionKey"
+#define DeviceAPPVersionKey @"DeviceAPPVersionKey"
+#define VertifyCodeKey @"VertifyCodeKey"
+#define SecretKKey @"SecretKKey"
+#define OriginSecretKey @"emhhbmdwcA=="
+#define SexKey @"SexKey"
+#define AgeKey @"AgeKey"
+#define HeightKey @"HeightKey"
+#define WeightKey @"WeightKey"
+
+// dictionary key
+#define headImageKey @"headImageKey"
+#define titleLabelKey @"titleLabelKey"
+#define RedPointkey @"RedPointkey"
+#define UpdateKey @"UpdateKey"
+
+
+

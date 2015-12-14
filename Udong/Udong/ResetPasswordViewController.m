@@ -8,9 +8,12 @@
 
 #import "ResetPasswordViewController.h"
 #import "ForgetPasswordViewController.h"
+#import "MasterTabBarViewController.h"
 #import "YYTextField.h"
 #import "FieldBgView.h"
+#import "Tool.h"
 #import "CountDownCapsulation.h"
+#import "LoginViewController.h"
 
 @interface ResetPasswordViewController ()
 
@@ -33,7 +36,7 @@
     self.view.backgroundColor = kColorWhiteColor;
     [self configBackItem];
     
-    self.vertifyCodeTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 70, SCREEN_WIDTH-100, 50) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_code_blue"]] inset:45];
+    self.vertifyCodeTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 70, SCREEN_WIDTH-105, 50) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_code_blue"]] inset:45];
     self.vertifyCodeTf.placeholder = @"您收到的短信验证码";
     [self.vertifyCodeTf setValue:FONT(15) forKeyPath:@"_placeholderLabel.font"];
     self.vertifyCodeTf.keyboardType = UIKeyboardTypeNumberPad;
@@ -66,7 +69,7 @@
     
     
     
-    FieldBgView *bgView = [[FieldBgView alloc] initWithFrame:self.vertifyCodeTf.frame inset:45 count:2];
+    FieldBgView *bgView = [[FieldBgView alloc] initWithFrame:CGRectMake(_vertifyCodeTf.left, _vertifyCodeTf.top, _vertifyCodeTf.width+_countdownBtn.width, _vertifyCodeTf.height*2) inset:45 count:2];
     [self.view insertSubview:bgView belowSubview:self.vertifyCodeTf];
     
     self.finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -120,7 +123,37 @@
 
 - (void)finish:(id)sender
 {
-    NSLog(@"重置成功");
+    
+    if (self.vertifyCodeTf.text.length == 0) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入验证码" duration:2];
+        return;
+    }
+    
+    if (self.phoneNumberTf.text.length == 0) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入重置密码" duration:2];
+        return;
+        
+    }
+    
+    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:-1];
+    [APIServiceManager ForgetPassWordWithSecretKey:[StorageManager getSecretKey] phoneNumber:self.phoneNumberString status:@"1" code:@"500" vertifyCode:self.vertifyCodeTf.text password:self.phoneNumberTf.text completionBlock:^(id responObject) {
+        NSLog(@"%@--%@",self.phoneNumberString,responObject);
+        NSString *flagString = responObject[@"flag"];
+        NSString *message = responObject[@"message"];
+        if ([flagString isEqualToString:@"100100"]) {
+            [SVProgressHUD showHUDWithImage:nil status:@"修改成功" duration:1];
+            [StorageManager deleteRelatedInfo];
+            LoginViewController *LoginVC = [[LoginViewController alloc] init];
+            [self.navigationController pushViewController:LoginVC animated:YES];
+        }else{
+            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+        }
+        
+    } failureBlock:^(NSError *error) {
+        
+        [SVProgressHUD showHUDWithImage:nil status:@"修改密码失败" duration:-1];
+    }];
+
 }
 
 - (void)onBtnBack:(id)sender
@@ -131,6 +164,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dissmissKeyBoard:(UITapGestureRecognizer *)tap
+{
+    [self.view endEditing:YES];
 }
 
 /*

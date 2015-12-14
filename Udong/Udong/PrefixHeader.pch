@@ -8,10 +8,16 @@
 
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
+      #import <UIKit/UIKit.h>
+      #import <Foundation/Foundation.h>
+
 
       #import "AppMacroDefinition.h"
       #import "UIView+Utils.h"
       #import "ColorConstants.h"
       #import "ColorManager.h"
-
+      #import "APIConstants.h"
+      #import "SVProgressHUD.h"
+      #import "APIServiceManager.h"
+      #import "StorageManager.h"
 #endif
