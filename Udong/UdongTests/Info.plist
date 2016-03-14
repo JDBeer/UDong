@@ -20,5 +20,11 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+    
+    <string>sinaweibohd</string>
+    <string>sinaweibo</string>
+    <string>sinaweibosso</string>
+    <string>weibosdk</string>
+    <string>weibosdk2.5</string>
 </dict>
 </plist>

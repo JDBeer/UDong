@@ -33,9 +33,11 @@
 
 - (void)configView
 {
+    self.view.backgroundColor = kColorWhiteColor;
+    
     UIImageView *logoImage = [[UIImageView alloc] initWithImage:ImageNamed(@"about_logo")];
     logoImage.centerX = self.view.centerX;
-    logoImage.top = self.view.top+100;
+    logoImage.top = self.view.top+56;
     [self.view addSubview:logoImage];
     
     UILabel *logolabel = [[UILabel alloc] init];
@@ -53,7 +55,7 @@
     anotherLabel.font = FONT(14);
     [anotherLabel sizeToFit];
     anotherLabel.centerX = self.view.centerX;
-    anotherLabel.bottom = self.view.bottom-30;
+    anotherLabel.bottom = self.view.bottom-80;
     [self.view addSubview:anotherLabel];
     
 

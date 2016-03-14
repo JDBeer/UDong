@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#define DidFinishedChangeNickNameNotification @"DidFinishedChangeNickNameNotification"
 
-@interface EditNameView : UIView
+@interface EditNameView : UIView<UITextFieldDelegate>
 @property (nonatomic, strong)UIButton *bg;
 @property (nonatomic, strong)UIScrollView *scrollview;
 @property (nonatomic, strong)UIView *containerView;

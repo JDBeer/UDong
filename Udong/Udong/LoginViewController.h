@@ -24,5 +24,6 @@
 @property (nonatomic, strong) UIButton *logRegisterbtn;
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) NSMutableDictionary *deviceDictionary;
+@property (nonatomic, strong) UIButton *backBtn;
 
 @end

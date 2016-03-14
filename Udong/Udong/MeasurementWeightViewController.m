@@ -23,6 +23,7 @@
 @property (nonatomic, assign) double interval7;
 @property (nonatomic, assign) double imageHeight;
 @property (nonatomic, assign) double buttonHeight;
+@property (nonatomic, assign) double beginInter;
 
 @property (nonatomic, assign) NSInteger weight;
 @end
@@ -38,31 +39,38 @@
 
 - (void)configView
 {
+    
     self.view.backgroundColor = kColorWhiteColor;
-    self.stepImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.left+30, self.interval1, self.view.right-2*30, 25)];
+    self.stepImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.left+30, self.interval1+25, self.view.right-2*30, 25)];
     self.stepImageView.image = ImageNamed(@"progress-bar_4");
     [self.view addSubview:self.stepImageView];
     
     
-    CGSize Size1 = [@"根据你的资料计算基础代谢和运动时间" sizeWithAttributes:@{NSFontAttributeName:FONT(17)}];
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backBtn.frame = CGRectMake(10, 35, 23, 23);
+    [self.backBtn setBackgroundImage:ImageNamed(@"navbar_icon_back") forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(OnBtnBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backBtn];
+    
+    
+    CGSize Size1 = [@"无须日行万步" sizeWithAttributes:@{NSFontAttributeName:FONT(17)}];
     self.label1 = [[UILabel alloc] init];
-    self.label1.text = @"根据你的资料计算基础代谢和运动时间";
+    self.label1.text = @"无须日行万步";
     self.label1.font = FONT(17);
-    self.label1.textColor = UIColorFromHexWithAlpha(0x666666,1);
+    self.label1.textColor = kColorBlackColor;
     self.label1.top = self.stepImageView.bottom+_interval2;
     self.label1.width = Size1.width;
     self.label1.height = Size1.height;
     self.label1.centerX = self.stepImageView.centerX;
     [self.view addSubview:self.label1];
     
-    CGSize size2 = [@"就此饿几个人估计过后饿回国后软件感" sizeWithAttributes:@{NSFontAttributeName:FONT(14)}];
+    CGSize size2 = [@"完成有效运动目标就能促进健康" sizeWithAttributes:@{NSFontAttributeName:FONT(17)}];
     self.label2 = [[UILabel alloc]initWithFrame:CGRectMake(self.label1.centerX, self.label1.bottom+_interval3, size2.width, size2.height)];
-    self.label2.centerX =
     self.label2.numberOfLines = 0;
     self.label2.lineBreakMode = NSLineBreakByWordWrapping;
-    self.label2.text = @"就此饿几个人估计过后饿回国后软件感缔呢个窦娥火锅窦娥九宫格当然更尴尬";
-    self.label2.font =  FONT(14);
-    self.label2.textColor = UIColorFromHexWithAlpha(0x999999,1);
+    self.label2.text = @"完成有效运动目标就能促进健康";
+    self.label2.font =  FONT(17);
+    self.label2.textColor = kColorBlackColor;
     CGSize size = [self.label2 sizeThatFits:CGSizeMake(self.label2.frame.size.width, MAXFLOAT)];
     self.label2.frame =CGRectMake(self.label1.centerX-(self.label2.width)/2, self.label1.bottom+_interval3, size2.width, size.height);
     
@@ -70,7 +78,7 @@
     
     
     self.numberLabel = [[UILabel alloc] init];
-    self.numberLabel.top = self.label2.bottom+_interval4;
+    self.numberLabel.top = self.label2.bottom+_interval4-25;
     self.numberLabel.width = 50;
     self.numberLabel.height = 40;
     self.numberLabel.centerX = self.view.centerX;
@@ -79,7 +87,7 @@
     [self.view addSubview:self.numberLabel];
     
     self.hidenLabel = [[UILabel alloc] init];
-    self.hidenLabel.top = self.label2.bottom+_interval4;
+    self.hidenLabel.top = self.label2.bottom+_interval4-25;
     self.hidenLabel.width = 50;
     self.hidenLabel.height = 40;
     self.hidenLabel.text = @"50";
@@ -128,31 +136,34 @@
     [self.scrollView addSubview:rulerView];
     [self.view addSubview:self.scrollView];
     
+    self.scrollView.contentOffset = CGPointMake(15*RuleAgeInterval+SCREEN_WIDTH/2+_beginInter,0);
+    
     self.leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.leftBtn.width = 140;
     self.leftBtn.height = _buttonHeight;
-    self.leftBtn.right = self.view.centerX-5;
+    self.leftBtn.right = self.view.centerX-20;
     self.leftBtn.bottom = self.view.bottom-_interval7;
     [self.leftBtn setTitle:@"上一步" forState:UIControlStateNormal];
     [self.leftBtn setTitleColor:kColorBtnColor forState:UIControlStateNormal];
     [self.leftBtn addTarget:self action:@selector(OnBtnBack:) forControlEvents:UIControlEventTouchUpInside];
-    self.leftBtn.layer.borderWidth = 1;
+    self.leftBtn.layer.borderWidth = 0.5;
     self.leftBtn.layer.borderColor = kColorBtnColor.CGColor;
-    self.leftBtn.layer.cornerRadius = 7;
+    self.leftBtn.layer.cornerRadius = self.leftBtn.height/2;
     self.leftBtn.layer.masksToBounds = YES;
     [self.view addSubview:self.leftBtn];
     
     self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.rightBtn.width = 140;
     self.rightBtn.height = _buttonHeight;
-    self.rightBtn.left = self.view.centerX+5;
+    self.rightBtn.left = self.view.centerX+20;
     self.rightBtn.bottom = self.leftBtn.bottom;
     [self.rightBtn setTitle:@"完成" forState:UIControlStateNormal];
     [self.rightBtn setTitleColor:kColorBtnColor forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(OnBtnToNext:) forControlEvents:UIControlEventTouchUpInside];
-    self.rightBtn.layer.borderWidth = 1;
+    
+    self.rightBtn.layer.borderWidth = 0.5;
     self.rightBtn.layer.borderColor = kColorBtnColor.CGColor;
-    self.rightBtn.layer.cornerRadius = 7;
+    self.rightBtn.layer.cornerRadius = self.rightBtn.height/2;
     self.rightBtn.layer.masksToBounds = YES;
     [self.view addSubview:self.rightBtn];
     
@@ -176,23 +187,48 @@
 
 - (void)OnBtnToNext:(id)sender
 {
-    NSString *weightString = [NSString stringWithFormat:@"%ld",_weight];
-    [StorageManager saveWeight:weightString];
+    [[self class] cancelPreviousPerformRequestsWithTarget:self selector:@selector(todoSomething:) object:sender];
+    [self performSelector:@selector(todoSomething:) withObject:sender afterDelay:0.3];
+    
+}
+
+- (void)todoSomething:(id)sender
+{
+    if (self.scrollView.contentOffset.x == 0) {
+        [StorageManager saveWeight:@"50"];
+    }else
+    {
+        if (_weight == 0) {
+            [StorageManager saveWeight:@"50"];
+        }else
+        {
+            NSString *weightString = [NSString stringWithFormat:@"%ld",_weight];
+            [StorageManager saveWeight:weightString];
+        }
+    }
+    
+    [SVProgressHUD showProgressWithStatus:@"请稍候" duration:-1];
     
     [APIServiceManager getEvaluationResultWithKey:[StorageManager getSecretKey] idString:[StorageManager getUserId] sexString:[StorageManager getSex] ageString:[StorageManager getAge] heightString:[StorageManager getHeight] weightString:[StorageManager getWeight] completionBlock:^(id responObject) {
-        NSLog(@"******%@",[StorageManager getUserId]);
-        EvaluationResultViewController *EvaluationVC= [[EvaluationResultViewController alloc] init];
-        EvaluationVC.pointLabelNumber = responObject[@"eResult"][@"eev"];
-        EvaluationVC.descriptionString = responObject[@"eResult"][@"methodDesc"];
-
-        [self.navigationController pushViewController:EvaluationVC animated:YES];
         
+        if ([responObject[@"flag"] isEqualToString:@"100100"]) {
+            
+            [SVProgressHUD dismiss];
+            EvaluationResultViewController *EvaluationVC= [[EvaluationResultViewController alloc] init];
+            EvaluationVC.pointLabelNumber = responObject[@"eResult"][@"eev"];
+            
+            NSString *eevString = [NSString stringWithFormat:@"%@",responObject[@"eResult"][@"eev"]];
+            [StorageManager saveEffectivepoint:eevString];
+            
+            EvaluationVC.descriptionString = responObject[@"eResult"][@"methodDesc"];
+            [self.navigationController pushViewController:EvaluationVC animated:YES];
+            
+        }
         
     } failureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    
-    
+
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -300,6 +336,7 @@
         _interval7 = 72*_scale;
         _imageHeight = 88*_scale;
         _buttonHeight = 45*_scale;
+        _beginInter = 105;
     }else if (IS_IPHONE_6){
         _scale = 1;
         _interval1 = 58;
@@ -322,6 +359,7 @@
         _interval7 = 72*_scale;
         _imageHeight = 88*_scale;
         _buttonHeight = 45*_scale;
+        _beginInter = 11;
     }
     
 }

@@ -41,7 +41,12 @@
 
 - (void)configView
 {
-//    NSLog(@"11");
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DidchangeNickNameSuccess:) name:DidFinishedChangeNickNameNotification object:nil];
+    
+    
+    self.view.backgroundColor = kColorWhiteColor;
+
     self.AccountTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 250) style:UITableViewStylePlain];
     self.AccountTableView.delegate = self;
     self.AccountTableView.dataSource = self;
@@ -50,13 +55,15 @@
     [self.AccountTableView registerNib:[UINib nibWithNibName:@"HeadImageCell" bundle:nil] forCellReuseIdentifier:Identifier_accountMangerHeadCell];
     [self.AccountTableView registerNib:[UINib nibWithNibName:@"HeadLabelCell" bundle:nil] forCellReuseIdentifier:Identifier_accountMangerLabelCell];
     [self.view addSubview:self.AccountTableView];
+    
+
 }
 
 - (void)conFigData
 {
     
-    [APIServiceManager GetAccountMessageWithKey:[StorageManager getSecretKey] idString:[StorageManager getUserId] phoneNumber:[StorageManager getAccountNumber] status:@"1" completionBlock:^(id responObject) {
-        NSLog(@"%@",responObject);
+    [APIServiceManager GetAccountMessageWithKey:[StorageManager getSecretKey] idString:[StorageManager getUserId] status:@"1" completionBlock:^(id responObject) {
+    
         self.detailArray = [[NSMutableArray alloc]init];
         id aa = responObject[@"result"][@"url"];
         id bb = responObject[@"result"][@"nick_name"];
@@ -68,6 +75,9 @@
         }else{
             NSString *urlString = responObject[@"result"][@"url"];
             UIImage *Image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Picture_Url,urlString]]]];
+            if (Image == nil) {
+                Image = ImageNamed(@"avatar_gender_boy");
+            }
             [self.detailArray addObject:Image];
         }
 
@@ -109,8 +119,16 @@
 
 - (void)configNav
 {
-    self.navigationItem.title = @"帐号管理";
+    self.navigationController.navigationBar.shadowImage = nil;
     
+    self.navigationItem.title = @"帐号管理";
+    self.navigationController.navigationBar.titleTextAttributes = @{
+                                                                    NSFontAttributeName : FONT(18),
+                                                                    
+                                                                    UITextAttributeTextColor : kColorBlackColor,
+                                                                    UITextAttributeTextShadowColor : kColorClearColor,
+                                                                    };
+
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setFrame:CGRectMake(0, 0, 20, 20)];
     [btn setBackgroundImage:ImageNamed(@"navbar_icon_back") forState:UIControlStateNormal];
@@ -165,36 +183,19 @@
     }
     
     if (indexPath.row == 1) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"编辑昵称" message:nil preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-            textField.placeholder = @"2~8个字符";
-            [textField setValue:UIColorFromHexWithAlpha(0xe6e6e6, 1) forKeyPath:@"_placeholderLabel.textColor"];
-            textField.backgroundColor =  UIColorFromHex(0xffffff);
-            textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(alertTextFieldDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
         
-        }];
+        EditNameView *view = [[EditNameView alloc] initWithFrame:CGRectMake(0, -64, SCREEN_WIDTH, SCREEN_HEIGHT) andContainerView:[[UIView alloc] init]];
+        [view show];
+        [self.view addSubview:view];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-        
-        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            [APIServiceManager ModifiyAccountNickNameWithKey:[StorageManager getSecretKey] phoneNumber:[StorageManager getAccountNumber] status:@"1" nickName:self.nickNameString idString:[StorageManager getUserId] ProvinceId:@"0" ProvinceName:@"0" cityId:@"0" cityName:@"0" headImageUrl:@"0" create:@"0" update:@"0" note:@"0"  completionBlock:^(id responObject) {
-                [self conFigData];
-            } failureBlock:^(NSError *error) {
-                NSLog(@"%@",error);
-            }];
-            
-        }]];
+        [self conFigData];
 
-        [self presentViewController:alertController animated:true completion:nil];
     }
     
     if (indexPath.row == 2) {
         
         id filepathProvince = [[NSBundle mainBundle] pathForResource:@"province" ofType:@"txt"];
         NSString *homeDir = NSHomeDirectory();
-        NSLog(@"***%@",homeDir);
         NSString *strProvince = [[NSString alloc] initWithContentsOfFile:filepathProvince encoding:NSUTF8StringEncoding error:nil];
         NSData *dataProvince = [strProvince dataUsingEncoding:NSUTF8StringEncoding];
         NSDictionary *dicProvince = [NSJSONSerialization JSONObjectWithData:dataProvince options:NSJSONReadingMutableContainers error:nil];
@@ -210,7 +211,7 @@
         self.cityDictionary = dicCity;
         
         
-        self.contentView = [[UIView alloc] initWithFrame:self.view.frame];
+        self.contentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         self.contentView.backgroundColor = kColorBlackColor;
         self.contentView.alpha = 0.6;
         
@@ -284,7 +285,7 @@
             UIImagePickerController *pickController = [[UIImagePickerController alloc]init];
             
             pickController.delegate = self;
-            
+            pickController.allowsEditing = YES;
             [self presentViewController:pickController animated:YES
                              completion:nil];
             
@@ -293,15 +294,28 @@
         // 取消
         return;
     }
+    
+    [self getMediaFromSource:sourceType];
 
 }
 
-#pragma mark - UIAlertView Notification
-
-- (void)alertTextFieldDidChange:(NSNotification *)notification
+- (void)getMediaFromSource:(UIImagePickerControllerSourceType)sourceType
 {
-    UITextField *object = notification.object;
-    self.nickNameString = object.text;
+    NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:sourceType];
+    
+    if ([UIImagePickerController isSourceTypeAvailable:sourceType] && [mediaTypes count] > 0) {
+        
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        picker.sourceType = sourceType;
+//        picker.mediaTypes = [NSArray arrayWithObjects:(NSString *)kUTTypeImage, nil];
+        [self presentViewController:picker animated:YES completion:nil];
+        
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error accessing media" message:@"Device doesn't support that media source" delegate:nil cancelButtonTitle:@"Drat!" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 #pragma mark - UIPickView Datasource And Delegate
@@ -350,23 +364,6 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo
 {
-//    NSData *data;
-//    if (UIImagePNGRepresentation(image) == nil) {
-//        
-//        data = UIImageJPEGRepresentation(image, 0.5);
-//        NSLog(@"1");
-//        
-//    } else {
-//        
-//        data = UIImagePNGRepresentation(image);
-//        NSLog(@"2");
-//       
-//    }
-//    
-//    
-//    NSString *imagString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//    NSLog(@"%@",data);
-    
     NSData *data = [self resetSizeOfImageData:image maxSize:10];
     
     NSString *sting = [GTMBase64 stringByEncodingData:data];
@@ -375,6 +372,8 @@
         
         if ([responObject[@"flag"] isEqualToString:@"100100"]) {
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:didChangeHeadImageSuccess object:responObject[@"httpUrl"]];
+            
             [picker dismissViewControllerAnimated:YES completion:nil];
         }
         
@@ -382,6 +381,11 @@
         NSLog(@"%@",error);
     }];
     
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSData *)resetSizeOfImageData:(UIImage *)source_image maxSize:(NSInteger)maxSize
@@ -417,6 +421,13 @@
    
 }
 
+#pragma mark - DidFinishedChangeNickNameNotification,修改昵称成功
+
+- (void)DidchangeNickNameSuccess:(NSNotification *)notification
+{
+    [self conFigData];
+}
+
 - (void)onBtnBack:(id)sender
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -426,6 +437,7 @@
     [super didReceiveMemoryWarning];
     
 }
+
 
 - (void)cancelBtn:(UIButton *)btn
 {
@@ -439,10 +451,18 @@
     NSString *provinceId = self.provinceArray[currentselectedRow][@"id"];
     NSString *provinceName = self.provinceArray[currentselectedRow][@"u_name"];
     NSArray *selectedCityArray = self.cityDictionary[[NSString stringWithFormat:@"%@",provinceId]];
-    NSString *cityId = selectedCityArray[currentselectedRowInComponentOne][@"id"];
-    NSString *cityName = selectedCityArray[currentselectedRowInComponentOne][@"u_name"];
     
-    [APIServiceManager ModifiyAccountLocationWithKey:[StorageManager getSecretKey] phoneNumber:[StorageManager getAccountNumber] status:@"1" nickName:@"0" idString:[StorageManager getUserId] ProvinceId:provinceId ProvinceName:provinceName cityId:cityId cityName:cityName headImageUrl:@"0" create:@"0" update:@"0" note:@"0" completionBlock:^(id responObject) {
+    if (selectedCityArray.count == 0) {
+         self.cityId = @"0";
+         self.cityName = @"0";
+    }else{
+        self.cityId = selectedCityArray[currentselectedRowInComponentOne][@"id"];
+        self.cityName = selectedCityArray[currentselectedRowInComponentOne][@"u_name"];
+    }
+    
+    NSLog(@"%@",[StorageManager getAccountNumber]);
+    
+    [APIServiceManager ModifiyAccountLocationWithKey:[StorageManager getSecretKey] phoneNumber:[StorageManager getAccountNumber] status:@"1" nickName:@"0" idString:[StorageManager getUserId] ProvinceId:provinceId ProvinceName:provinceName cityId:self.cityId cityName:self.cityName headImageUrl:@"0" create:@"0" update:@"0" note:@"0" completionBlock:^(id responObject) {
         if ([responObject[@"flag"] isEqualToString:@"100100"]) {
             self.contentView.hidden = YES;
             [self conFigData];
@@ -451,6 +471,8 @@
         NSLog(@"%@",error);
     }];
 }
+
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

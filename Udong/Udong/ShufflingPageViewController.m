@@ -100,7 +100,7 @@
         
         if ([responObject[@"flag"] isEqualToString:@"100100"]) {
             NSString *idString = responObject[@"baseUserIdKey"];
-            NSLog(@"%@",responObject);
+            
             [StorageManager saveUserId:idString];
             
             MeasuremenViewController *measurementVC = [[MeasuremenViewController alloc] init];

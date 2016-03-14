@@ -47,6 +47,13 @@
 }
 
 
+//rightView的位置
+- (CGRect)rightViewRectForBounds:(CGRect)bounds
+{
+    return [super rightViewRectForBounds:UIEdgeInsetsInsetRect(bounds, UIEdgeInsetsMake(0, 0, 0, 0))];
+}
+
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

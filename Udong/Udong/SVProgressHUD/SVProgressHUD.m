@@ -145,7 +145,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 
 + (void)showHUDWithImage:(UIImage *)image status:(NSString *)string duration:(NSTimeInterval)duration maskType:(SVProgressHUDMaskType)hudMaskType
 {
-    [self setBackgroundColor:[UIColor blackColor]];
+    [self setBackgroundColor:[UIColor grayColor]];
     [self setForegroundColor:[UIColor whiteColor]];
     [[self sharedView] showImage:image status:string duration:duration maskType:hudMaskType];
 }
@@ -157,7 +157,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 
 + (void)showProgressWithStatus:(NSString *)string duration:(NSTimeInterval)duration maskType:(SVProgressHUDMaskType)hudMaskType
 {
-    [self setBackgroundColor:[UIColor blackColor]];
+    [self setBackgroundColor:[UIColor grayColor]];
     [self setForegroundColor:[UIColor whiteColor]];
     [[self sharedView] showProgress:SVProgressHUDUndefinedProgress status:string maskType:hudMaskType];
     if (duration != -1) {
@@ -168,7 +168,7 @@ static const CGFloat SVProgressHUDUndefinedProgress = -1;
 
 + (void)showProgress
 {
-    [self setBackgroundColor:[UIColor blackColor]];
+    [self setBackgroundColor:[UIColor grayColor]];
     [self setForegroundColor:[UIColor whiteColor]];
     [[self sharedView] showProgress:SVProgressHUDUndefinedProgress status:nil maskType:SVProgressHUDMaskTypeClear];
 }

@@ -11,10 +11,11 @@
 @implementation OtherBubbleCell
 
 - (void)awakeFromNib {
-    self.OtherHeadImageView.layer.cornerRadius = 20;
+    self.OtherHeadImageView.layer.cornerRadius = 17;
     self.OtherHeadImageView.layer.masksToBounds = YES;
     
-    self.OtherBacngroundImageView.image = [[UIImage imageNamed:@"speech_bubble_blue_gray"] stretchableImageWithLeftCapWidth:25 topCapHeight:21];
+    self.OtherBacngroundImageView.image = [[UIImage imageNamed:@"message_left_bg_pressed.9"] stretchableImageWithLeftCapWidth:40 topCapHeight:30];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

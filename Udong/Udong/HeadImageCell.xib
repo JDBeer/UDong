@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -22,7 +22,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jn3-Ea-Dik">
-                        <rect key="frame" x="13" y="10" width="98" height="24"/>
+                        <rect key="frame" x="20" y="10" width="98" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="24" id="jAo-GI-7dk"/>
                             <constraint firstAttribute="width" constant="98" id="z3L-WN-B2h"/>
@@ -34,7 +34,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="haR-f0-njK" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="NYU-sw-tRK"/>
-                    <constraint firstItem="jn3-Ea-Dik" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="dSX-vW-VY8"/>
+                    <constraint firstItem="jn3-Ea-Dik" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="dSX-vW-VY8"/>
                     <constraint firstAttribute="trailing" secondItem="haR-f0-njK" secondAttribute="trailing" constant="18" id="lmU-OZ-qpH"/>
                     <constraint firstItem="jn3-Ea-Dik" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="pjX-5z-tZo"/>
                 </constraints>

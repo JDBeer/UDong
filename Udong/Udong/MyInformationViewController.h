@@ -10,7 +10,9 @@
 
 @interface MyInformationViewController : UIViewController
 @property (nonatomic, strong)UITableView *tableView;
-@property (nonatomic, strong)NSMutableArray *imageArray;
-@property (nonatomic, strong)NSArray *titleArray;
+@property (nonatomic, strong)NSMutableArray *DataArray;
+@property (nonatomic, strong)NSString *timeString;
+@property (nonatomic, assign)NSInteger tag;
+
 
 @end

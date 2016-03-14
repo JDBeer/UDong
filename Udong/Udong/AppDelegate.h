@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#define CurrentNetWorkNotReachable @"CurrentNetWorkNotReachable"
+#define CurrentNetWorkReacherable @"CurrentNetWorkReacherable"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -18,6 +21,10 @@
 @property (nonatomic, strong) NSString *deviceResolution;
 @property (nonatomic, strong) NSString *deviceVersion;
 @property (nonatomic, strong) NSString *userid;
+
+- (void)showBanner;
+- (void)hideBanner;
+
 
 @end
 

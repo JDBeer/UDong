@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColorWhiteColor;
+    self.navigationController.navigationBarHidden = NO;
     [self configView];
     
 }
@@ -26,12 +27,22 @@
 {
     
     [self configBackItem];
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, 200, 0)];
-    lab.text = @"服务条款";
-    lab.font = FONT(18);
-    [lab setTextColor:kColorGrayColor];
-    [lab sizeToFit];
-    [self.view addSubview:lab];
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] init];
+    scrollView.contentSize = CGSizeMake(self.view.width,self.view.height+10);
+    scrollView.frame = self.view.frame;
+    [self.view addSubview:scrollView];
+    
+    UIWebView *webview = [[UIWebView alloc] initWithFrame:self.view.frame];
+    [webview loadHTMLString:self.provisionString baseURL:nil];
+    [scrollView addSubview:webview];
+//    UILabel *lab = [[UILabel alloc] initWithFrame:self.view.frame];
+//    lab.text = self.provisionString;
+//    lab.font = FONT(13);
+//    lab.numberOfLines = 0;
+//    lab.lineBreakMode = NSLineBreakByWordWrapping;
+//    [lab setTextColor:kColorBlackColor];
+//    [scrollView addSubview:lab];
 }
 
 - (void)configBackItem

@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIButton *ThirdBtn;
 @property (nonatomic, strong) UIImageView *cleanImg;
 @property (nonatomic, strong) UIButton *passwordTfCleanBtn;
+@property (nonatomic, strong) UIButton *secureBtn;
 @property (nonatomic, strong) UIImageView *logRegisterImage;
 @property (nonatomic, strong) UIButton *countDownBtn;
 @property (nonatomic, strong) UIButton *backBtn;

@@ -118,18 +118,48 @@ TabNavigationItem.rightBarButtonItem = nil; \
 #define DeviceVersionKey @"DeviceVersionKey"
 #define DeviceAPPVersionKey @"DeviceAPPVersionKey"
 #define VertifyCodeKey @"VertifyCodeKey"
-#define SecretKKey @"SecretKKey"
 #define OriginSecretKey @"emhhbmdwcA=="
 #define SexKey @"SexKey"
 #define AgeKey @"AgeKey"
 #define HeightKey @"HeightKey"
 #define WeightKey @"WeightKey"
+#define EffectivepointKey @"EffectivepointKey"
+#define LoginTypeKey @"LoginTypeKey"
+#define LogoutTimeKey @"LogoutTimeKey"
+#define RegistrationIdKey @"RegistrationIdKey"
+#define IOSVersionKey @"IOSVersionKey"
+#define SportDataKey @"SportDataKey"
+
+// base key
+#define SecretKKey @"SecretKKey"
+#define BaseUrlKey @"BaseUrlKey"
+#define GetPictureKey @"GetPictureKey"
+#define GetDownLoadKey @"GetDownLoadKey"
+
 
 // dictionary key
 #define headImageKey @"headImageKey"
 #define titleLabelKey @"titleLabelKey"
 #define RedPointkey @"RedPointkey"
 #define UpdateKey @"UpdateKey"
+
+//友盟Appkey
+#define UMENG_APPKEY @"566e809567e58e2f0000032b"
+#define WeiChat_Key @"wx51d50fede3398a16"
+#define WeiChat_Secret @"d4624c36b6795d1d99dcf0547af5443d"
+#define QQ_Key @"1104792843"
+#define QQ_Secret @"L4N1FwSLmCj6EXgA"
+#define Sina_Key @"648160012"
+#define Sina_Secret @"d9c7b0ecfa7b4ecbf9a20011f2b39d25"
+
+//App网址
+#define Company_Url @"https://app.hzzkkj.com"
+
+//一天的秒数
+#define OneDaySeconds 86400
+
+//网络请求时间
+#define timeOutInterval 10
 
 
 

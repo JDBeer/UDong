@@ -13,5 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *OtherHeadImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *OtherBacngroundImageView;
 @property (weak, nonatomic) IBOutlet UILabel *OtherChatLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *otherBgImageViewWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *OtherLabelWidth;
 
 @end

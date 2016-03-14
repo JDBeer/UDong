@@ -10,4 +10,7 @@
 
 @interface ServiceProvisionViewController : UIViewController
 
+@property (nonatomic, strong)UILabel *textlabel;
+@property (nonatomic, strong)NSString *provisionString;
+
 @end

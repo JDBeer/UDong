@@ -33,18 +33,23 @@
     CGContextSetAllowsAntialiasing(context, false);
     CGContextSetLineWidth(context, lineWidth);
     
-    CGContextSetStrokeColorWithColor(context, kColorCellSeparator.CGColor);
+    CGContextSetStrokeColorWithColor(context, kColorPlaceholderColor.CGColor);
     
 //    CGContextMoveToPoint(context, _inset, lineWidth);
 //    CGContextAddLineToPoint(context, rect.size.width, lineWidth);
+    CGContextSetLineWidth(context, lineWidth);
+    CGContextSetStrokeColorWithColor(context, kColorPlaceholderColor.CGColor);
     CGContextMoveToPoint(context, _inset, rect.size.height);
     CGContextAddLineToPoint(context, rect.size.width, rect.size.height);
+    CGContextStrokePath(context);
+    
+    
     
     CGFloat height = rect.size.height/_count;
     
     for (int i = 1; i < _count; i++) {
         CGContextSetLineWidth(context, lineWidth);
-        CGContextSetStrokeColorWithColor(context, kColorCellSeparator.CGColor);
+        CGContextSetStrokeColorWithColor(context, kColorPlaceholderColor.CGColor);
         CGContextMoveToPoint(context, _inset, height*i);
         CGContextAddLineToPoint(context, rect.size.width, height*i);
     }

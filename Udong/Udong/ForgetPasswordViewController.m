@@ -11,6 +11,7 @@
 #import "LoginViewController.h"
 #import "YYTextField.h"
 #import "FieldBgView.h"
+#import "FieldBgForWhiteView.h"
 #import "CountDownCapsulation.h"
 #import "Tool.h"
 
@@ -25,31 +26,43 @@
     [self congfigView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+}
+
 - (void)congfigView
 {
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.barTintColor = kColorWhiteColor;
+    self.navigationController.navigationBar.translucent = NO;
     [self configBackItem];
     self.view.backgroundColor = kColorWhiteColor;
     self.navigationItem.title = @"忘记密码";
+
     
-    self.phoneTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 70, self.view.width-45, 50) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_telephone_blue"]] inset:45];
+    self.phoneTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 6, self.view.width-45, 50) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_telephone_blue"]] inset:45];
     self.phoneTf.placeholder = @"请输入您注册时的手机号码";
     [self.phoneTf setValue:FONT(14) forKeyPath:@"_placeholderLabel.font"];
     self.phoneTf.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneTf.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:self.phoneTf];
     
-    FieldBgView *bgView = [[FieldBgView alloc] initWithFrame:CGRectMake(_phoneTf.left, _phoneTf.top, _phoneTf.width, _phoneTf.height) inset:45 count:1];
+    [self.phoneTf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    FieldBgForWhiteView *bgView = [[FieldBgForWhiteView alloc] initWithFrame:CGRectMake(_phoneTf.left, _phoneTf.top, _phoneTf.width, _phoneTf.height) inset:45 count:1];
     [self.view insertSubview:bgView belowSubview:self.phoneTf];
     
     self.getVertifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.getVertifyBtn.frame = CGRectMake(45, self.phoneTf.bottom+20, self.view.width-45*2, 44);
     [self.getVertifyBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     [self.getVertifyBtn setTitleColor:kColorWhiteColor forState:UIControlStateNormal];
+    self.getVertifyBtn.layer.cornerRadius = self.getVertifyBtn.height/2;
+    self.getVertifyBtn.layer.masksToBounds = YES;
     [self.getVertifyBtn addTarget:self action:@selector(onbtnNext:) forControlEvents:UIControlEventTouchUpInside];
     [self.getVertifyBtn setBackgroundColor:kColorBtnColor];
-    self.getVertifyBtn.titleLabel.font = FONT(15);
+    self.getVertifyBtn.titleLabel.font = FONT(15); 
     [self.view addSubview:self.getVertifyBtn];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dissmissKeyBoard:)];
@@ -58,7 +71,6 @@
 
 - (void)onbtnNext:(id)sender
 {
-   
     
     NSString *number = [self.phoneTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
@@ -77,10 +89,22 @@
     
 }
 
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    if (textField == self.phoneTf) {
+        if (textField.text.length > 11) {
+            textField.text = [textField.text substringToIndex:11];
+        }
+    }
+    
+}
+
+
 - (void)sendVerifyCode
 {
-    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:1];
+    [SVProgressHUD showProgressWithStatus:@"请稍候" duration:-1];
     [APIServiceManager getVertifyCodeWithSecretKey:[StorageManager getSecretKey] mobileNumber:self.phoneTf.text completionBlock:^(id responObject) {
+        
         NSString *flagString = responObject[@"flag"];
         NSString *message = responObject[@"message"];
         if ([flagString isEqualToString:@"100100"]) {
@@ -115,11 +139,14 @@
 
 - (void)configBackItem
 {
+    self.navigationController.navigationBar.shadowImage = nil;
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setFrame:CGRectMake(0, 0, 20, 20)];
     [btn setBackgroundImage:ImageNamed(@"navbar_icon_back") forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(onBtnBack:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    
 }
 
 - (void)onBtnBack:(UIBarButtonItem *)Item
@@ -134,7 +161,6 @@
     }
 
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

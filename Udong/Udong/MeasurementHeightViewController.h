@@ -21,5 +21,6 @@
 @property (nonatomic, strong)UIButton *rightBtn;
 @property (nonatomic, strong)NSMutableArray *dataArray;
 @property (nonatomic, strong)UILabel *hidenLabel;
+@property (nonatomic, strong)UIButton *backBtn;
 
 @end

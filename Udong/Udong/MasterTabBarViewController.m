@@ -22,24 +22,40 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kColorWhiteColor;
-//    NSLog(@"%@---%@",[StorageManager getAccountNumber],[StorageManager getUserId]);
+
     [self custom];
     
 }
 
 - (void)custom
 {
+    
+//  每次进入主界面，录入RegistrationId
+    
+//    [APIServiceManager registrationIDInputWithKey:[StorageManager getSecretKey] userID:[StorageManager getUserId] registrationID:[StorageManager getRegistrationId] completionBlock:^(id responObject)
+//     {
+//         if ([responObject[@"flag"] isEqualToString:@"100100"])
+//         {
+//             NSLog(@"registrationID录入成功");
+//         }
+//         
+//     } failureBlock:^(NSError *error) {
+//         NSLog(@"%@",error);
+//     }];
+    
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"6.0")) {
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : kColorWhiteColor}
             forState:UIControlStateNormal];
         [[UITabBarItem appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : kColorBtnColor} forState:UIControlStateSelected];
-//        UIImage *tabBar = ImageNamed(@"tab_bar");
-//        UIImage *tabBarBg = [tabBar stretchableImageWithLeftCapWidth:SCREEN_WIDTH topCapHeight:49];
-//        UIImageView *bg = [[UIImageView alloc] initWithImage:tabBarBg];
-//        UIView *tabBarView = [[UIView alloc] initWithFrame:bg.bounds];
-//        [self.tabBar insertSubview:tabBarView atIndex:0];
-        self.tabBar.barTintColor = kColorTabBarColor;
         
+        self.tabBar.barTintColor = kColorTabBarColor;
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(self.tabBar.bounds.origin.x, self.tabBar.bounds.origin.y, self.tabBar.bounds.size.width, self.tabBar.bounds.size.height)];
+        bgView.backgroundColor = self.tabBar.barTintColor;
+        [self.tabBar insertSubview:bgView atIndex:0];
+        self.tabBar.opaque = YES;
+    
+        [[UITabBar appearance] setShadowImage:[UIImage new]];
+        [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
         
     }else{
         [[UITabBarItem appearance] setTitleTextAttributes:@{UITextAttributeTextColor : kColorWhiteColor}
@@ -63,7 +79,7 @@
     GeneralNavgationController *MineNav = [[GeneralNavgationController alloc] initWithRootViewController:MineVC];
     [self setTabBarItem:MineVC title:@"我的" image:ImageNamed(@"tab_icon_my") selectedImage:ImageNamed(@"tab_icon_my_chosed")];
     self.viewControllers = @[analysisNav,SportNav,MineNav];
-    self.selectedIndex = 2;
+    self.selectedIndex = 1;
 }
 
 - (void)setTabBarItem:(UIViewController *)viewController title:(NSString *)title image:(UIImage *)image selectedImage:(UIImage *)selectedImage

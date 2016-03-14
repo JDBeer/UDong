@@ -8,6 +8,7 @@
 
 #import "InfomationNullViewController.h"
 
+
 @interface InfomationNullViewController ()
 @property (nonatomic, assign) double scale;
 @property (nonatomic, assign) double interval1;
@@ -28,7 +29,15 @@
 
 - (void)configNav
 {
-    self.navigationItem.title = @"消息";
+    self.navigationController.navigationBar.shadowImage = nil;
+    
+    self.navigationItem.title = @"消息中心";
+    self.navigationController.navigationBar.titleTextAttributes = @{
+                                                                    NSFontAttributeName : FONT(18),
+                                                                    
+                                                                    UITextAttributeTextColor : kColorBlackColor,
+                                                                    UITextAttributeTextShadowColor : kColorClearColor,
+                                                                    };
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setFrame:CGRectMake(0, 0, 20, 20)];
@@ -39,13 +48,21 @@
 
 - (void)configView
 {
-    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, _interval1, 100, _imageHeight)];
+    self.view.backgroundColor = kColorWhiteColor;
+    
+    
+    self.imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, _imageHeight)];
     self.imageView.centerX = self.view.centerX;
+    if (IS_IPHONE_6||IS_IPHONE_6P) {
+        self.imageView.centerY = self.view.centerY-_interval2-50;
+    }else{
+        self.imageView.centerY = self.view.centerY-_interval2;
+    }
     self.imageView.image = ImageNamed(@"icon_message_big");
     [self.view addSubview:self.imageView];
     
     CGSize Size = [@"空空如也，您还未收到消息哦~" sizeWithAttributes:@{NSFontAttributeName:FONT(15)}];
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, self.imageView.bottom+_interval2, Size.width, Size.height)];
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, self.imageView.bottom+50, Size.width, Size.height)];
     self.label.centerX = self.view.centerX;
     self.label.text = @"空空如也，您还未收到消息哦~";
     self.label.font = FONT(15);
@@ -63,25 +80,25 @@
     if (IS_IPONE_4_OR_LESS) {
         _scale = 480.0/667;
         _interval1 = 90;
-        _interval2 = 20;
+        _interval2 = 50;
         _imageHeight = 40;
         
     }else if (IS_IPHONE_5){
         _scale = 568.0/667;
         _interval1 = 170*_scale;
-        _interval2 = 40*_scale;
+        _interval2 = 90*_scale;
         _imageHeight = 80*_scale;
         
     }else if (IS_IPHONE_6){
         _scale = 1;
         _interval1 = 170;
-        _interval2 = 40;
+        _interval2 = 90;
         _imageHeight = 80;
         
     }else if (IS_IPHONE_6P){
         _scale = 736/667;
         _interval1 = 170*_interval1;
-        _interval2 = 40*_interval2;
+        _interval2 = 90*_interval2;
         _imageHeight = 80*_scale;
         
     }

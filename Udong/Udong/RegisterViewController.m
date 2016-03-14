@@ -62,9 +62,25 @@
     [self.phoneNumberTextField setValue:[ColorManager getColor:@"ffffff" WithAlpha:0.3] forKeyPath:@"_placeholderLabel.textColor"];
     self.phoneNumberTextField.delegate = self;
     self.phoneNumberTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-//    self.phoneNumberTextField.returnKeyType = UIReturnKeyNext;
+    self.phoneNumberTextField.tintColor = kColorWhiteColor;
+    self.phoneNumberTextField.textColor = kColorWhiteColor;
+    
+    UIImageView *cleanImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_delete"]];
+    
+    self.phoneNumberTextField.rightView = cleanImg;
+    self.phoneNumberTextField.rightViewMode = UITextFieldViewModeWhileEditing;
     self.phoneNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
+    
+    
     [self.bgImg addSubview:self.phoneNumberTextField];
+    
+    [self.phoneNumberTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    self.accountTfCleanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.accountTfCleanBtn.frame = CGRectMake(self.phoneNumberTextField.width-19, 16, 40, 40);
+    [self.accountTfCleanBtn addTarget:self action:@selector(deleteString:) forControlEvents:UIControlEventTouchUpInside];
+    [self.phoneNumberTextField addSubview:self.accountTfCleanBtn];
+    
     
     FieldBgView *bg = [[FieldBgView alloc] initWithFrame:self.phoneNumberTextField.frame inset:45 count:1];
     [self.bgImg insertSubview:bg belowSubview:self.phoneNumberTextField];
@@ -73,6 +89,8 @@
     self.button.frame = CGRectMake(45, self.phoneNumberTextField.bottom+_textFieldInterval, SCREEN_WIDTH-90,_buttonHeight);
     [self.button setTitle:@"获取验证码" forState:UIControlStateNormal];
     [self.button setBackgroundColor:[ColorManager getColor:@"2fbec8" WithAlpha:1]];
+    self.button.layer.cornerRadius = self.button.height/2;
+    self.button.layer.masksToBounds = YES;
     [self.button addTarget:self action:@selector(pushToVerifyCode:) forControlEvents:UIControlEventTouchUpInside];
     self.button.titleLabel.font = FONT(17);
     [self.bgImg addSubview:self.button];
@@ -121,6 +139,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)deleteString:(UIButton *)btn
+{
+//    [self.phoneNumberTextField becomeFirstResponder];
+    
+    self.phoneNumberTextField.text = nil;
+}
+
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    if (textField == self.phoneNumberTextField) {
+        if (textField.text.length > 11) {
+            textField.text = [textField.text substringToIndex:11];
+        }
+    }
+}
+
 - (void)configBackItem
 {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -142,30 +176,39 @@
     
     NSString *number = [self.phoneNumberTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
+    if (self.phoneNumberTextField.text.length == 0) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入手机号码" duration:2];
+        return;
+    }
+    
     if (![Tool validateMobile:number]) {
         [SVProgressHUD showHUDWithImage:nil status:@"请输入正确的手机号码" duration:2];
         return;
     }
     
-    if (self.phoneNumberTextField.text.length == 0) {
-        [SVProgressHUD showHUDWithImage:nil status:@"请输入手机号码" duration:2];
-    }
+    [SVProgressHUD showProgressWithStatus:@"请稍候" duration:-1];
     
-     NSString *key = [StorageManager getSecretKey];
-    [APIServiceManager PhoneRegisterWithSecretKey:key phoneNumber:self.phoneNumberTextField.text completionBlock:^(id responObject) {
+    [APIServiceManager PhoneRegisterWithSecretKey:[StorageManager getSecretKey] phoneNumber:self.phoneNumberTextField.text completionBlock:^(id responObject) {
         
         NSString *flagString = responObject[@"flag"];
         NSString *message = responObject[@"message"];
         if ([flagString isEqualToString:@"100100"]) {
+            [SVProgressHUD dismiss];
             [self sendVerifyCode];
         }else{
+            
+            if ([flagString isEqualToString:@"100501"]) {
+                [SVProgressHUD showHUDWithImage:nil status:@"操作过于频繁，请稍候再试" duration:1];
+                return ;
+            }
+            
             [SVProgressHUD showHUDWithImage:nil status:message duration:1];
         }
+        
     } failureBlock:^(NSError *error) {
         
         NSLog(@"%@",error);
     }];
-    
     
 }
 
@@ -186,18 +229,22 @@
 {
     NSString *key = [StorageManager getSecretKey];
     
-    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:-1];
+    [SVProgressHUD showProgressWithStatus:@"请稍候" duration:-1];
+    
     [APIServiceManager getVertifyCodeWithSecretKey:key mobileNumber:self.phoneNumberTextField.text completionBlock:^(id responObject) {
         NSString *flagString = responObject[@"flag"];
         NSString *message = responObject[@"message"];
-        NSLog(@"%@",responObject);
         if ([flagString isEqualToString:@"100100"]) {
             [SVProgressHUD dismiss];
             [self startTime];
             FinishRegisterViewController *finishRVC = [[FinishRegisterViewController alloc] init];
             finishRVC.phoneNumberString = self.phoneNumberTextField.text;
             [self.navigationController pushViewController:finishRVC animated:YES];
-        }else{
+        }else if ([flagString isEqualToString:@"100501"])
+        {
+            [SVProgressHUD showHUDWithImage:nil status:@"验证码发送过于频繁，请稍候再试" duration:1.0];
+        }else
+        {
             [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
         }
     } failureBlock:^(NSError *error) {

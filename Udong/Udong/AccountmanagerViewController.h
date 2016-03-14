@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#define didChangeHeadImageSuccess @"didChangeHeadImageSuccess"
 
 @interface AccountmanagerViewController : UIViewController
 @property (nonatomic, strong)UITableView *AccountTableView;
@@ -21,5 +22,10 @@
 @property (nonatomic, strong)NSString *nickNameString;
 @property (nonatomic, strong)UIView *pickViewView;
 @property (nonatomic, strong)UIView *contentView;
+@property (nonatomic, strong)NSString *cityId;
+@property (nonatomic, strong)NSString *cityName;
+@property (nonatomic, strong)UITextField *field;
+@property (nonatomic, strong)UIAlertController *alertController;
+
 
 @end

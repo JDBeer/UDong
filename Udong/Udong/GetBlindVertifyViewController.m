@@ -9,8 +9,10 @@
 #import "GetBlindVertifyViewController.h"
 #import "YYTextField.h"
 #import "FieldBgView.h"
+#import "FieldBgForWhiteView.h"
 #import "CountDownCapsulation.h"
 #import "AccountmanagerViewController.h"
+#import "MobileBlindViewController.h"
 
 @interface GetBlindVertifyViewController ()
 
@@ -29,15 +31,15 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishedCountdownNotification:) name:DidFinishedCountdownNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onDoingCountdownNotification:) name:OnDoingCountdownNotification object:nil];
     
-    self.VertifyCodeTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 70, self.view.width-100,50) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_code_blue"]] inset:45];
+    self.VertifyCodeTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 6, self.view.width-100,50) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_code_blue"]] inset:45];
     self.VertifyCodeTf.placeholder = @"您收到的短信验证码";
     [self.VertifyCodeTf setValue:FONT(14) forKeyPath:@"_placeholderLabel.font"];
     self.VertifyCodeTf.keyboardType = UIKeyboardTypeNumberPad;
     self.VertifyCodeTf.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:self.VertifyCodeTf];
     
-    FieldBgView *bgView = [[FieldBgView alloc] initWithFrame:CGRectMake(_VertifyCodeTf.left, _VertifyCodeTf.top, _VertifyCodeTf.width, _VertifyCodeTf.height) inset:45 count:1];
-    [self.view insertSubview:bgView belowSubview:self.VertifyCodeTf];
+    FieldBgForWhiteView *bgView = [[FieldBgForWhiteView alloc] initWithFrame:CGRectMake(_VertifyCodeTf.left, _VertifyCodeTf.top, _VertifyCodeTf.width, _VertifyCodeTf.height) inset:45 count:1];
+    [self.view insertSubview:bgView belowSubview:_VertifyCodeTf];
     
     self.countDownBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.countDownBtn.frame = CGRectMake(self.VertifyCodeTf.right, 0, 60, 20);
@@ -112,14 +114,42 @@
 - (void)onbtnNext:(UIButton *)btn
 {
     
-    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:-1];
+//    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:-1];
     [APIServiceManager modifiyAccountPhoneNumberWithKey:[StorageManager getSecretKey] code:@"400" phoneNumber:self.phoneString vertifyCode:self.VertifyCodeTf.text idString:[StorageManager getUserId] status:@"1" completionBlock:^(id responObject) {
-        if ([responObject[@"flag"] isEqualToString:@"100100"]) {
-            AccountmanagerViewController *accountVC = [[AccountmanagerViewController alloc] init];
-            [self.navigationController pushViewController:accountVC animated:YES];
-        }else{
-            [SVProgressHUD showHUDWithImage:nil status:@"绑定失败" duration:1];
+        NSLog(@"%@",responObject);
+        
+        if ([responObject[@"flag"] isEqualToString:@"100100"])
+        
+        {
+            [StorageManager deleteAccountNumber];
+            [StorageManager saveAccountNumber:self.phoneString];
+            [SVProgressHUD showHUDWithImage:nil status:@"绑定成功" duration:1];
+            
+            NSArray *viewControllers = [self.navigationController viewControllers];
+            for (int i=0; i<[viewControllers count]; i++) {
+                id obj = [viewControllers objectAtIndex:i];
+                
+                if ([obj isKindOfClass:[MobileBlindViewController class]]) {
+                    [self.navigationController popToViewController:obj animated:YES];
+                }
+            }
+            return ;
+            
+        }else if([responObject[@"flag"] isEqualToString:@"100500"])
+            
+        {
+            [SVProgressHUD showHUDWithImage:nil status:@"此手机号已经被绑定" duration:1];
+            [self.navigationController popViewControllerAnimated:YES];
+            return;
+         
+        }else if([responObject[@"flag"] isEqualToString:@"100300"])
+        {
+            [SVProgressHUD showHUDWithImage:nil status:@"验证码输入有误" duration:1];
+            return ;
         }
+        
+        [SVProgressHUD showHUDWithImage:nil status:@"绑定失败" duration:1];
+        
     } failureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];

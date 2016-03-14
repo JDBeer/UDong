@@ -7,8 +7,9 @@
 //
 
 #import "PswChangeViewController.h"
-#import "PswChangeTxetField.h"
 #import "FieldBgView.h"
+#import "FieldBgForWhiteView.h"
+#import "YYTextField.h"
 
 @interface PswChangeViewController ()
 
@@ -25,6 +26,9 @@
 
 - (void)configView
 {
+    self.view.backgroundColor = kColorWhiteColor;
+    
+    
     UILabel *oldPswLabel = [[UILabel alloc] init];
     oldPswLabel.text = @"旧密码";
     oldPswLabel.bounds = CGRectMake(0, 0, 60, 50);
@@ -40,28 +44,34 @@
     confirmPswLabel.bounds = CGRectMake(0, 0, 60, 50);
     confirmPswLabel.font = FONT(15);
     
-    self.oldPswTf = [[PswChangeTxetField alloc] initWithFrame:CGRectMake(0, 70, SCREEN_WIDTH-45, 50) leftView:oldPswLabel inset:45];
+    self.oldPswTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 6, SCREEN_WIDTH-45, 50) leftView:oldPswLabel inset:45];
     self.oldPswTf.placeholder = @"你当前的密码";
     [self.oldPswTf setValue:FONT(15) forKeyPath:@"_placeholderLabel.font"];
-    self.oldPswTf.keyboardType = UIKeyboardTypeNumberPad;
     self.oldPswTf.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.oldPswTf.secureTextEntry  = YES;
     [self.view addSubview:self.oldPswTf];
     
-    self.newpswTf = [[PswChangeTxetField alloc] initWithFrame:CGRectMake(0, self.oldPswTf.bottom, self.oldPswTf.width, self.oldPswTf.height) leftView:newPswLabel inset:45];
+    [self.oldPswTf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    self.newpswTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, self.oldPswTf.bottom, self.oldPswTf.width, self.oldPswTf.height) leftView:newPswLabel inset:45];
     self.newpswTf.placeholder = @"6~16个数字或字母";
     [self.newpswTf setValue:FONT(15) forKeyPath:@"_placeholderLabel.font"];
-    self.newpswTf.keyboardType = UIKeyboardTypeNumberPad;
     self.newpswTf.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.newpswTf.secureTextEntry = YES;
     [self.view addSubview:self.newpswTf];
+    
+    [self.newpswTf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
 
-    self.confirmPswTf = [[PswChangeTxetField alloc] initWithFrame:CGRectMake(0, self.newpswTf.bottom, self.oldPswTf.width, self.oldPswTf.height) leftView:confirmPswLabel inset:45];
+    self.confirmPswTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, self.newpswTf.bottom, self.oldPswTf.width, self.oldPswTf.height) leftView:confirmPswLabel inset:45];
     self.confirmPswTf.placeholder = @"再输一次新密码";
     [self.confirmPswTf setValue:FONT(15) forKeyPath:@"_placeholderLabel.font"];
-    self.confirmPswTf.keyboardType = UIKeyboardTypeNumberPad;
     self.confirmPswTf.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.confirmPswTf.secureTextEntry = YES;
     [self.view addSubview:self.confirmPswTf];
     
-    FieldBgView *bgView = [[FieldBgView alloc] initWithFrame:CGRectMake(_oldPswTf.left, _oldPswTf.top, _oldPswTf.width, _oldPswTf.height*3) inset:45 count:3];
+     [self.confirmPswTf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    FieldBgForWhiteView *bgView = [[FieldBgForWhiteView alloc] initWithFrame:CGRectMake(_oldPswTf.left, _oldPswTf.top, _oldPswTf.width, _oldPswTf.height*3) inset:45 count:3];
     [self.view insertSubview:bgView belowSubview:self.oldPswTf];
     
     
@@ -69,9 +79,15 @@
     self.confirmBtn.frame = CGRectMake(45, self.confirmPswTf.bottom+40, SCREEN_WIDTH-45*2, HEIGHT_FLATBUTTON);
     [self.confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
     [self.confirmBtn setTitleColor:kColorWhiteColor forState:UIControlStateNormal];
+    self.confirmBtn.layer.cornerRadius = self.confirmBtn.height/2;
+    self.confirmBtn.layer.masksToBounds = YES;
     [self.confirmBtn addTarget:self action:@selector(onBtnBackTo:) forControlEvents:UIControlEventTouchUpInside];
     [self.confirmBtn setBackgroundColor:kColorBtnColor];
     [self.view addSubview:self.confirmBtn];
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dissmissKeyBoard2:)];
+    [self.view addGestureRecognizer:tap];
     
 }
 
@@ -91,6 +107,27 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    if (textField == self.oldPswTf) {
+        if (textField.text.length > 16) {
+            textField.text = [textField.text substringToIndex:16];
+        }
+    }
+    
+    if (textField == self.newpswTf) {
+        if (textField.text.length > 16) {
+            textField.text = [textField.text substringToIndex:16];
+        }
+    }
+    
+    if (textField == self.confirmPswTf) {
+        if (textField.text.length > 16) {
+            textField.text = [textField.text substringToIndex:16];
+        }
+    }
+}
+
 - (void)onBtnBackTo:(id)sender
 {
     if (self.oldPswTf.text.length == 0) {
@@ -107,31 +144,64 @@
         return;
     }
     
+    if (self.newpswTf.text.length<6) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入6~16位密码" duration:2];
+        return;
+    }
+    
+    if (self.confirmPswTf.text.length<6) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入6~16位密码" duration:2];
+        return;
+    }
+    
     if (![self.confirmPswTf.text isEqualToString:self.newpswTf.text]) {
         [SVProgressHUD showHUDWithImage:nil status:@"密码不一致" duration:2];
         return;
     }
     
-    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:-1];
+    
+    NSString *psw = [NSString stringWithFormat:@"%@",[StorageManager getpsw]];
+    
+    if (![self.oldPswTf.text isEqualToString:psw]) {
+        [SVProgressHUD showHUDWithImage:nil status:@"原始密码错误" duration:2];
+        return;
+
+    }
+    
+    [SVProgressHUD showProgressWithStatus:@"请稍候" duration:-1];
     
     [APIServiceManager ChangePasswordWithSecretKey:[StorageManager getSecretKey] phoneNumber:[StorageManager getAccountNumber] status:@"1" code:@"600" oldPassWord:self.oldPswTf.text newPassword:self.newpswTf.text completionBlock:^(id responObject) {
         
+
         NSString *flagString = responObject[@"flag"];
-        NSString *message = responObject[@"message"];
+        
         if ([flagString isEqualToString:@"100100"]) {
+            
             [SVProgressHUD showHUDWithImage:nil status:@"修改成功" duration:1];
-            [StorageManager saveNewPassword:self.newpswTf.text];
+            
+            [StorageManager deletePsw];
+            [StorageManager savepsw:self.newpswTf.text];
            [self.navigationController popViewControllerAnimated:YES];
+        
+        }else if ([flagString isEqualToString:@"100200"]){
+            
+            [SVProgressHUD showHUDWithImage:nil status:@"原始密码不正确" duration:1];
         }else{
-            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+            
+             [SVProgressHUD showHUDWithImage:nil status:@"密码修改失败" duration:1];
         }
         
     } failureBlock:^(NSError *error) {
         
-        [SVProgressHUD showHUDWithImage:nil status:@"修改密码失败" duration:-1];
+        NSLog(@"%@",error);
     }];
     
     
+}
+
+- (void)dissmissKeyBoard2:(UITapGestureRecognizer *)tap
+{
+    [self.view endEditing:YES];
 }
 
 

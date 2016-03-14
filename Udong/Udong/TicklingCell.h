@@ -12,5 +12,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headImage;
 @property (weak, nonatomic) IBOutlet UILabel *titlelabel;
 @property (weak, nonatomic) IBOutlet UIImageView *RedPointImage;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *left;
 
 @end

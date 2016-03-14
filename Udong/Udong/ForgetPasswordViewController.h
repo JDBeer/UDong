@@ -11,5 +11,6 @@
 @interface ForgetPasswordViewController : UIViewController
 @property (nonatomic ,strong) UITextField *phoneTf;
 @property (nonatomic, strong) UIButton *getVertifyBtn;
+@property (nonatomic, strong) UIImageView *navigationImageView;
 
 @end

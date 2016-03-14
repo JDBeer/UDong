@@ -13,6 +13,7 @@
 #import "CountDownCapsulation.h"
 #import "MasterTabBarViewController.h"
 #import "DeviceHandleManager.h"
+#import "MeasuremenViewController.h"
 
 #define INTERVAL 20
 #define INTERVAL_MIDDLE 10
@@ -38,6 +39,12 @@
     [self configData];
     [self configView];
    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)configView
@@ -69,13 +76,23 @@
     self.VertifyCodeTf.borderStyle = UITextBorderStyleNone;
     self.VertifyCodeTf.placeholder = @"验证码";
     self.VertifyCodeTf.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.VertifyCodeTf.tintColor = kColorWhiteColor;
+    self.VertifyCodeTf.textColor = kColorWhiteColor;
     self.VertifyCodeTf.returnKeyType = UIReturnKeyNext;
     self.VertifyCodeTf.keyboardType = UIKeyboardTypeNumberPad;
     [self.VertifyCodeTf setValue:[ColorManager getColor:@"ffffff" WithAlpha:0.3] forKeyPath:@"_placeholderLabel.textColor"];
     self.cleanImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_delete"]];
-//    self.VertifyCodeTf.rightView=self.countDownBtn;
-//    self.VertifyCodeTf.rightViewMode = UITextFieldViewModeWhileEditing;
+    self.VertifyCodeTf.rightView = self.cleanImg;
+    self.VertifyCodeTf.rightViewMode = UITextFieldViewModeWhileEditing;
     [self.bgImage addSubview:self.VertifyCodeTf];
+    
+    [self.VertifyCodeTf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    self.passwordTfCleanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.passwordTfCleanBtn.frame = CGRectMake(self.VertifyCodeTf.width-19, 21, 40, 40);
+    [self.passwordTfCleanBtn addTarget:self action:@selector(deleteString:) forControlEvents:UIControlEventTouchUpInside];
+    [self.VertifyCodeTf addSubview:self.passwordTfCleanBtn];
+    
     
     self.countDownBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.countDownBtn.frame = CGRectMake(self.VertifyCodeTf.right, 0, 60, 20);
@@ -90,7 +107,7 @@
     [self.bgImage addSubview:self.countDownBtn];
     
 
-    self.passwordTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, self.VertifyCodeTf.bottom, SCREEN_WIDTH-45, _buttonHeight) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_password"]] inset:45];
+    self.passwordTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, self.VertifyCodeTf.bottom+10, SCREEN_WIDTH-45, _buttonHeight) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_password"]] inset:45];
     self.passwordTf.delegate = self;
     self.passwordTf.borderStyle = UITextBorderStyleNone;
     self.passwordTf.placeholder = @"密码";
@@ -98,16 +115,28 @@
     self.passwordTf.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passwordTf.returnKeyType = UIReturnKeyDone;
     self.passwordTf.secureTextEntry = YES;
-    self.passwordTf.rightView=self.cleanImg;
+    self.passwordTf.tintColor = kColorWhiteColor;
+    self.passwordTf.textColor = kColorWhiteColor;
+    UIImageView *psdImageView = [[UIImageView alloc] initWithImage:ImageNamed(@"login_icon_invisible")];
+    self.passwordTf.rightView = psdImageView;
     self.passwordTf.rightViewMode = UITextFieldViewModeWhileEditing;
     [self.bgImage addSubview:self.passwordTf];
     
-    self.passwordTfCleanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.passwordTfCleanBtn.frame = CGRectMake(self.passwordTf.width-19, 21, 19, 19);
-    [self.passwordTfCleanBtn addTarget:self action:@selector(deleteString:) forControlEvents:UIControlEventTouchUpInside];
-    [self.passwordTf addSubview:self.passwordTfCleanBtn];
     
-    FieldBgView *bg = [[FieldBgView alloc] initWithFrame:CGRectMake(self.VertifyCodeTf.left, self.VertifyCodeTf.top, self.VertifyCodeTf.width+self.countDownBtn.width, self.VertifyCodeTf.height*2) inset:45 count:2];
+    self.secureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.secureBtn.frame = CGRectMake(self.passwordTf.width-19, 21, 40, 40);
+    
+    [self.secureBtn addTarget:self action:@selector(hidenSecret:) forControlEvents:UIControlEventTouchUpInside];
+    [self.passwordTf addSubview:self.secureBtn];
+    
+    [self.passwordTf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+//    self.passwordTfCleanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.passwordTfCleanBtn.frame = CGRectMake(self.passwordTf.width-19, 21, 19, 19);
+//    [self.passwordTfCleanBtn addTarget:self action:@selector(deleteString:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.passwordTf addSubview:self.passwordTfCleanBtn];
+    
+    FieldBgView *bg = [[FieldBgView alloc] initWithFrame:CGRectMake(self.VertifyCodeTf.left, self.VertifyCodeTf.top, self.VertifyCodeTf.width+self.countDownBtn.width, self.VertifyCodeTf.height*2+10) inset:45 count:2];
     [self.bgImage insertSubview:bg belowSubview:self.VertifyCodeTf];
 
 
@@ -116,6 +145,8 @@
     [self.finishBtn setBackgroundColor:kColorGrayColor];
     [self.finishBtn setTitle:@"注册" forState:UIControlStateNormal];
     [self.finishBtn setTitleColor:kColorWhiteColor forState:UIControlStateNormal];
+    self.finishBtn.layer.cornerRadius = self.finishBtn.height/2;
+    self.finishBtn.layer.masksToBounds = YES;
     [self.finishBtn addTarget:self action:@selector(onBtnToHomepage:) forControlEvents:UIControlEventTouchUpInside];
     [self.finishBtn setBackgroundColor:[ColorManager getColor:@"2fbec8" WithAlpha:1]];
     self.finishBtn.titleLabel.font = FONT(17);
@@ -171,6 +202,21 @@
     
 }
 
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    if (textField == self.VertifyCodeTf) {
+        if (textField.text.length > 4) {
+            textField.text = [textField.text substringToIndex:4];
+        }
+    }
+    
+    if (textField == self.passwordTf) {
+        if (textField.text.length > 16) {
+            textField.text = [textField.text substringToIndex:16];
+        }
+    }
+}
+
 - (void)configBackItem
 {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -187,7 +233,7 @@
 
 - (void)onBtnToHomepage:(id)sender
 {
-    MasterTabBarViewController *mastVC = [[MasterTabBarViewController alloc] init];
+    
     if (self.VertifyCodeTf.text.length == 0) {
         [SVProgressHUD showHUDWithImage:nil status:@"请输入验证码" duration:2];
         return;
@@ -198,30 +244,68 @@
         return;
     }
     
-    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:-1];
+    if (self.passwordTf.text.length<6) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入6~16位密码" duration:2];
+        return;
+    }
+    
+    if (self.passwordTf.text.length>=16) {
+        [SVProgressHUD showHUDWithImage:nil status:@"密码长度不能超过16位" duration:2];
+        return;
+    }
+    
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:UserIdKey]) {
+        NSString *useid = @"0";
+        [StorageManager saveUserId:useid];
+    }
+    
+    [SVProgressHUD showProgressWithStatus:@"请稍候" duration:-1];
+    
     [APIServiceManager registerWithSecretKey:[StorageManager getSecretKey] openudid:self.deviceDictionary[OpenUdidKey] deviceOS:self.deviceDictionary[DeviceOSKey] deviceModel:self.deviceDictionary[DcviceModelKey] deviceResolution:self.deviceDictionary[DeviceResolutionKey] deviceVersion:self.deviceDictionary[DeviceVersionKey] userId:[StorageManager getUserId] phoneNumber:self.phoneNumberString password:self.passwordTf.text vertifyCode:self.VertifyCodeTf.text completionBlock:^(id responObject) {
         
         NSString *flagString = responObject[@"flag"];
-        NSString *message = responObject[@"message"];
-//        NSLog(@"----%@-----%@----%@",responObject,flagString,message);
+
         if ([flagString isEqualToString:@"100100"]) {
              NSString *IdString= responObject[@"user"][@"id"];
-            [SVProgressHUD dismiss];
+             NSString *loginTypeString = [NSString stringWithFormat:@"%@",responObject[@"user"][@"loginType"]];
 //            注册时清空本地数据，存入最新数据
             [StorageManager deleteRelatedInfo];
             [StorageManager saveAccountNumber:self.phoneNumberString];
             [StorageManager saveUserId:IdString];
             [StorageManager savepsw:self.passwordTf.text];
-            [self.navigationController pushViewController:mastVC animated:YES];
+            [StorageManager saveLoginType:loginTypeString];
+            [SVProgressHUD dismiss];
+            
+            [APIServiceManager judgeEvaluationWithKey:[StorageManager getSecretKey] idString:[StorageManager getUserId] completionBlock:^(id responObject) {
+                
+                if (responObject[@"eResult"]==[NSNull null]) {
+                    MeasuremenViewController *measureVC = [[MeasuremenViewController alloc] init];
+                    
+                    [self.navigationController pushViewController:measureVC animated:YES];
+                    
+                }else{
+                    MasterTabBarViewController *masterVC = [[MasterTabBarViewController alloc] init];
+                    
+                    [self.navigationController pushViewController:masterVC animated:YES];
+                    
+                }
+            } failureBlock:^(NSError *error) {
+                NSLog(@"%@",error);
+            }];
+
         }else
         {
-            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+            if ([responObject[@"flag"] isEqualToString:@"100501"]) {
+                
+                [SVProgressHUD showHUDWithImage:nil status:@"验证码不正确" duration:1];
+            }else{
+                [SVProgressHUD showHUDWithImage:nil status:@"注册失败" duration:1];
+            }
         }
         
-       
     } failureBlock:^(NSError *error) {
         
-        [SVProgressHUD showHUDWithImage:nil status:@"注册失败" duration:-1];
+        NSLog(@"%@",error);
     }];
     
     
@@ -229,42 +313,71 @@
 
 - (void)pushToProvisionVC:(id)sender
 {
-    ServiceProvisionViewController *servicePsVC = [[ServiceProvisionViewController alloc] init];
+    
     
     NSString *key = [StorageManager getSecretKey];
     
+    
+    [SVProgressHUD showProgressWithStatus:@"请稍候" duration:-1];
+    
     [APIServiceManager getProvisionWithSecretKey:key type:@"1" completionBlock:^(id responObject) {
+        
         NSString *flagString = responObject[@"flag"];
-        NSString *message = responObject[@"message"];
+       
         if ([flagString isEqualToString:@"100100"]) {
+            
             [SVProgressHUD dismiss];
+            ServiceProvisionViewController *servicePsVC = [[ServiceProvisionViewController alloc] init];
+            
+            servicePsVC.provisionString = responObject[@"result"][@"description"];
+        
             [self.navigationController pushViewController:servicePsVC animated:YES];
         }else{
             
-            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+            [SVProgressHUD showHUDWithImage:nil status:@"获取服务条款失败" duration:1.0];
         }
        
     } failureBlock:^(NSError *error) {
         
         [SVProgressHUD showHUDWithImage:nil status:@"获取服务条款失败" duration:1.0];
     }];
-    
-    
-    
-    
 }
 
 - (void)deleteString:(id)sender
 {
-    if (self.passwordTf.text) {
-        self.passwordTf.text = nil;
+    if (self.VertifyCodeTf.text) {
+        self.VertifyCodeTf.text = nil;
+    }
+    
+}
+
+- (void)hidenSecret:(id)sender
+{
+    self.passwordTf.secureTextEntry = !self.passwordTf.secureTextEntry;
+    self.secureBtn.selected = !self.secureBtn.selected;
+    if (self.secureBtn.selected == NO) {
+        self.passwordTf.rightView = [[UIImageView alloc] initWithImage:ImageNamed(@"login_icon_invisible")];
+    }else{
+        self.passwordTf.rightView = [[UIImageView alloc] initWithImage:ImageNamed(@"icon_visible_blue")];
     }
 }
 
 - (void)resendVerifyCode:(id)sender
 {
-    
+    if ([self.countDownBtn.titleLabel.text isEqualToString:@"重新获取"])
+    {
+        [self startTime];
+    }
 }
+
+- (void)startTime
+{
+    if ([CountDownCapsulation isTimerValidate]) {
+        return;
+    }
+    [CountDownCapsulation startCountDown:60];
+}
+
 
 - (void)dissmissKeyBoard:(UITapGestureRecognizer *)tap
 {

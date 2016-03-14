@@ -18,4 +18,5 @@
 @property (nonatomic, strong)UIImageView *bgImg;
 @property (nonatomic, strong)UIImageView *logRegisterImage;
 @property (nonatomic, strong)UIButton *backBtn;
+@property (nonatomic, strong)UIButton *accountTfCleanBtn;
 @end

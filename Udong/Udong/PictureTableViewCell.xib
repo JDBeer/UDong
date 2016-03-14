@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="154" id="KGk-i7-Jjw" customClass="PictureTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="323" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="323" height="149"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HvA-Zd-Exb">
+                        <rect key="frame" x="13" y="35" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="fDX-gP-Uua"/>
+                            <constraint firstAttribute="height" constant="50" id="tsi-dt-9S1"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bcA-SI-SpX">
+                        <rect key="frame" x="79" y="46" width="113" height="96"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="96" id="0jD-gl-d9o"/>
+                            <constraint firstAttribute="width" constant="113" id="DgG-bG-a7N"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h54-BH-OhZ">
+                        <rect key="frame" x="71" y="8" width="180" height="23"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="180" id="r2T-Gb-J7e"/>
+                            <constraint firstAttribute="height" constant="23" id="rGf-2a-bH9"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="bcA-SI-SpX" firstAttribute="top" secondItem="h54-BH-OhZ" secondAttribute="bottom" constant="15" id="3cO-kp-V92"/>
+                    <constraint firstItem="bcA-SI-SpX" firstAttribute="leading" secondItem="HvA-Zd-Exb" secondAttribute="trailing" constant="16" id="Bo8-DO-HVb"/>
+                    <constraint firstItem="HvA-Zd-Exb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="35" id="JSt-vo-nwZ"/>
+                    <constraint firstItem="h54-BH-OhZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Lqx-3U-yPi"/>
+                    <constraint firstItem="HvA-Zd-Exb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="13" id="PJY-zJ-qXt"/>
+                    <constraint firstItem="h54-BH-OhZ" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Yy1-bA-23C"/>
+                    <constraint firstItem="h54-BH-OhZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="107" id="dTZ-dc-C6o"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="dTZ-dc-C6o"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="contentImage" destination="bcA-SI-SpX" id="6Jm-Nu-lhT"/>
+                <outlet property="headImage" destination="HvA-Zd-Exb" id="Zjg-F8-lRi"/>
+                <outlet property="timeLabel" destination="h54-BH-OhZ" id="Tzg-yS-5fs"/>
+                <outlet property="timeLabelWidth" destination="r2T-Gb-J7e" id="VTb-Fo-9Kv"/>
+            </connections>
+            <point key="canvasLocation" x="284.5" y="204"/>
+        </tableViewCell>
+    </objects>
+</document>

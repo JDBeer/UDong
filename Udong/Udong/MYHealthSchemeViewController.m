@@ -28,13 +28,16 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self configNav];
     [self configData];
     [self.healthTableView reloadData];
 }
 
 - (void)configNav
 {
+    self.navigationController.navigationBarHidden = NO;
     self.navigationItem.title = @"我的健康档案";
+    self.navigationController.navigationBar.shadowImage = nil;
     
     UIButton *leftbtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [leftbtn setFrame:CGRectMake(0, 0, 20, 20)];
@@ -55,6 +58,8 @@
 
 - (void)configView
 {
+    self.view.backgroundColor = kColorWhiteColor;
+    
     self.healthTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 250) style:UITableViewStylePlain];
     self.healthTableView.dataSource = self;
     self.healthTableView.delegate = self;
@@ -64,7 +69,7 @@
     [self.view addSubview:self.healthTableView];
    
 
-    self.explainLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, self.healthTableView.bottom+10, self.healthTableView.width, 100)];
+    self.explainLabel = [[UILabel alloc] initWithFrame:CGRectMake(13, self.healthTableView.bottom+10, self.healthTableView.width-15, 100)];
     self.explainLabel.text = @"个人资料会影响您的最小运动量标准，进而影响您的运动效果，请谨慎修改";
     [self.explainLabel setTextColor:kColorContentColor];
     self.explainLabel.font = FONT(13);
@@ -72,7 +77,7 @@
     self.explainLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
     CGSize size = [self.explainLabel sizeThatFits:CGSizeMake(self.explainLabel.frame.size.width, MAXFLOAT)];
-    self.explainLabel.frame = CGRectMake(13, self.healthTableView.bottom+10, self.healthTableView.width, size.height);
+    self.explainLabel.frame = CGRectMake(13, self.healthTableView.bottom+10, size.width, size.height);
     
     [self.view addSubview:self.explainLabel];
     

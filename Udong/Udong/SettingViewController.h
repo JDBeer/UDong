@@ -17,6 +17,11 @@
 @property (nonatomic, strong)NSDictionary *baseDataDictionary;
 @property (nonatomic, strong)NSString *VersionString;
 @property (nonatomic, strong)NSMutableArray *chatInfoArray;
+@property (nonatomic, strong)UIView *contentView;
+@property (nonatomic, strong)UIView *shareview;
+@property (nonatomic, strong)UIButton *cancelBtn;
+@property (nonatomic, strong)NSString *feedbackCount;
+@property (nonatomic, strong)NSString *flagString;
 
 
 @end

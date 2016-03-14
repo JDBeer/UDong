@@ -14,5 +14,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *hiddenLabel;
 @property (weak, nonatomic) IBOutlet UIButton *updateBtn;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *left;
 
 @end

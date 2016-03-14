@@ -12,6 +12,16 @@
 
 - (void)awakeFromNib {
     self.titileLabel.textColor = kColorCellTextColor;
+    
+    if (IS_IPHONE_6P) {
+        self.left.constant = 20;
+    }else if (IS_IPHONE_6){
+        self.left.constant = 17;
+    }else if (IS_IPHONE_5){
+        self.left.constant = 15;
+    }else{
+        self.left.constant = 15;
+    }
 
 }
 

@@ -12,23 +12,20 @@
 @implementation APIServiceManager
 
 
-+(void)getSecretKey:(NSString *)OriginSecretkey Secretkeytype:(NSString *)Secretkeytype completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
++(void)getSecretKey:(NSString *)Secretkeytype completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
-     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:OriginSecretkey forKey:@"originSecretKey"];
-    [parameters setObject:Secretkeytype forKey:@"SecretkeytypeKey"];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
-    NetworkActivityIndicatorVisible;
+    [parameters setObject:Secretkeytype forKey:@"erpSecretkey.type"];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@?secretkey=%@&erpSecretkey.type=%@",Base_Url,GetSecretKey_Url,OriginSecretkey,Secretkeytype];
-    NSString * encodedString = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes( kCFAllocatorDefault, (CFStringRef)urlString, NULL, NULL,  kCFStringEncodingUTF8 );
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,GetSecretKey_Url];
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
-    [manager POST:encodedString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         completionBlock(responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         failureBlock(error);
     }];
 
@@ -39,23 +36,20 @@
 {
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:secretKey forKey:@"SecretKey"];
-    [parameters setObject:mobileNumber forKey:@"mobileNumber"];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:mobileNumber forKey:@"udMobileMessage.mobile"];
+
     
-    NetworkActivityIndicatorVisible;
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",[StorageManager getBaseUrl],GetVertifyCode_Url];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@?secretKey=%@&message.mobile=%@",Base_Url,GetVertifyCode_Url,secretKey,mobileNumber];
-    NSString * encodedString = (__bridge NSString *)CFURLCreateStringByAddingPercentEscapes( kCFAllocatorDefault, (CFStringRef)urlString, NULL, NULL,  kCFStringEncodingUTF8 );
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
-    [manager POST:encodedString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         completionBlock(responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         failureBlock(error);
     }];
-    
 }
 
 + (void)getProvisionWithSecretKey:(NSString *)secretKey type:(NSString *)type completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
@@ -107,21 +101,20 @@
     
 }
 
-
-+(void)LoginWithSecretkey:(NSString *)secretKey phoneNumber:(NSString *)phoneNumber password:(NSString *)password Logintype:(NSString *)Logintype openudid:(NSString *)openudid deviceOS:(NSString *)deviceOS deviceModel:(NSString *)deviceModel deviceResolution:(NSString *)deviceResolution deviceVersion:(NSString *)deviceVersion completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
++(void)LoginWithSecretkey:(NSString *)secretKey phoneNumber:(NSString *)phoneNumber password:(NSString *)password Logintype:(NSString *)Logintype completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:secretKey forKey:@"secretKey"];
-    [parameters setObject:phoneNumber forKey:@"baseUser.username"];
-    [parameters setObject:password forKey:@"baseUser.pass"];
-    [parameters setObject:Logintype forKey:@"baseUser.loginType"];
-    [parameters setObject:openudid forKey:@"device.isn"];
-    [parameters setObject:deviceOS forKey:@"device.os"];
-    [parameters setObject:deviceModel forKey:@"device.model"];
-    [parameters setObject:deviceResolution forKey:@"device.resolution"];
-    [parameters setObject:deviceVersion forKey:@"device.osVersion"];
+    [parameters setObject:phoneNumber forKey:@"udBaseUser.mobile"];
+    [parameters setObject:password forKey:@"udBaseUser.pass"];
+    [parameters setObject:Logintype forKey:@"udBaseUser.login_type"];
+//    [parameters setObject:openudid forKey:@"device.isn"];
+//    [parameters setObject:deviceOS forKey:@"device.os"];
+//    [parameters setObject:deviceModel forKey:@"device.model"];
+//    [parameters setObject:deviceResolution forKey:@"device.resolution"];
+//    [parameters setObject:deviceVersion forKey:@"device.osVersion"];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Login_Url];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",[StorageManager getBaseUrl],Login_Url];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
@@ -154,18 +147,15 @@
     
 }
 
-+ (void)ForgetPassWordWithSecretKey:(NSString *)secretKey phoneNumber:
-(NSString *)phoneNumber status:(NSString *)status code:(NSString *)code vertifyCode:(NSString *)vertifyCode password:(NSString *)password completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
++ (void)ForgetPassWordWithSecretKey:(NSString *)secretKey phoneNumber:(NSString *)phoneNumber vertifyCode:(NSString *)vertifyCode password:(NSString *)password completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:phoneNumber forKey:@"udBaseUser.mobile"];
-    [parameters setObject:status forKey:@"udBaseUser.z_status"];
     [parameters setObject:secretKey forKey:@"secretKey"];
-    [parameters setObject:code forKey:@"udong_code"];
-    [parameters setObject:vertifyCode forKey:@"udBaseUserVo.message_info"];
-    [parameters setObject:password forKey:@"udBaseUser.pass"];
+    [parameters setObject:vertifyCode forKey:@"udMobileMessage.message_info"];
+    [parameters setObject:password forKey:@"udBaseUserVo.newPass"];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,ForgetPsw_Url];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",[StorageManager getBaseUrl],ForgetPsw_Url];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
@@ -273,7 +263,7 @@
     [parameters setObject:secretKey forKey:@"secretKey"];
     [parameters setObject:idString forKey:@"udUserHealthInfo.user_id"];
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,JudgeEvalution_Url];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",[StorageManager getBaseUrl],JudgeEvalution_Url];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
@@ -296,6 +286,7 @@
     NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,MineMessage_Url];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer.timeoutInterval = timeOutInterval;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
     [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         completionBlock(responseObject);
@@ -307,13 +298,12 @@
     
 }
 
-+ (void)GetAccountMessageWithKey:(NSString *)secretKey idString:(NSString *)idString phoneNumber:(NSString *)phoneNumber status:(NSString *)status completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
++ (void)GetAccountMessageWithKey:(NSString *)secretKey idString:(NSString *)idString status:(NSString *)status completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
     [parameters setObject:secretKey forKey:@"secretKey"];
     [parameters setObject:idString forKey:@"aUser.user_id"];
-    [parameters setObject:phoneNumber forKey:@"aUser.mobile"];
     [parameters setObject:status forKey:@"aUser.z_status"];
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,AccountMessage_Url];
@@ -399,7 +389,7 @@
     [parameters setObject:phoneNumber forKey:@"message.mobile"];
     [parameters setObject:vertifyCode forKey:@"udBaseUserVo.message_info"];
     [parameters setObject:idString forKey:@"udBaseUser.id"];
-    [parameters setObject:status forKey:@"udBaseUser.z_status=1"];
+    [parameters setObject:status forKey:@"udBaseUser.z_status"];
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,modtfiy_accountPhoneNumber_Url];
     
@@ -414,14 +404,15 @@
     
 }
 
-+ (void)VersionUpdateWithKey:(NSString *)secretKey type:(NSString *)type completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
++ (void)VersionUpdateWithKey:(NSString *)secretKey type:(NSString *)type version:(NSString *)version completionBlock:(void (^)(id responObject)) completionBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
     [parameters setObject:secretKey forKey:@"secretKey"];
     [parameters setObject:type forKey:@"udVersionInfo.os_type"];
+    [parameters setObject:version forKey:@"udVersionInfo.version_ids"];
     
-     NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Version_Update_Url];
+     NSString *urlString = [NSString stringWithFormat:@"%@%@",[StorageManager getBaseUrl],Version_Update_Url];
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
@@ -434,13 +425,15 @@
 
 }
 
-+ (void)GetFeedbackMessageWithKey:(NSString *)secretKey fromId:(NSString *)fromId toUserId:(NSString *)toUserId completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
++ (void)GetFeedbackMessageWithKey:(NSString *)secretKey fromId:(NSString *)fromId toUserId:(NSString *)toUserId page:(NSString *)page rows:(NSString *)rows completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock;
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
     [parameters setObject:secretKey forKey:@"secretKey"];
     [parameters setObject:fromId forKey:@"udFeedbackVo.from_user_id"];
     [parameters setObject:toUserId forKey:@"udFeedbackVo.to_user_id"];
+    [parameters setObject:page forKey:@"page"];
+    [parameters setObject:rows forKey:@"rows"];
     
      NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Get_Feedback_Message_Url];
     
@@ -455,16 +448,17 @@
 
 }
 
-+ (void)SendFeedbackMessageWithKey:(NSString *)secretKey tofromId:(NSString *)tofromId useId:(NSString *)useId status:(NSString *)status content:(NSString *)content note:(NSString *)note fromId:(NSString *)fromId toUserId:(NSString *)toUserId code:(NSString *)code completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
++ (void)SendFeedbackMessageWithKey:(NSString *)secretKey fromId:(NSString *)fromId useId:(NSString *)useId status:(NSString *)status content:(NSString *)content note:(NSString *)note tofromId:(NSString *)tofromId toUserId:(NSString *)toUserId code:(NSString *)code completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock;
 {
      NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:secretKey forKey:@"secretKey"];
-    [parameters setObject:tofromId forKey:@"udFeedbackVo.to_user_id"];
-    [parameters setObject:useId forKey:@"udFeedback.from_user_id"];
+    [parameters setObject:fromId forKey:@"udFeedback.from_user_id"];
+    [parameters setObject:useId forKey:@"udFeedback.to_user_id"];
+    
     [parameters setObject:status forKey:@"udFeedback.status"];
     [parameters setObject:content forKey:@"udFeedback.content"];
     [parameters setObject:note forKey:@"udFeedback.note"];
-    [parameters setObject:fromId forKey:@"udFeedbackVo.from_user_id"];
+    [parameters setObject:tofromId forKey:@"udFeedbackVo.from_user_id"];
     [parameters setObject:toUserId forKey:@"udFeedbackVo.to_user_id"];
     [parameters setObject:code forKey:@"udong_code"];
     
@@ -481,12 +475,13 @@
 
 }
 
-+ (void)UpdateFeedbackStatusWithKey:(NSString *)secretKey userId:(NSString *)userId status:(NSString *)status completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
++ (void)UpdateFeedbackStatusWithKey:(NSString *)secretKey fromId:(NSString *)fromId userId:(NSString *)userId status:(NSString *)status completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
 {
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     
     [parameters setObject:secretKey forKey:@"secretKey"];
-    [parameters setObject:userId forKey:@"udFeedback.user_id"];
+    [parameters setObject:fromId forKey:@"udFeedback.from_user_id"];
+    [parameters setObject:userId forKey:@"udFeedback.to_user_id"];
     [parameters setObject:status forKey:@"udFeedback.status"];
     
      NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Update_Feedback_Status_Url];
@@ -527,28 +522,251 @@
     } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
         failureBlock(error);
     }];
-
     
-    }
+}
 
-//+ (void)SendHeadImageWithKey:(NSString *)secretKey file:(NSData *)file completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
-//{
-//     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//    
-//    [parameters setObject:secretKey forKey:@"secretKey"];
-//    [parameters setObject:file forKey:@"file"];
-//    
-//    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Send_HeadImage_Url];
-//    
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
-//        [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-//            completionBlock(responseObject);
-//    
-//        } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
-//            failureBlock(error);
-//        }];
-//
-//}
++ (void)GetServerLastRecordWithKey:(NSString *)secretKey userID:(NSString *)userID completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:userID forKey:@"userId"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Get_Server_LastSportRecord_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+    
+}
+
++ (void)SendSportMessageWithKey:(NSString *)secretKey sportString:(NSString *)sportString completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:sportString forKey:@"sportsSumariesStr"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Send_SportMessage_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+}
+
++ (void)GetOnedaySportDetailWithKey:(NSString *)secretKey userID:(NSString *)userID dateString:(NSString *)dateString completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:userID forKey:@"userId"];
+    [parameters setObject:dateString forKey:@"dateStr"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Get_Oneday_SportDatail_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+         completionBlock(responseObject);
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+    
+}
+
++ (void)GetOnedaySportEffectWithKey:(NSString *)secretKey userID:(NSString *)userID dateString:(NSString *)dateString completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:userID forKey:@"userId"];
+    [parameters setObject:dateString forKey:@"dateStr"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Get_Oneday_SportEffect_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+    
+}
+
++ (void)GetOneMonthSportFinishRateWithKey:(NSString *)secretKey userID:(NSString *)userID completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:userID forKey:@"userId"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Get_OneMonth_SportFinishRates_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+
+}
+
++ (void)ThridPlatfromLoginWithkey:(NSString *)secretKey loginType:(NSString *)loginType userID:(NSString *)userID thirdOpenID:(NSString *)thirdOpenID deviceisn:(NSString *)deviceisn deviceOS:(NSString *)deviceOS deviceModel:(NSString *)deviceModel deviceresolution:(NSString *)deviceresolution deviceVersion:(NSString *)deviceVersion nickName:(NSString *)nickName headImgUrl:(NSString *)headImgUrl completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:loginType forKey:@"baseUser.loginType"];
+    [parameters setObject:userID forKey:@"baseUser.id"];
+    [parameters setObject:thirdOpenID forKey:@"baseUser.openid"];
+    [parameters setObject:deviceisn forKey:@"device.isn"];
+    [parameters setObject:deviceOS forKey:@"device.os"];
+    [parameters setObject:deviceModel forKey:@"device.model"];
+    [parameters setObject:deviceresolution forKey:@"device.resolution"];
+    [parameters setObject:deviceVersion forKey:@"device.osVersion"];
+    [parameters setObject:nickName forKey:@"userInfo.nickName"];
+    [parameters setObject:headImgUrl forKey:@"userInfo.headImgUrl"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Third_platfrom_Login_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+
+}
+
++ (void)GetAnalysisPointMessageWithKey:(NSString *)secretKey userID:(NSString *)userID days:(NSString *)days completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:userID forKey:@"userId"];
+    [parameters setObject:days forKey:@"days"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Get_Analysis_PointMessage_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+    
+}
+
++ (void)GetLinkManListMessageWithKey:(NSString *)secretKey userID:(NSString *)userID time:(NSString *)time completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:userID forKey:@"userId"];
+    [parameters setObject:time forKey:@"time"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Get_Linkman_list_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+
+}
+
++ (void)GetUnReadMessageWithKey:(NSString *)secretKey userID:(NSString *)userID messageID:(NSString *)messageID completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:userID forKey:@"userId"];
+    [parameters setObject:messageID forKey:@"messagerId"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Get_UnRead_Message_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+    
+}
+
++ (void)GetAlreadyReadMessageWithKey:(NSString *)secretKey userID:(NSString *)userID messageID:(NSString *)messageID time:(NSString *)time completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:userID forKey:@"userId"];
+    [parameters setObject:messageID forKey:@"messagerId"];
+    [parameters setObject:time forKey:@"time"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Get_AlreadyRead_Message_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+
+}
+
++ (void)GetArticleDetailWithKey:(NSString *)secretKey articleId:(NSString *)articleId completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:articleId forKey:@"articleId"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,Get_Article_Detail_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+    
+}
+
++ (void)registrationIDInputWithKey:(NSString *)secretKey userID:(NSString *)userID registrationID:(NSString *)registrationID completionBlock:(void (^)(id responObject))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
+{
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:secretKey forKey:@"secretKey"];
+    [parameters setObject:userID forKey:@"baseUser.id"];
+    [parameters setObject:registrationID forKey:@"baseUser.registrationid"];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",Base_Url,RegistrationID_Input_Url];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/plain", nil];
+    [manager POST:urlString parameters:parameters success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        completionBlock(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation * _Nullable operation, NSError * _Nonnull error) {
+        failureBlock(error);
+    }];
+
+}
+
 
 @end

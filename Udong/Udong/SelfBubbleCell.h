@@ -13,5 +13,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *SelfbackgroundImageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *SelfChatLabel;
+@property (weak, nonatomic) IBOutlet UILabel *SelfNameLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *backImageViewWidth;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelWidth;
 
 @end

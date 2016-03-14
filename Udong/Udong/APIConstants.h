@@ -6,19 +6,19 @@
 //  Copyright © 2015年 WuYue. All rights reserved.
 //
 
-//#define Base_Url @"http://demo.hzzkkj.com/udong/"
+#define Base_Url @"http://demo.hzzkkj.com/udong-api/"
 //张鹏鹏
-#define Base_Url @"http://192.168.1.118:8080/udong/"
+//#define Base_Url @"http://192.168.1.118:6062/udong-api/"
 //徐家园
-//#define Base_Url @"http://192.168.1.100:8089/udong/"
+//#define Base_Url @"http://192.168.1.108:8080/udong/"
 
 //图片访问
 
-#define Picture_Url @"http://192.168.1.118:8080/upload/"
+#define Picture_Url @"http://demo.hzzkkj.com/udongAPI/upload/"
 
 //下载访问
 
-#define DownLoad_Url @"http://192.168.1.118:8080/download/"
+#define DownLoad_Url @"http://demo.hzzkkj.com/udongAPI/download/"
 
 
 //注册
@@ -27,7 +27,7 @@
 
 //登录
 
-#define Login_Url @"com.zzkj.client.user/user!login"
+#define Login_Url @"com.api.user/user_base_user!getUserLoginV_1_0_3"
 
 //获取数据字典基础配置
 
@@ -43,7 +43,7 @@
 
 //忘记密码
 
-#define ForgetPsw_Url @"com.zzkj.client.safety/safety!getPassword"
+#define ForgetPsw_Url @"com.api.safety/safety_base_user!getSafetyPasswodUpdateV_1_0_3"
 
 //修改密码
 
@@ -55,7 +55,7 @@
 
 //查询秘钥
 
-#define GetSecretKey_Url @"com.zzkj.back.power/key!getSecretkey"
+#define GetSecretKey_Url @"com.api.system/system_secretkey!getSystemSecretkeyV_1_0_3"
 
 //错误信息返回
 
@@ -63,7 +63,7 @@
 
 //获取验证码
 
-#define GetVertifyCode_Url @"com.zzkj.back.message/message!send"
+#define GetVertifyCode_Url @"com.api.message/message_mobile_message!getMobileMessageV_1_0_3"
 
 //判断手机号是否注册过
 
@@ -107,7 +107,7 @@
 
 //版本更新
 
-#define Version_Update_Url @"com.zzkj.client.system/version!getSystemQueryVersion"
+#define Version_Update_Url @"com.api.system/system_version!getSystemVersionV_1_0_3"
 
 //获取意见反馈信息
 
@@ -124,4 +124,54 @@
 //上传头像
 
 #define Send_HeadImage_Url @"com.upload.images/images!uploadImages"
+
+//获取服务端最近的运动记录
+
+#define Get_Server_LastSportRecord_Url @"com.zzkj.client.exercise/exercise!getNewestSportsRecordTime"
+
+//上传用户运动信息
+
+#define Send_SportMessage_Url @"com.zzkj.client.exercise/exercise!importSportsInfo"
+
+//获取某日运动详情
+
+#define Get_Oneday_SportDatail_Url @"com.zzkj.client.exercise/exercise!getSportsContentByDate"
+
+//获取某日的运动效果
+
+#define Get_Oneday_SportEffect_Url @"com.zzkj.client.exercise/exercise!getSportsResult"
+
+//获取一个月的运动完成比率
+
+#define Get_OneMonth_SportFinishRates_Url @"com.zzkj.client.exercise/exercise!getFinishRates"
+
+//第三方登录
+
+#define Third_platfrom_Login_Url @"com.zzkj.client.user/user!login"
+
+//分析界面获得点信息
+
+#define Get_Analysis_PointMessage_Url @"com.zzkj.client.analysis/analysis!getAnalysisResult"
+
+#pragma mark - 消息模块
+
+//获取联系人列表
+
+#define Get_Linkman_list_Url @"com.zzkj.client.message/pushMessage!getMessagerList"
+
+//获取用户和某一联系人之间的未读消息
+
+#define Get_UnRead_Message_Url @"com.zzkj.client.message/pushMessage!getUnreadMessages"
+
+//获取用户和某一联系人之间的已读消息
+
+#define Get_AlreadyRead_Message_Url @"com.zzkj.client.message/pushMessage!getReadMessages"
+
+//获取某文章详情
+
+#define Get_Article_Detail_Url @"com.zzkj.client.message/pushMessage!getArticleDetail"
+
+//registrationID录入
+
+#define RegistrationID_Input_Url @"com.zzkj.client.user/user!updateRegistrationid"
 

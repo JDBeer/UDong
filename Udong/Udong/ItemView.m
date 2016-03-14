@@ -16,14 +16,14 @@
     if (self) {
         self.TitleLabel1 = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.TitleLabel1 setText:title1];
-        [self.TitleLabel1 setTextAlignment:NSTextAlignmentCenter];
+        [self.TitleLabel1 setTextAlignment:NSTextAlignmentLeft];
         [self.TitleLabel1 setFont:FONT(16)];
         [self.TitleLabel1 setTextColor:kColorContentColor];
         [self addSubview:self.TitleLabel1];
         
         self.SubTitleLabel1 = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.SubTitleLabel1 setText:subTitle1];
-        [self.SubTitleLabel1 setTextAlignment:NSTextAlignmentCenter];
+        [self.SubTitleLabel1 setTextAlignment:NSTextAlignmentLeft];
         [self.SubTitleLabel1 setFont:FONT(17)];
         [self.SubTitleLabel1 setTextColor:kColorWhiteColor];
         [self addSubview:self.SubTitleLabel1];
@@ -51,7 +51,7 @@
         
         self.TitleLabel3 = [[UILabel alloc] initWithFrame:CGRectZero];
         [self.TitleLabel3 setText:title3];
-        [self.TitleLabel3 setTextAlignment:NSTextAlignmentCenter];
+        [self.TitleLabel3 setTextAlignment:NSTextAlignmentRight];
         [self.TitleLabel3 setFont:FONT(16)];
         [self.TitleLabel3 setTextColor:kColorContentColor];
         [self addSubview:self.TitleLabel3];
@@ -72,29 +72,59 @@
 
 - (void)layoutSubviews
 {
-    self.TitleLabel2.width = 80;
-    self.TitleLabel2.centerX = self.centerX;
-    self.TitleLabel2.top =5;
+    if (IS_IPHONE_6P||IS_IPHONE_6) {
+        self.TitleLabel2.width = 80;
+        self.TitleLabel2.centerX = self.centerX;
+        self.TitleLabel2.top =5;
+        
+        self.SubTitleLabel2.width = self.TitleLabel2.width;
+        self.SubTitleLabel2.centerX = self.TitleLabel2.centerX;
+        self.SubTitleLabel2.top = self.TitleLabel2.bottom + 10;
+        
+        self.TitleLabel1.width = self.TitleLabel2.width;
+        self.TitleLabel1.left = 40;
+        self.TitleLabel1.top = self.TitleLabel2.top;
+        
+        self.SubTitleLabel1.width = self.SubTitleLabel2.width;
+        self.SubTitleLabel1.left = 45;
+        self.SubTitleLabel1.top = self.SubTitleLabel2.top;
+        
+        self.TitleLabel3.width = self.TitleLabel2.width;
+        self.TitleLabel3.right = self.right-40;
+        self.TitleLabel3.top = self.TitleLabel2.top;
+        
+        self.SubTitleLabel3.width = self.SubTitleLabel2.width;
+        self.SubTitleLabel3.right = self.TitleLabel3.right;
+        self.SubTitleLabel3.top = self.SubTitleLabel2.top;
+    }else{
+        
+        self.TitleLabel2.width = 80;
+        self.TitleLabel2.centerX = self.centerX;
+        self.TitleLabel2.top =5;
+        
+        self.SubTitleLabel2.width = self.TitleLabel2.width;
+        self.SubTitleLabel2.centerX = self.TitleLabel2.centerX;
+        self.SubTitleLabel2.top = self.TitleLabel2.bottom + 10;
+        
+        self.TitleLabel1.width = self.TitleLabel2.width;
+        self.TitleLabel1.left = 40;
+        self.TitleLabel1.top = self.TitleLabel2.top;
+        
+        self.SubTitleLabel1.width = self.SubTitleLabel2.width;
+        self.SubTitleLabel1.left = 45;
+        self.SubTitleLabel1.top = self.SubTitleLabel2.top;
+        
+        self.TitleLabel3.width = self.TitleLabel2.width;
+        self.TitleLabel3.right = self.right-20;
+        self.TitleLabel3.top = self.TitleLabel2.top;
+        
+        self.SubTitleLabel3.width = self.SubTitleLabel2.width;
+        self.SubTitleLabel3.right = self.TitleLabel3.right;
+        self.SubTitleLabel3.top = self.SubTitleLabel2.top;
+
+    }
     
-    self.SubTitleLabel2.width = self.TitleLabel2.width;
-    self.SubTitleLabel2.centerX = self.TitleLabel2.centerX;
-    self.SubTitleLabel2.top = self.TitleLabel2.bottom + 10;
     
-    self.TitleLabel1.width = self.TitleLabel2.width;
-    self.TitleLabel1.left = 15;
-    self.TitleLabel1.top = self.TitleLabel2.top;
-    
-    self.SubTitleLabel1.width = self.SubTitleLabel2.width;
-    self.SubTitleLabel1.left = self.TitleLabel1.left;
-    self.SubTitleLabel1.top = self.SubTitleLabel2.top;
-    
-    self.TitleLabel3.width = self.TitleLabel2.width;
-    self.TitleLabel3.right = self.width-20;
-    self.TitleLabel3.top = self.TitleLabel2.top;
-    
-    self.SubTitleLabel3.width = self.SubTitleLabel2.width;
-    self.SubTitleLabel3.right = self.TitleLabel3.right;
-    self.SubTitleLabel3.top = self.SubTitleLabel2.top;
     
     
 }

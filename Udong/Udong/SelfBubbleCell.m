@@ -11,10 +11,10 @@
 @implementation SelfBubbleCell
 
 - (void)awakeFromNib {
-    self.SelfheadImageView.layer.cornerRadius = 20;
+    self.SelfheadImageView.layer.cornerRadius = 16.5;
     self.SelfheadImageView.layer.masksToBounds =YES;
     
-    self.SelfbackgroundImageView.image = [[UIImage imageNamed:@"speech_bubble_blue"] stretchableImageWithLeftCapWidth:25 topCapHeight:21];
+    self.SelfbackgroundImageView.image = [[UIImage imageNamed:@"message_right_bg_pressed.9"] stretchableImageWithLeftCapWidth:40 topCapHeight:30];
 
 }
 

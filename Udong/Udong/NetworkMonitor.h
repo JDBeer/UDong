@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Reachability.h"
 
 @interface NetworkMonitor : NSObject
+
++ (NetworkMonitor *)sharedNetworkMonitor;
+
+- (NetworkStatus)currentNetworkStatus;
+
+@property (nonatomic, strong) Reachability *internetReachability;
 
 @end

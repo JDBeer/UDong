@@ -18,6 +18,8 @@
 @property (nonatomic, strong)UIButton *manBtn;
 @property (nonatomic, strong)UIButton *womenBtn;
 @property (nonatomic, strong)UIButton *NextBtn;
+@property (nonatomic, strong)UIButton *backBtn;
+@property (nonatomic, assign)int sign;
 
 
 @end

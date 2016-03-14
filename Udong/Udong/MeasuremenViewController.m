@@ -30,36 +30,43 @@
     [super viewDidLoad];
     [self configNumber];
     [self configView];
+    
 }
 
 - (void)configView
 {
+    
     self.view.backgroundColor = kColorWhiteColor;
     self.navigationController.navigationBarHidden = YES;
-    self.stepImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.left+30, self.interval1, self.view.right-2*30, 25)];
+    self.stepImageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.left+30, self.interval1+25, self.view.right-2*30, 25)];
     self.stepImageView.image = ImageNamed(@"progress-bar_1");
     [self.view addSubview:self.stepImageView];
 
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backBtn.frame = CGRectMake(10, 35, 23, 23);
+    [self.backBtn setBackgroundImage:ImageNamed(@"navbar_icon_back") forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(OnBtnBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.backBtn];
     
-    CGSize Size1 = [@"根据你的资料计算基础代谢和运动时间" sizeWithAttributes:@{NSFontAttributeName:FONT(17)}];
+    
+    CGSize Size1 = [@"以下将根据您的体质评估" sizeWithAttributes:@{NSFontAttributeName:FONT(17)}];
     self.label1 = [[UILabel alloc] init];
-    self.label1.text = @"根据你的资料计算基础代谢和运动时间";
+    self.label1.text = @"以下将根据您的体质评估";
     self.label1.font = FONT(17);
-    self.label1.textColor = UIColorFromHexWithAlpha(0x666666,1);
+    self.label1.textColor = kColorBlackColor;
     self.label1.top = self.stepImageView.bottom+_interval2;
     self.label1.width = Size1.width;
     self.label1.height = Size1.height;
     self.label1.centerX = self.stepImageView.centerX;
     [self.view addSubview:self.label1];
     
-    CGSize size2 = [@"就此饿几个人估计过后饿回国后软件感" sizeWithAttributes:@{NSFontAttributeName:FONT(14)}];
+    CGSize size2 = [@"为您推荐合适的有效运动量" sizeWithAttributes:@{NSFontAttributeName:FONT(17)}];
     self.label2 = [[UILabel alloc]initWithFrame:CGRectMake(self.label1.centerX, self.label1.bottom+_interval3, size2.width, size2.height)];
-    self.label2.centerX =
     self.label2.numberOfLines = 0;
     self.label2.lineBreakMode = NSLineBreakByWordWrapping;
-    self.label2.text = @"就此饿几个人估计过后饿回国后软件感缔呢个窦娥火锅窦娥九宫格当然更尴尬";
-    self.label2.font =  FONT(14);
-    self.label2.textColor = UIColorFromHexWithAlpha(0x999999,1);
+    self.label2.text = @"为您推荐合适的有效运动量";
+    self.label2.font =  FONT(17);
+    self.label2.textColor = kColorBlackColor;
     CGSize size = [self.label2 sizeThatFits:CGSizeMake(self.label2.frame.size.width, MAXFLOAT)];
     self.label2.frame =CGRectMake(self.label1.centerX-(self.label2.width)/2, self.label1.bottom+_interval3, size2.width, size.height);
     
@@ -84,12 +91,13 @@
     [self.manBtn setBackgroundImage:[UIImage imageNamed:@"avatar_gender_boy"] forState:UIControlStateNormal];
     [self.manBtn setBackgroundImage:[UIImage imageNamed:@"avatar_gender_boy_chosed"] forState:UIControlStateSelected];
     [self.manBtn addTarget:self action:@selector(Press:) forControlEvents:UIControlEventTouchUpInside];
+    self.manBtn.selected = YES;
     [self.view addSubview:self.manBtn];
     
     
     self.womenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.womenBtn.tag = 2;
-    self.womenBtn.frame = CGRectMake(self.view.centerX+30, self.sexLabel.bottom+_interval5, 60, 60);
+    self.womenBtn.frame = CGRectMake(self.view.centerX+40, self.sexLabel.bottom+_interval5, 60, 60);
     [self.womenBtn setBackgroundImage:ImageNamed(@"avatar_gender_girl") forState:UIControlStateNormal];
     [self.womenBtn setBackgroundImage:ImageNamed(@"avatar_gender_girl_chosed") forState:UIControlStateSelected];
     [self.womenBtn addTarget:self action:@selector(Press:) forControlEvents:UIControlEventTouchUpInside];
@@ -97,15 +105,15 @@
 
     self.NextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.NextBtn.bottom = self.view.bottom-_interval7;
-    self.NextBtn.width = 140;
+    self.NextBtn.width = 160;
     self.NextBtn.height = _buttonHeight;
     self.NextBtn.centerX = self.view.centerX;
     [self.NextBtn setTitle:@"下一步" forState:UIControlStateNormal];
     [self.NextBtn setTitleColor:kColorBtnColor forState:UIControlStateNormal];
     [self.NextBtn addTarget:self action:@selector(ToNext:) forControlEvents:UIControlEventTouchUpInside];
-    self.NextBtn.layer.borderWidth = 1;
+    self.NextBtn.layer.borderWidth = 0.5;
     self.NextBtn.layer.borderColor = kColorBtnColor.CGColor;
-    self.NextBtn.layer.cornerRadius = 7;
+    self.NextBtn.layer.cornerRadius = self.NextBtn.height/2;
     self.NextBtn.layer.masksToBounds = YES;
     [self.view addSubview:self.NextBtn];
     
@@ -132,9 +140,24 @@
     }
 }
 
+- (void)OnBtnBack:(id)sender
+{
+    if (self.sign == 111) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 - (void)ToNext:(id)sender
 {
+    
+    if ([StorageManager getSex] == nil) {
+        [StorageManager saveSex:@"M"];
+    }
+    
     MeasurementAgeViewController *meaAgeVC = [[MeasurementAgeViewController alloc] init];
+    
     [self.navigationController pushViewController:meaAgeVC animated:NO];
 }
 
@@ -156,7 +179,7 @@
         _interval2 = 30*_scale;
         _interval3 = 21*_scale;
         _interval4 = 50*_scale;
-        _interval5 = 70*_scale;
+        _interval5 = 80*_scale;
         _interval6 = 7*_scale;
         _interval7 = 100*_scale;
         _imageHeight = 88*_scale;
@@ -167,7 +190,7 @@
         _interval2 = 30;
         _interval3 = 21;
         _interval4 = 70;
-        _interval5 = 70;
+        _interval5 = 80;
         _interval6 = 7;
         _interval7 = 100;
         _imageHeight = 88;
@@ -178,7 +201,7 @@
         _interval2 = 30*_scale;
         _interval3 = 21*_scale;
         _interval4 = 50*_scale;
-        _interval5 = 70*_scale;
+        _interval5 = 80*_scale;
         _interval6 = 7*_scale;
         _interval7 = 100*_scale;
         _imageHeight = 88*_scale;

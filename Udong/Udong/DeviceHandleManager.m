@@ -34,7 +34,7 @@
     [deviceData setObject:deviceResolution forKey:DeviceResolutionKey];
     
     NSString *phoneVersion = [[UIDevice currentDevice] systemVersion];
-    NSString *deviceVersion = [NSString stringWithFormat:@"手机系统版本:%@",phoneVersion];
+    NSString *deviceVersion = [NSString stringWithFormat:@"%@",phoneVersion];
     [deviceData setObject:deviceVersion forKey:DeviceVersionKey];
     
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];

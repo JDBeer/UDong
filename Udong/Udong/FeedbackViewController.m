@@ -16,7 +16,7 @@
 #define Identifier_OtherBubbleCell @"OtherBubbleCell"
 #define Identifier_MainTableViewCell @"MainTableViewCell"
 
-@interface FeedbackViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface FeedbackViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @end
 
@@ -33,6 +33,7 @@
 {
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.barTintColor = kColorWhiteColor;
+    self.navigationController.navigationBar.translucent = YES;
     [self configBackItem];
     self.view.backgroundColor = kColorWhiteColor;
     self.navigationItem.title = @"意见反馈";
@@ -50,8 +51,10 @@
 
 - (void)configView
 {
-    self.messageView = [[UIView alloc] initWithFrame:CGRectMake(0,self.view.height-44, self.view.width, 44)];
-    self.messageView.backgroundColor = [UIColor colorWithWhite:0.05 alpha:0.05];
+    
+    self.messageView = [[UIView alloc] initWithFrame:CGRectMake(0,self.view.height-44, SCREEN_WIDTH, 44)];
+    self.messageView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.2];
+    self.messageView.autoresizesSubviews = NO;
     [self.view addSubview:self.messageView];
     
     self.pictureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -62,6 +65,7 @@
 
     self.messageTf = [[UITextField alloc] initWithFrame:CGRectMake(self.pictureBtn.right+10, self.pictureBtn.top-5, self.view.width-100, 34)];
     self.messageTf.clearButtonMode = UITextFieldViewModeNever;
+    self.messageTf.delegate = self;
     self.messageTf.enablesReturnKeyAutomatically = YES;
     self.messageTf.returnKeyType = UIReturnKeySend;
 
@@ -79,7 +83,7 @@
     
     
     self.chatTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64-44) style:UITableViewStylePlain];
-//    self.chatTableView.rowHeight = 70;
+    self.chatTableView.rowHeight = UITableViewAutomaticDimension;
     self.chatTableView.delegate = self;
     self.chatTableView.dataSource = self;
     self.chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -95,7 +99,12 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapForTableView:)];
     
     [self.chatTableView addGestureRecognizer:tap];
-
+    
+    if (self.InfoArray.count!=0) {
+        [_chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_InfoArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    }
+    
+    
     
 }
 
@@ -112,28 +121,44 @@
     
     if ([idString isEqualToString:@"1"]) {
         OtherBubbleCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier_OtherBubbleCell forIndexPath:indexPath];
-        cell.OtherNamelabel.text = Infoobj.nickname;
         
+        cell.OtherNamelabel.text = @"客服优优";
         cell.OtherChatLabel.text = Infoobj.content;
         NSString *msg = Infoobj.content;
-        CGSize size = [msg sizeWithAttributes:@{NSFontAttributeName:FONT(13)}];
-        cell.OtherChatLabel.height = size.height;
         
-        [cell.OtherHeadImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Picture_Url,Infoobj.head_img_url]] placeholderImage:ImageNamed(@"avatar_default")];
-        cell.OtherBacngroundImageView.height = size.height+20;
+        CGSize size = [msg sizeWithAttributes:@{NSFontAttributeName:FONT(15)}];
+        
+        cell.OtherChatLabel.numberOfLines = 0;
+        
+        if ( size.width+30>170) {
+            size.width = 140;
+        }
+        
+        cell.otherBgImageViewWidth.constant = size.width+30;
+        cell.OtherLabelWidth.constant = size.width;
+        
+        cell.OtherHeadImageView.image = ImageNamed(@"abou_logo");
         
         return cell;
     }else{
         SelfBubbleCell *cell = [tableView dequeueReusableCellWithIdentifier:Identifier_SelfBubbleCell forIndexPath:indexPath];
         
         cell.SelfChatLabel.text = Infoobj.content;
+        cell.SelfNameLabel.text = Infoobj.nickname;
         NSString *msg = Infoobj.content;
-        CGSize size = [msg sizeWithAttributes:@{NSFontAttributeName:FONT(13)}];
-        cell.SelfChatLabel.height = size.height;
         
+        CGSize size = [msg sizeWithAttributes:@{NSFontAttributeName:FONT(15)}];
+
+        cell.SelfChatLabel.numberOfLines = 0;
+        
+        if ( size.width+30>170) {
+            size.width = 140;
+        }
+        cell.backImageViewWidth.constant = size.width+30;
+        cell.labelWidth.constant = size.width;
+    
         
         [cell.SelfheadImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",Picture_Url,Infoobj.head_img_url]] placeholderImage:ImageNamed(@"avatar_default")];
-        cell.SelfbackgroundImageView.height = size.height+20;
         
         return cell;
     
@@ -146,14 +171,15 @@
     
     NSString *msg = Infoobj.content;
     
-    CGSize size = [msg sizeWithAttributes:@{NSFontAttributeName:FONT(13)}];
+    float height = [msg boundingRectWithSize:CGSizeMake(120, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15]} context:nil].size.height;
     
     
-    float cellHeight = size.height;
+    float cellHeight = height+20;
     
-    if (cellHeight<70) {
-        return 70;
+    if (cellHeight<60) {
+        return 60;
     }
+    
     return cellHeight;
 
 }
@@ -167,7 +193,7 @@
     [UIView animateWithDuration:0.25 animations:^{
         [UIView setAnimationCurve:7];
         _messageView.frame = CGRectMake(0, self.view.height-44, self.view.width, 44);
-        _chatTableView.frame = CGRectMake(0, 64, self.view.width, self.view.height-64-44);
+        _chatTableView.frame = CGRectMake(0, 64, self.view.width, self.view.height-44-64);
     }];
     
 }
@@ -189,9 +215,15 @@
     
         self.messageView.frame = CGRectMake(0, endFrame.origin.y-44, self.view.frame.size.width, 44);
         
-        self.chatTableView.frame = CGRectMake(0, 64, self.view.frame.size.width,endFrame.size.width-64-44);
+        self.chatTableView.frame = CGRectMake(0, 64, self.view.frame.size.width,endFrame.origin.y-44-64);
+        
+        if (self.InfoArray.count!=0) {
+            
+            [_chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_InfoArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        }
+        
+        
     }];
-
 }
 
 - (void)sendMessage:(UIButton *)btn
@@ -200,28 +232,71 @@
         return;
     }
     
-    [APIServiceManager SendFeedbackMessageWithKey:[StorageManager getSecretKey] tofromId:@"1" useId:[StorageManager getUserId] status:@"1" content:self.messageTf.text note:self.messageTf.text fromId:@"1" toUserId:[StorageManager getUserId] code:@"100" completionBlock:^(id responObject) {
-        NSLog(@"%@",responObject);
+    [APIServiceManager SendFeedbackMessageWithKey:[StorageManager getSecretKey] fromId:[StorageManager getUserId] useId:@"1" status:@"1" content:self.messageTf.text note:self.messageTf.text tofromId:[StorageManager getUserId] toUserId:@"1" code:@"100" completionBlock:^(id responObject) {
         if ([responObject[@"flag"] isEqualToString:@"100100"]) {
-            [self.InfoArray removeAllObjects];
             
-            NSArray *chatArray = responObject[@"result"];
-            
-            for (NSDictionary *chatDic in chatArray)
-            {
-                FeedbackMessageModel *obj = [FeedbackMessageModel objectWithDictionary:chatDic];
+            if (self.InfoArray.count == 0) {
+                NSMutableDictionary *addDic = [[NSMutableDictionary alloc] init];
+                [addDic setObject:self.messageTf.text forKey:@"content"];
+                [addDic setObject:@""forKey:@"create_time"];
+                [addDic setObject:[StorageManager getUserId] forKey:@"from_user_id"];
+                [addDic setObject:@"" forKey:@"head_img_url"];
+                [addDic setObject:@"2" forKey:@"id"];
+                [addDic setObject:@"" forKey:@"move_time"];
+                [addDic setObject:@"" forKey:@"nick_name"];
+                [addDic setObject:@"" forKey:@"note"];
+                [addDic setObject:@"1" forKey:@"status"];
+                [addDic setObject:@"1" forKey:@"to_user_id"];
+                
+                FeedbackMessageModel *obj = [FeedbackMessageModel objectWithDictionary:addDic];
+                [self.InfoArray addObject:obj];
+            }else{
+                
+                FeedbackMessageModel *Infoobj = self.InfoArray[0];
+                
+                //为新增加的意见赋值，并添加进model类
+                NSMutableDictionary *addDic = [[NSMutableDictionary alloc] init];
+                [addDic setObject:self.messageTf.text forKey:@"content"];
+                [addDic setObject:Infoobj.create_time forKey:@"create_time"];
+                [addDic setObject:[StorageManager getUserId] forKey:@"from_user_id"];
+                [addDic setObject:Infoobj.head_img_url forKey:@"head_img_url"];
+                [addDic setObject:@"2" forKey:@"id"];
+                [addDic setObject:@"" forKey:@"move_time"];
+                [addDic setObject:Infoobj.nickname forKey:@"nick_name"];
+                [addDic setObject:Infoobj.note forKey:@"note"];
+                [addDic setObject:Infoobj.status forKey:@"status"];
+                [addDic setObject:@"1" forKey:@"to_user_id"];
+                
+                FeedbackMessageModel *obj = [FeedbackMessageModel objectWithDictionary:addDic];
                 [self.InfoArray addObject:obj];
             }
             
+//            [self.InfoArray removeAllObjects];
+//
+//                NSArray *chatArray = responObject[@"result"];
+//            
+//                for (NSDictionary *chatDic in chatArray)
+//                {
+//                        FeedbackMessageModel *obj = [FeedbackMessageModel objectWithDictionary:chatDic];
+//                        [self.InfoArray addObject:obj];
+//                }
+            
             [self.chatTableView reloadData];
+            
+            [_chatTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_InfoArray.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+            
+            self.messageTf.text = @"";
+            
+            }else{
+                NSLog(@"%@",responObject[@"message"]);
+            }
 
-        }else{
-            NSLog(@"%@",responObject[@"message"]);
-        }
-        
     } failureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
+    
+
+    
 }
 
 - (void)onBtnBack:(id)sender
@@ -229,10 +304,20 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [self sendMessage:self.confirmBtn];
+    
+    return YES;
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 /*
 #pragma mark - Navigation

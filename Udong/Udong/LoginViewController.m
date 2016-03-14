@@ -14,6 +14,8 @@
 #import "ForgetPasswordViewController.h"
 #import "MasterTabBarViewController.h"
 #import "DeviceHandleManager.h"
+#import "MeasuremenViewController.h"
+#import "UMSocial.h"
 
 #define INTERVAL 20
 #define INTERVAL_MIDDLE 10
@@ -69,10 +71,19 @@
     [self.contentView addSubview:self.LoginImage];
     
     
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.backBtn.frame = CGRectMake(10, 35, 23, 23);
+    [self.backBtn setBackgroundImage:ImageNamed(@"navbar_icon_back_white") forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(onBtnBack:) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.contentView addSubview:self.backBtn];
+    
     self.accountField = [[YYTextField alloc] initWithFrame:CGRectMake(0, self.LoginImage.bottom+_interval, SCREEN_WIDTH-45, _buttonHeight) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_telephone"]] inset:45];
     self.accountField.delegate = self;
     self.accountField.borderStyle = UITextBorderStyleNone;
     self.accountField.placeholder = @"手机号码";
+    self.accountField.tintColor = kColorWhiteColor;
+    self.accountField.textColor = kColorWhiteColor;
     self.accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.accountField.returnKeyType = UIReturnKeyNext;
     self.accountField.keyboardType = UIKeyboardTypeNumberPad;
@@ -82,19 +93,23 @@
     self.accountField.rightViewMode = UITextFieldViewModeWhileEditing;
     [self.contentView addSubview:self.accountField];
     
+    [self.accountField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    
     self.accountTfCleanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.accountTfCleanBtn.tag = 1;
-    self.accountTfCleanBtn.frame = CGRectMake(self.accountField.width-19, 21, 19, 19);
+    self.accountTfCleanBtn.frame = CGRectMake(self.accountField.width-19, 21, 80, 80);
     [self.accountTfCleanBtn addTarget:self action:@selector(deleteString:) forControlEvents:UIControlEventTouchUpInside];
     [self.accountField addSubview:self.accountTfCleanBtn];
     
     
     
-    self.passwordField = [[YYTextField alloc] initWithFrame:CGRectMake(0, self.accountField.bottom, SCREEN_WIDTH-45, _buttonHeight) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_password"]] inset:45];
+    self.passwordField = [[YYTextField alloc] initWithFrame:CGRectMake(0, self.accountField.bottom+10, SCREEN_WIDTH-45, _buttonHeight) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_icon_password"]] inset:45];
     self.passwordField.delegate = self;
     self.passwordField.borderStyle = UITextBorderStyleNone;
     self.passwordField.placeholder = @"密码";
     [self.passwordField setValue:UIColorFromHexWithAlpha(0xFFFFFF, 0.3) forKeyPath:@"_placeholderLabel.textColor"];
+    self.passwordField.tintColor = kColorWhiteColor;
+    self.passwordField.textColor = kColorWhiteColor;
     self.passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.passwordField.returnKeyType = UIReturnKeyDone;
     self.passwordField.secureTextEntry = YES;
@@ -104,18 +119,24 @@
     self.passwordTfCleanBtn.tag = 2;
     [self.contentView addSubview:self.passwordField];
     
+    [self.passwordField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    
     self.passwordTfCleanBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.passwordTfCleanBtn.frame = CGRectMake(self.passwordField.width-19, 21, 19, 19);
-    [self.passwordTfCleanBtn addTarget:self action:@selector(deleteString:) forControlEvents:UIControlEventTouchUpInside];
+    self.passwordTfCleanBtn.frame = CGRectMake(self.passwordField.width-19, 21, 80, 80);
+    [self.passwordTfCleanBtn addTarget:self action:@selector(hiddenSecret:) forControlEvents:UIControlEventTouchUpInside];
     [self.passwordField addSubview:self.passwordTfCleanBtn];
     
-    FieldBgView *bg = [[FieldBgView alloc] initWithFrame:CGRectMake(_accountField.left, _accountField.top, _accountField.width, _accountField.height*2) inset:45 count:2];
+    FieldBgView *bg = [[FieldBgView alloc] initWithFrame:CGRectMake(_accountField.left, _accountField.top, _accountField.width, _accountField.height*2+10) inset:45 count:2];
     [self.contentView insertSubview:bg belowSubview:self.accountField];
+
     
     self.loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.loginBtn.frame = CGRectMake(45, self.passwordField.bottom+_textFieldInterval,self.view.width-2*45, _buttonHeight);
     [self.loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     [self.loginBtn setTitleColor:kColorWhiteColor forState:UIControlStateNormal];
+    self.loginBtn.layer.cornerRadius = self.loginBtn.height/2;
+    self.loginBtn.layer.masksToBounds = YES;
     [self.loginBtn setBackgroundColor:[ColorManager getColor:@"2fbec8" WithAlpha:1]];
     [self.loginBtn addTarget:self action:@selector(onBtnToHomepage:) forControlEvents:UIControlEventTouchUpInside];
     self.loginBtn.titleLabel.font = FONT(17);
@@ -183,6 +204,17 @@
     
 }
 
+- (void)onBtnBack:(UIBarButtonItem *)Item
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)dissmissKeyBoard1:(UITapGestureRecognizer *)tap
+{
+    [self.view endEditing:YES];
+}
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -204,23 +236,29 @@
     [self.navigationController pushViewController:registerVC animated:YES];
 }
 
-- (void)dissmissKeyBoard:(UITapGestureRecognizer *)tap
-{
-    [self.view endEditing:YES];
-}
-
 - (void)deleteString:(UIButton *)btn
 {
-    if (btn.tag == 1)
-    {
-    self.accountField.text = nil;
-        
-    }else{
-        self.passwordField.secureTextEntry = !self.passwordField.secureTextEntry;
+
+    
+    if (self.accountField.text) {
+        self.accountField.text = nil;
     }
 }
 
-- (void)dissmissKeyBoard1:(UITapGestureRecognizer *)tap
+- (void)hiddenSecret:(UIButton *)btn
+{
+    
+    self.passwordField.secureTextEntry = !self.passwordField.secureTextEntry;
+    btn.selected = !btn.selected;
+    if (btn.selected == NO) {
+        self.passwordField.rightView = [[UIImageView alloc] initWithImage:ImageNamed(@"login_icon_invisible")];
+    }else{
+        self.passwordField.rightView = [[UIImageView alloc] initWithImage:ImageNamed(@"icon_visible_blue")];
+    }
+
+}
+
+- (void)dissmissKeyBoard2:(UITapGestureRecognizer *)tap
 {
     [self.view endEditing:YES];
 }
@@ -245,44 +283,198 @@
         return;
     }
     
+    if (self.passwordField.text.length<6) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入6~16位密码" duration:2];
+        return;
+    }
+    
+    if (self.passwordField.text.length>=16) {
+        [SVProgressHUD showHUDWithImage:nil status:@"密码长度不能超过16位" duration:2];
+        return;
+    }
+    
     [SVProgressHUD showProgressWithStatus:@"请稍候" duration:-1];
     
-    [APIServiceManager LoginWithSecretkey:[StorageManager getSecretKey] phoneNumber:self.accountField.text password:self.passwordField.text Logintype:@"0" openudid:self.deviceDictionary[OpenUdidKey] deviceOS:self.deviceDictionary[DeviceOSKey] deviceModel:self.deviceDictionary[DcviceModelKey] deviceResolution:self.deviceDictionary[DeviceResolutionKey] deviceVersion:self.deviceDictionary[DeviceVersionKey] completionBlock:^(id responObject) {
-        NSLog(@"%@",responObject);
+    [APIServiceManager LoginWithSecretkey:[StorageManager getSecretKey] phoneNumber:self.accountField.text password:self.passwordField.text Logintype:@"0" completionBlock:^(id responObject) {
+        
         NSString *flagString = responObject[@"flag"];
-        NSString *message = responObject[@"message"];
+        
         if ([flagString isEqualToString:@"100100"]) {
-            [SVProgressHUD dismiss];
-//     清空本地存储的数据，存入最新的数据
+            //     清空本地存储的数据，存入最新的数据
             [StorageManager deleteRelatedInfo];
-            NSString *idString = [NSString stringWithFormat:@"%@",responObject[@"user"][@"id"]];
+            NSString *idString = [NSString stringWithFormat:@"%@",responObject[@"id"]];
+            NSString *loginTypeString = @"0";
             [StorageManager saveAccountNumber:self.accountField.text];
             [StorageManager saveUserId:idString];
             [StorageManager savepsw:self.passwordField.text];
+            [StorageManager saveLoginType:loginTypeString];
             
-            MasterTabBarViewController *tabBarVC = [[MasterTabBarViewController alloc] init];
-            [self.navigationController pushViewController:tabBarVC animated:YES];
+            [SVProgressHUD dismiss];
+            
+            [APIServiceManager judgeEvaluationWithKey:[StorageManager getSecretKey] idString:[StorageManager getUserId] completionBlock:^(id responObject) {
+                
+                if (responObject[@"eResult"]==[NSNull null]) {
+                    MeasuremenViewController *measureVC = [[MeasuremenViewController alloc] init];
+                    
+                    [self.navigationController pushViewController:measureVC animated:YES];
+                    
+                }else{
+                    
+                    NSDictionary *dic = responObject[@"eResult"];
+                    NSString *eev = [NSString stringWithFormat:@"%@",dic[@"eev"]];
+                    [StorageManager saveEffectivepoint:eev];
+                    
+                    MasterTabBarViewController *masterVC = [[MasterTabBarViewController alloc] init];
+                    
+                    [self.navigationController pushViewController:masterVC animated:YES];
+                    
+                }
+            } failureBlock:^(NSError *error) {
+                NSLog(@"%@",error);
+            }];
+
         }else{
-            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+            
+            if ([responObject[@"flag"] isEqualToString:@"100102"]) {
+                
+                [SVProgressHUD showHUDWithImage:nil status:@"用户或密码不正确" duration:1];
+                
+            }else if ([responObject[@"flag"] isEqualToString:@"100101"]){
+            
+                [SVProgressHUD showHUDWithImage:nil status:@"用户名称不存在" duration:1];
+            }else
+            {
+                [SVProgressHUD showHUDWithImage:nil status:@"登录失败" duration:1];
+            }
         }
         
     } failureBlock:^(NSError *error) {
         
-        [SVProgressHUD showHUDWithImage:nil status:@"登录失败" duration:-1];
+        NSLog(@"%@",error);
     }];
-    
-    
-    
    
 }
+
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    if (textField == self.accountField) {
+        if (textField.text.length > 11) {
+            textField.text = [textField.text substringToIndex:11];
+        }
+    }
+    
+    if (textField == self.passwordField) {
+        if (textField.text.length > 16) {
+            textField.text = [textField.text substringToIndex:16];
+        }
+    }
+}
+
+#pragma mark - 第三方登录
 
 - (void)loginBtnClick:(UIButton *)btn
 {
     if (btn.tag == 1) {
-        NSLog(@"1");
+        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
+        
+        snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+            
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary]valueForKey:UMShareToWechatSession];
+                
+                if (![[NSUserDefaults standardUserDefaults] objectForKey:UserIdKey]) {
+                    [StorageManager saveUserId:@"0"];
+                }
+                [APIServiceManager ThridPlatfromLoginWithkey:[StorageManager getSecretKey] loginType:[NSString stringWithFormat:@"%ld",(long)btn.tag] userID:[StorageManager getUserId] thirdOpenID:snsAccount.usid deviceisn:self.deviceDictionary[OpenUdidKey] deviceOS:self.deviceDictionary[DeviceOSKey] deviceModel:self.deviceDictionary[DcviceModelKey] deviceresolution:self.deviceDictionary[DeviceResolutionKey] deviceVersion:self.deviceDictionary[DeviceVersionKey] nickName:snsAccount.userName headImgUrl:snsAccount.iconURL completionBlock:^(id responObject) {
+                    if ([responObject[@"flag"] isEqualToString:@"100100"]) {
+                        NSString *userID = responObject[@"user"][@"id"];
+                        NSString *loginTypeString = [NSString stringWithFormat:@"%@",responObject[@"user"][@"loginType"]];
+                        [StorageManager saveUserId:userID];
+                        
+                        [StorageManager saveLoginType:loginTypeString];
+                        
+                        //   第三方登录成功后，判断是否测评
+                        [APIServiceManager judgeEvaluationWithKey:[StorageManager getSecretKey] idString:[StorageManager getUserId] completionBlock:^(id responObject) {
+                            
+                            if (responObject[@"eResult"]==[NSNull null]) {
+                                MeasuremenViewController *measureVC = [[MeasuremenViewController alloc] init];
+                                
+                                [self.navigationController pushViewController:measureVC animated:YES];
+                                
+                            }else{
+                                MasterTabBarViewController *masterVC = [[MasterTabBarViewController alloc] init];
+                                
+                                NSDictionary *dic = responObject[@"eResult"];
+                                NSString *eev = [NSString stringWithFormat:@"%@",dic[@"eev"]];
+                                [StorageManager saveEffectivepoint:eev];
+                                [self.navigationController pushViewController:masterVC animated:YES];
+                                
+                            }
+                        } failureBlock:^(NSError *error) {
+                            NSLog(@"%@",error);
+                        }];
+                        
+                    }
+                    
+                } failureBlock:^(NSError *error) {
+                    NSLog(@"%@",error);
+                }];
+                
+            }
+        });
     }
     if (btn.tag == 2) {
-        NSLog(@"2");
+        UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQQ];
+        
+        snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+            //          获取QQ用户名、uid、token等
+            if (response.responseCode == UMSResponseCodeSuccess) {
+                UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToQQ];
+                
+                if (![[NSUserDefaults standardUserDefaults] objectForKey:UserIdKey]) {
+                    [StorageManager saveUserId:@"0"];
+                }
+                
+                [APIServiceManager ThridPlatfromLoginWithkey:[StorageManager getSecretKey] loginType:[NSString stringWithFormat:@"%ld",(long)btn.tag] userID:[StorageManager getUserId] thirdOpenID:snsAccount.usid deviceisn:self.deviceDictionary[OpenUdidKey] deviceOS:self.deviceDictionary[DeviceOSKey] deviceModel:self.deviceDictionary[DcviceModelKey] deviceresolution:self.deviceDictionary[DeviceResolutionKey] deviceVersion:self.deviceDictionary[DeviceVersionKey] nickName:snsAccount.userName headImgUrl:snsAccount.iconURL completionBlock:^(id responObject) {
+                    if ([responObject[@"flag"] isEqualToString:@"100100"]) {
+                        NSString *userID = responObject[@"user"][@"id"];
+                        NSString *loginTypeString = [NSString stringWithFormat:@"%@",responObject[@"user"][@"loginType"]];
+                        [StorageManager saveUserId:userID];
+
+                        [StorageManager saveLoginType:loginTypeString];
+                        
+//   第三方登录成功后，判断是否测评
+                        [APIServiceManager judgeEvaluationWithKey:[StorageManager getSecretKey] idString:[StorageManager getUserId] completionBlock:^(id responObject) {
+                           
+                            if (responObject[@"eResult"]==[NSNull null]) {
+                                MeasuremenViewController *measureVC = [[MeasuremenViewController alloc] init];
+                                
+                                [self.navigationController pushViewController:measureVC animated:YES];
+                                
+                            }else{
+                                MasterTabBarViewController *masterVC = [[MasterTabBarViewController alloc] init];
+                                
+                                NSDictionary *dic = responObject[@"eResult"];
+                                NSString *eev = [NSString stringWithFormat:@"%@",dic[@"eev"]];
+                                [StorageManager saveEffectivepoint:eev];
+                                [self.navigationController pushViewController:masterVC animated:YES];
+                                
+                            }
+                        } failureBlock:^(NSError *error) {
+                            NSLog(@"%@",error);
+                        }];
+
+                    }
+                    
+                } failureBlock:^(NSError *error) {
+                    NSLog(@"%@",error);
+                }];
+                
+            }});
+//           [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToQQ  completion:^(UMSocialResponseEntity *response){
+//               NSDictionary *QQmessage = response.data;
+//        }];
     }
     if (btn.tag == 3) {
         NSLog(@"3");

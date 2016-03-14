@@ -12,6 +12,7 @@
 #import "Tool.h"
 #import "CountDownCapsulation.h"
 #import "GetBlindVertifyViewController.h"
+#import "FieldBgForWhiteView.h"
 @interface BlindVertifyViewController ()
 
 @end
@@ -27,19 +28,21 @@
 {
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.navigationBar.barTintColor = kColorWhiteColor;
+    self.navigationController.navigationBar.translucent = NO;
     [self configBackItem];
     self.view.backgroundColor = kColorWhiteColor;
     self.navigationItem.title = @"手机绑定";
     
-    self.phoneTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 70, self.view.width-45, 50) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_telephone_blue"]] inset:45];
+    self.phoneTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 6, self.view.width-45, 50) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_telephone_blue"]] inset:45];
     self.phoneTf.placeholder = @"请输入您的手机号码";
     [self.phoneTf setValue:FONT(14) forKeyPath:@"_placeholderLabel.font"];
     self.phoneTf.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneTf.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:self.phoneTf];
     
-    FieldBgView *bgView = [[FieldBgView alloc] initWithFrame:CGRectMake(_phoneTf.left, _phoneTf.top, _phoneTf.width, _phoneTf.height) inset:45 count:1];
+    FieldBgForWhiteView *bgView = [[FieldBgForWhiteView alloc] initWithFrame:CGRectMake(_phoneTf.left, _phoneTf.top, _phoneTf.width, _phoneTf.height) inset:45 count:1];
     [self.view insertSubview:bgView belowSubview:self.phoneTf];
+    
     
     self.getVertifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.getVertifyBtn.frame = CGRectMake(45, self.phoneTf.bottom+20, self.view.width-45*2, 44);
@@ -65,8 +68,7 @@
 
 - (void)onbtnNext:(id)sender
 {
-    
-    
+
     NSString *number = [self.phoneTf.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     if (![Tool validateMobile:number]) {
@@ -86,12 +88,12 @@
 
 - (void)sendVerifyCode
 {
-    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:1];
+    
+    [SVProgressHUD showHUDWithImage:ImageNamed(@"icon_dialogbg") status:nil duration:1.5];
     [APIServiceManager getVertifyCodeWithSecretKey:[StorageManager getSecretKey] mobileNumber:self.phoneTf.text completionBlock:^(id responObject) {
         NSString *flagString = responObject[@"flag"];
         NSString *message = responObject[@"message"];
         if ([flagString isEqualToString:@"100100"]) {
-            [SVProgressHUD dismiss];
             [self startTime];
             GetBlindVertifyViewController *GetBlindVC = [[GetBlindVertifyViewController alloc] init];
             GetBlindVC.phoneString = self.phoneTf.text;

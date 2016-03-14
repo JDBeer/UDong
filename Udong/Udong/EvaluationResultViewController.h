@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EffectResultView.h"
 
 @interface EvaluationResultViewController : UIViewController
+
+@property (nonatomic, strong)UIButton *backBtn;
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)UILabel *pointLabel;
 @property (nonatomic, strong)UILabel *explainLabel;
-@property (nonatomic, strong)UIButton *explainBtn;
+@property (nonatomic, strong)UIImageView *imageView1;
 @property (nonatomic, strong)UILabel *titleLabelTwo;
-@property (nonatomic, strong)UIImageView *imageView;
 @property (nonatomic, strong)UIButton *beginBtn;
+@property (nonatomic, strong)EffectResultView *effectResultView;
 @property (nonatomic, strong)NSNumber *pointLabelNumber;
 @property (nonatomic, strong)NSString *descriptionString;
 

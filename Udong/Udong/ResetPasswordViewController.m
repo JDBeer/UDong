@@ -11,6 +11,7 @@
 #import "MasterTabBarViewController.h"
 #import "YYTextField.h"
 #import "FieldBgView.h"
+#import "FieldBgForWhiteView.h"
 #import "Tool.h"
 #import "CountDownCapsulation.h"
 #import "LoginViewController.h"
@@ -34,14 +35,18 @@
     
     self.navigationItem.title = @"重置密码";
     self.view.backgroundColor = kColorWhiteColor;
+    self.navigationController.navigationBar.translucent = NO;
+
     [self configBackItem];
     
-    self.vertifyCodeTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 70, SCREEN_WIDTH-105, 50) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_code_blue"]] inset:45];
+    self.vertifyCodeTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, 6, SCREEN_WIDTH-105, 50) leftView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_code_blue"]] inset:45];
     self.vertifyCodeTf.placeholder = @"您收到的短信验证码";
     [self.vertifyCodeTf setValue:FONT(15) forKeyPath:@"_placeholderLabel.font"];
     self.vertifyCodeTf.keyboardType = UIKeyboardTypeNumberPad;
     self.vertifyCodeTf.clearButtonMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:self.vertifyCodeTf];
+    
+    [self.vertifyCodeTf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     self.countdownBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.countdownBtn.frame = CGRectMake(self.vertifyCodeTf.right, 0, 60, 30);
@@ -53,23 +58,23 @@
     
     self.phoneNumberTf = [[YYTextField alloc] initWithFrame:CGRectMake(0, self.vertifyCodeTf.bottom, self.vertifyCodeTf.width+self.countdownBtn.width ,self.vertifyCodeTf.height) leftView:[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_password_blue"]] inset:45];
     self.phoneNumberTf.placeholder = @"6~16个数字或字母";
+    self.phoneNumberTf.secureTextEntry = YES;
     [self.phoneNumberTf setValue:FONT(15) forKeyPath:@"_placeholderLabel.font"];
     self.phoneNumberTf.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneNumberTf.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.eyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.eyeBtn setBackgroundImage:[UIImage imageNamed:@"icon_visible_blue"] forState:UIControlStateNormal];
-    [self.eyeBtn setBackgroundImage:[UIImage imageNamed:@"icon_invisible_blue"] forState:UIControlStateSelected];
-    self.eyeBtn.bounds = CGRectMake(0, 0, 25, 20);
+    [self.eyeBtn setBackgroundImage:[UIImage imageNamed:@"icon_invisible_blue"] forState:UIControlStateNormal];
+    [self.eyeBtn setBackgroundImage:[UIImage imageNamed:@"icon_visible_blue"] forState:UIControlStateSelected];
+    self.eyeBtn.bounds = CGRectMake(0, 0, 26, 19);
     [self.eyeBtn addTarget:self action:@selector(pswHiden:) forControlEvents:UIControlEventTouchUpInside];
     self.phoneNumberTf.rightView = self.eyeBtn;
     self.phoneNumberTf.rightViewMode = UITextFieldViewModeWhileEditing;
     [self.view addSubview:self.phoneNumberTf];
     
+    [self.phoneNumberTf addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
-    
-    
-    
-    FieldBgView *bgView = [[FieldBgView alloc] initWithFrame:CGRectMake(_vertifyCodeTf.left, _vertifyCodeTf.top, _vertifyCodeTf.width+_countdownBtn.width, _vertifyCodeTf.height*2) inset:45 count:2];
+
+    FieldBgForWhiteView *bgView = [[FieldBgForWhiteView alloc] initWithFrame:CGRectMake(_vertifyCodeTf.left, _vertifyCodeTf.top, _vertifyCodeTf.width+_countdownBtn.width, _vertifyCodeTf.height*2) inset:45 count:2];
     [self.view insertSubview:bgView belowSubview:self.vertifyCodeTf];
     
     self.finishBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -77,6 +82,8 @@
     [self.finishBtn setBackgroundColor:kColorBtnColor];
     [self.finishBtn setTitle:@"完成" forState:UIControlStateNormal];
     [self.finishBtn setTitleColor:kColorWhiteColor forState:UIControlStateNormal];
+    self.finishBtn.layer.cornerRadius = self.finishBtn.height/2;
+    self.finishBtn.layer.masksToBounds = YES;
     self.finishBtn.titleLabel.font = FONT(13);
     [self.finishBtn addTarget:self action:@selector(finish:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.finishBtn];
@@ -120,6 +127,20 @@
     
 }
 
+- (void)textFieldDidChange:(UITextField *)textField
+{
+    if (textField == self.vertifyCodeTf) {
+        if (textField.text.length > 4) {
+            textField.text = [textField.text substringToIndex:4];
+        }
+    }
+    
+    if (textField == self.phoneNumberTf) {
+        if (textField.text.length > 16) {
+            textField.text = [textField.text substringToIndex:16];
+        }
+    }
+}
 
 - (void)finish:(id)sender
 {
@@ -132,26 +153,37 @@
     if (self.phoneNumberTf.text.length == 0) {
         [SVProgressHUD showHUDWithImage:nil status:@"请输入重置密码" duration:2];
         return;
-        
     }
     
-    [SVProgressHUD showHUDWithImage:nil status:@"请稍候" duration:-1];
-    [APIServiceManager ForgetPassWordWithSecretKey:[StorageManager getSecretKey] phoneNumber:self.phoneNumberString status:@"1" code:@"500" vertifyCode:self.vertifyCodeTf.text password:self.phoneNumberTf.text completionBlock:^(id responObject) {
-        NSLog(@"%@--%@",self.phoneNumberString,responObject);
+    if (self.phoneNumberTf.text.length<6) {
+        [SVProgressHUD showHUDWithImage:nil status:@"请输入6~16位密码" duration:2];
+        return;
+    }
+    
+    [SVProgressHUD showProgressWithStatus:@"请稍候" duration:-1];
+    [APIServiceManager ForgetPassWordWithSecretKey:[StorageManager getSecretKey] phoneNumber:self.phoneNumberString vertifyCode:self.vertifyCodeTf.text password:self.phoneNumberTf.text completionBlock:^(id responObject) {
         NSString *flagString = responObject[@"flag"];
-        NSString *message = responObject[@"message"];
+    
         if ([flagString isEqualToString:@"100100"]) {
             [SVProgressHUD showHUDWithImage:nil status:@"修改成功" duration:1];
             [StorageManager deleteRelatedInfo];
             LoginViewController *LoginVC = [[LoginViewController alloc] init];
             [self.navigationController pushViewController:LoginVC animated:YES];
         }else{
-            [SVProgressHUD showHUDWithImage:nil status:message duration:1.0];
+            if ([flagString isEqualToString:@"00100"]) {
+                [SVProgressHUD showHUDWithImage:nil status:@"手机号码不正确" duration:1];
+            }else if ([flagString isEqualToString:@"00200"])
+            {
+                [SVProgressHUD showHUDWithImage:nil status:@"验证码输入不正确" duration:1];
+            }else{
+                
+                [SVProgressHUD showHUDWithImage:nil status:@"修改密码失败" duration:1];
+            }
         }
         
     } failureBlock:^(NSError *error) {
         
-        [SVProgressHUD showHUDWithImage:nil status:@"修改密码失败" duration:-1];
+        [SVProgressHUD showHUDWithImage:nil status:@"修改密码失败" duration:2];
     }];
 
 }
